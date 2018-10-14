@@ -1,0 +1,22 @@
+	movl	$1, -4(%rbp)                ; a = 1; (c is in -4(%rbp))
+	movl	$1, -8(%rbp)                ; b = 1;
+	movl	$1, -12(%rbp)               ; c = 1;
+	movl	-4(%rbp), %eax              ; c = a - b;
+	subl	-8(%rbp), %eax              ; ^
+	movl	%eax, -12(%rbp)             ; ^
+	movl	-4(%rbp), %eax              ; c = a + b;
+	addl	-8(%rbp), %eax              ; ^
+	movl	%eax, -12(%rbp)             ; ^
+	movl	-4(%rbp), %eax              ; c = c << 2;
+	shll	$2, %eax                    ; ^
+	movl	%eax, -12(%rbp)             ; ^
+	movl	-4(%rbp), %eax              ; c = a & b;
+	andl	-8(%rbp), %eax              ; ^
+	movl	%eax, -12(%rbp)             ; ^
+	movl	-4(%rbp), %eax              ; c = a * b;
+	imull	-8(%rbp), %eax              ; ^
+	movl	%eax, -12(%rbp)             ; ^
+	movl	-4(%rbp), %eax              ; c = a / b;
+	cltd                                ; ^ (Here conversion from long to double long happens)
+	idivl	-8(%rbp)                    ; ^
+	movl	%eax, -12(%rbp)             ; ^
