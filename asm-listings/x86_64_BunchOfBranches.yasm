@@ -1,0 +1,39 @@
+	movl	$0, -4(%rbp)                ; i = 0;
+LBB2_1:                                 ; Cycle condition (i < 1000)
+	cmpl	$1000, -4(%rbp)             
+	jae	LBB2_13                         
+## %bb.2:                               
+	movl	-4(%rbp), %eax              ; if (i & 3 == 0) {}                     
+	andl	$3, %eax                                             
+	cmpl	$0, %eax                       
+	jne	LBB2_4                             
+## %bb.3:                                  
+	jmp	LBB2_5                             
+LBB2_4:                                    
+	jmp	LBB2_5                             
+LBB2_5:                                    
+	movl	-4(%rbp), %eax              ; if (i & 7 == 0) {}
+	andl	$7, %eax                       
+	cmpl	$0, %eax                                            
+	jne	LBB2_7                              
+## %bb.6:                                  
+	jmp	LBB2_8                              
+LBB2_7:                                                                     
+	jmp	LBB2_8                           
+LBB2_8:                                                                  
+	movl	-4(%rbp), %eax              ; if (i & 15 == 0) {}
+	andl	$15, %eax                      
+	cmpl	$0, %eax                        
+	jne	LBB2_10                            
+## %bb.9:                                                                 
+	jmp	LBB2_11                             
+LBB2_10:                                                                   
+	jmp	LBB2_11                             
+LBB2_11:                                                                  
+	jmp	LBB2_12                             
+LBB2_12:                                                               
+	movl	-4(%rbp), %eax              ; ++i
+	addl	$1, %eax
+	movl	%eax, -4(%rbp)
+	jmp	LBB2_1
+LBB2_13:

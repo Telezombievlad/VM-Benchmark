@@ -69,13 +69,13 @@ namespace Atomic {
 			if (true) {}
 			else {}
 
-			if (!(i & 0x0011)) {}
+			if (!(i & 0x3)) {}
 			else {}
 
-			if (!(i & 0x0111)) {}
+			if (!(i & 0x7)) {}
 			else {}
 
-			if (!(i & 0x1111)) {}
+			if (!(i & 0xF)) {}
 			else {}
 		}
 	}
