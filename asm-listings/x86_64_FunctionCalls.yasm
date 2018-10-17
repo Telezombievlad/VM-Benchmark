@@ -1,121 +1,121 @@
-__ZN8Workload6Atomic7Dummies5DummyEv:  
+__ZN8Workload6Atomic7Dummies5DummyEv: ; A function with empty body
 	.cfi_startproc
 ## %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
+	movq	%rsp, %rbp                ; There are only stack frame related instructions
 	.cfi_def_cfa_register %rbp
 	popq	%rbp
 	retq
 	.cfi_endproc
-                                        ## -- End function
-	.globl	__ZN8Workload6Atomic7Dummies11DummyReturnEv ## -- Begin function _ZN8Workload6Atomic7Dummies11DummyReturnEv
+                                        
+	.globl	__ZN8Workload6Atomic7Dummies11DummyReturnEv 
 	.p2align	4, 0x90
-__ZN8Workload6Atomic7Dummies11DummyReturnEv: ## @_ZN8Workload6Atomic7Dummies11DummyReturnEv
+__ZN8Workload6Atomic7Dummies11DummyReturnEv: ; A function consisting only of return operation
 	.cfi_startproc
 ## %bb.0:
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
+	movq	%rsp, %rbp                  
 	.cfi_def_cfa_register %rbp
-	xorl	%eax, %eax
+	xorl	%eax, %eax                      ; It is wierd, but register eax might be be a return register (???)
 	popq	%rbp
 	retq
 	.cfi_endproc
-                                        ## -- End function
-	.globl	__ZN8Workload6Atomic7Dummies14DummyRecursiveEi ## -- Begin function _ZN8Workload6Atomic7Dummies14DummyRecursiveEi
+                                        
+	.globl	__ZN8Workload6Atomic7Dummies14DummyRecursiveEi 
 	.p2align	4, 0x90
-__ZN8Workload6Atomic7Dummies14DummyRecursiveEi: ## @_ZN8Workload6Atomic7Dummies14DummyRecursiveEi
+__ZN8Workload6Atomic7Dummies14DummyRecursiveEi: ; Recursive function
 	.cfi_startproc
 ## %bb.0:
 	pushq	%rbp
-	.cfi_def_cfa_offset 16
+	.cfi_def_cfa_offset 16 
 	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
-	movl	%edi, -4(%rbp)
-	cmpl	$0, -4(%rbp)
-	je	LBB5_2
+	movq	%rsp, %rbp                          ; Stack frame created for this function
+	.cfi_def_cfa_register %rbp                  
+	subq	$16, %rsp                           ; Moving stack pointer in order to allocate space for 'n' 
+	movl	%edi, -4(%rbp)                      ; Moving i from register to stack
+	cmpl	$0, -4(%rbp)                        ; if (n == 0) jmp LBB5_2
+	je	LBB5_2                                  ; ^
 ## %bb.1:
-	movl	-4(%rbp), %eax
-	subl	$1, %eax
-	movl	%eax, %edi
-	callq	__ZN8Workload6Atomic7Dummies14DummyRecursiveEi
+	movl	-4(%rbp), %eax                      ; n -= 1
+	subl	$1, %eax                            ; ^
+	movl	%eax, %edi                          ; ^
+	callq	__ZN8Workload6Atomic7Dummies14DummyRecursiveEi ; Function call with (n - 1)
 LBB5_2:
-	addq	$16, %rsp
+	addq	$16, %rsp                           ; Cleaning stack frame
 	popq	%rbp
 	retq
 	.cfi_endproc
-                                        ## -- End function
-	.globl	__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi ## -- Begin function _ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi
+
+	.globl	__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi 
 	.p2align	4, 0x90
-__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi: ## @_ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi
+__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi: ; {return 0} + recursion
 	.cfi_startproc
 ## %bb.0:
-	pushq	%rbp
+	pushq	%rbp                    ; Stack frame stuff
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
 	subq	$16, %rsp
-	movl	%edi, -8(%rbp)
-	cmpl	$0, -8(%rbp)
+	movl	%edi, -8(%rbp)          ; Saving argument to stack
+	cmpl	$0, -8(%rbp)            ; if (n == 0) jmp LBB6_3
 	je	LBB6_2
 ## %bb.1:
-	movl	-8(%rbp), %eax
+	movl	-8(%rbp), %eax          ; n -= 1
 	subl	$1, %eax
-	movl	%eax, %edi
-	callq	__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi
+	movl	%eax, %edi              
+	callq	__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi ; Recursive call with (n - 1)
 	movl	%eax, -4(%rbp)
 	jmp	LBB6_3
 LBB6_2:
-	movl	$0, -4(%rbp)
+	movl	$0, -4(%rbp)           ; mem[-4(%rbp)] = 0
 LBB6_3:
-	movl	-4(%rbp), %eax
+	movl	-4(%rbp), %eax         ; Return mem[-4(%rbp)]
 	addq	$16, %rsp
 	popq	%rbp
 	retq
 	.cfi_endproc
-                                        ## -- End function
-	.globl	__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii ## -- Begin function _ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii
+                                        
+	.globl	__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii 
 	.p2align	4, 0x90
-__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii: ## @_ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii
+__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii: ; A function with a ton of wierd operations
 	.cfi_startproc
 ## %bb.0:
-	pushq	%rbp
+	pushq	%rbp                      ; Stack frame stuff
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$32, %rsp
-	movl	%edi, -4(%rbp)
-	movl	%esi, -8(%rbp)
+	subq	$32, %rsp                 ; Allocating space for static variables
+	movl	%edi, -4(%rbp)            ; Copying arguments from registers to memory (we'll call them 'a', 'b', 'c', 'd')
+	movl	%esi, -8(%rbp)            
 	movl	%edx, -12(%rbp)
 	movl	%ecx, -16(%rbp)
-	movl	-8(%rbp), %ecx
-	movl	%ecx, -20(%rbp)
-	cmpl	$0, -4(%rbp)
+	movl	-8(%rbp), %ecx            
+	movl	%ecx, -20(%rbp) 
+	cmpl	$0, -4(%rbp)              ; if (a == 0) jmp LBB7_2
 	je	LBB7_2
 ## %bb.1:
-	movl	-4(%rbp), %eax
-	subl	$1, %eax
-	movl	-8(%rbp), %esi
-	movl	-12(%rbp), %edx
-	movl	-16(%rbp), %ecx
-	movl	%eax, %edi
+	movl	-4(%rbp), %eax            ; eax = a - 1
+	subl	$1, %eax                  
+	movl	-8(%rbp), %esi            ; esi = b
+	movl	-12(%rbp), %edx           ; edx = c
+	movl	-16(%rbp), %ecx           ; ecx = d      <- Pushing arguments from memory back to registers
+	movl	%eax, %edi                ; edi = eax    <- Tail recursive optimization will help
 	callq	__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii
 LBB7_2:
 	addq	$32, %rsp
 	popq	%rbp
 	retq
 	.cfi_endproc
-                                        ## -- End function
-	.globl	__ZN8Workload6Atomic13FunctionCallsEv ## -- Begin function _ZN8Workload6Atomic13FunctionCallsEv
+                                        
+	.globl	__ZN8Workload6Atomic13FunctionCallsEv 
 	.p2align	4, 0x90
-__ZN8Workload6Atomic13FunctionCallsEv:  ## @_ZN8Workload6Atomic13FunctionCallsEv
+__ZN8Workload6Atomic13FunctionCallsEv:  
 	.cfi_startproc
 ## %bb.0:
 	pushq	%rbp
@@ -124,29 +124,29 @@ __ZN8Workload6Atomic13FunctionCallsEv:  ## @_ZN8Workload6Atomic13FunctionCallsEv
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
 	subq	$48, %rsp
-	leaq	__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii(%rip), %rax
+	leaq	__ZN8Workload6Atomic7Dummies21DummyRecursiveComplexEiiii(%rip), %rax ; Saving function pointers to registers
 	leaq	__ZN8Workload6Atomic7Dummies20DummyRecursiveReturnEi(%rip), %rcx
 	leaq	__ZN8Workload6Atomic7Dummies14DummyRecursiveEi(%rip), %rdx
 	leaq	__ZN8Workload6Atomic7Dummies11DummyReturnEv(%rip), %rsi
 	leaq	__ZN8Workload6Atomic7Dummies5DummyEv(%rip), %rdi
-	movq	%rdi, -8(%rbp)
+	movq	%rdi, -8(%rbp)          ; Saving function pointers back to memory (why?)
 	movq	%rsi, -16(%rbp)
 	movq	%rdx, -24(%rbp)
 	movq	%rcx, -32(%rbp)
 	movq	%rax, -40(%rbp)
-	callq	*-8(%rbp)
-	callq	*-16(%rbp)
+	callq	*-8(%rbp)               ; Calling Dummy
+	callq	*-16(%rbp)              ; Calling ReturnDummy
+	movl	$100, %edi              
+	movl	%eax, -44(%rbp)          
+	callq	*-24(%rbp)              ; Calling RecursiveDummy with argument 100
 	movl	$100, %edi
-	movl	%eax, -44(%rbp)         ## 4-byte Spill
-	callq	*-24(%rbp)
-	movl	$100, %edi
-	callq	*-32(%rbp)
+	callq	*-32(%rbp)              ; Calling RecursiveReturnDummy with argument 100
 	movl	$100, %edi
 	xorl	%r8d, %r8d
 	movl	%r8d, %esi
 	movl	%r8d, %edx
 	movl	%r8d, %ecx
-	movl	%eax, -48(%rbp)         ## 4-byte Spill
+	movl	%eax, -48(%rbp)         ; Calling RecursiveComplexDummy with 100, 0, 0, 0
 	callq	*-40(%rbp)
 	addq	$48, %rsp
 	popq	%rbp
