@@ -6,63 +6,39 @@
 //!        is called "atomic" if all of its instructions typically operate
 //!        on one execution unit.
 //-------------------------------------------------------------------------------------------------
-//! @defgroup Arithmetics  Integer and FP Arithmetics
-//! @defgroup ControlFlow  Branches
-//! @defgroup Functions    Function Calls
 //=================================================================================================
 #ifndef ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_HPP_INCLUDED
 #define ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_HPP_INCLUDED
 
-#include <cmath>
+#include <cmath> //!< For arithmetic loads
 
 // A couple of defines to increase percentage of bench-cycle instructions
-#define REPEAT_10(x) x
-//#define REPEAT_10(x) x x x x x \
-//                     x x x x x
-#define REPEAT_1000(x) REPEAT_10(REPEAT_10(REPEAT_10(x)))
 
 namespace Workload {
 namespace Atomic {
 
 	//! @ingroup Arithmetics
-	//! A workload consisting of ALU operations
-	/*inline*/ void IntArith()
-	{
-		int a = 1;              
-		int b = 1;                       
-		int c = 1;                
-
-		REPEAT_1000(
-			c = a - b;
-			c = a + b;
-			c = a << 2;
-			c = a & b;
-			c = a * b;
-			c = a / b;
-		)
-	}
+	
 
 	//! @ingroup Arithmetics
 	//! A workload to test the FPU
-	/*inline*/ void FloatArith()
+	inline void FloatArith()
 	{
 		double a = 1.0;
 		double b = 1.0;
 		double c = 1.0;
 
-		REPEAT_1000(
-			c = a - b;
-			c = a + b;
-			c = a * b;
-			c = a / b;
-			c = sqrt(a);
-			c = fmin(a, b);
-		)
+		c = a - b;
+		c = a + b;
+		c = a * b;
+		c = a / b;
+		c = sqrt(a);
+		c = fmin(a, b);
 	}
 
 	//! @ingroup ControlFlow
 	//! A workload with a bunch of branches
-	/*inline*/ void BunchOfBranches()
+	inline void BunchOfBranches()
 	{	
 		for (unsigned i = 0; i < 1000; ++i)
 		{
@@ -116,7 +92,7 @@ namespace Atomic {
 	//! @ingroup Functions
 	//! A bunch of function calls (without arguments)
 	//! Not so atomic, if you think about it
-	/*inline*/ void FunctionCalls()
+	inline void FunctionCalls()
 	{
 		void (*dummy                )()                   = &Dummies::Dummy;
 		int  (*dummyReturn          )()                   = &Dummies::DummyReturn;
@@ -135,6 +111,74 @@ namespace Atomic {
 			(*dummyRecursiveComplex)(100, 0, 0, 0);
 		)
 	}
+
+	// MIGHT BE USABLE LATER
+	// const size_t REGISTER_NUM = 8;
+	// const size_t FLOATS_IN_128 = 16/sizeof(float);
+	// const size_t   INTS_IN_128 = 16/sizeof(int);
+	// 
+	// //! @ingroup SIMDInstructions
+	// //! A bunch of vector instructions (for SSE)
+	// inline void VectorProcessing()
+	// { 
+	// 	alignas(16) static float floatSrc[FLOATS_IN_128 * REGISTER_NUM] = {};
+	// 	alignas(16) static float floatDst[  INTS_IN_128 * REGISTER_NUM] = {};
+		
+	// 	alignas(16) static int intSrc[FLOATS_IN_128 * REGISTER_NUM] = {};
+	// 	alignas(16) static int intDst[FLOATS_IN_128 * REGISTER_NUM] = {};
+
+	// 	static __m128* floatSrcPtr = reinterpret_cast<__m128*>(floatSrc);
+	// 	static float*  floatDstPtr = reinterpret_cast<float*> (floatDst);
+
+	// 	static __m128i* intSrcPtr = reinterpret_cast<__m128i*>(intSrc);	
+	// 	static __m128i* intDstPtr = reinterpret_cast<__m128i*>(intDst);	
+
+	// 	REPEAT_100(
+	// 		for (unsigned i = 0; i < REGISTER_NUM; ++i)
+	// 		{
+	// 			_mm_store_ps(floatDst + i * FLOATS_IN_128, _mm_sub_ps(floatSrcPtr[i], floatSrcPtr[i])); // dst = src - src;
+	// 			_mm_store_ps(floatDst + i * FLOATS_IN_128, _mm_add_ps(floatSrcPtr[i], floatSrcPtr[i])); // dst = src + src;
+	// 			_mm_store_ps(floatDst + i * FLOATS_IN_128, _mm_mul_ps(floatSrcPtr[i], floatSrcPtr[i])); // dst = src * src;
+	// 			_mm_store_ps(floatDst + i * FLOATS_IN_128, _mm_min_ps(floatSrcPtr[i], floatSrcPtr[i])); // dst = min(src, src);
+				
+	// 			_mm_store_si128(intDstPtr + i, _mm_sub_epi32(intSrcPtr[i], intSrcPtr[i])); // dst = src - src;
+	// 			_mm_store_si128(intDstPtr + i, _mm_add_epi32(intSrcPtr[i], intSrcPtr[i])); // dst = src + src;
+	// 			_mm_store_si128(intDstPtr + i, _mm_mul_epi32(intSrcPtr[i], intSrcPtr[i])); // dst = src * src;
+	// 			_mm_store_si128(intDstPtr + i, _mm_min_epi32(intSrcPtr[i], intSrcPtr[i])); // dst = min(src, src);
+	// 		}
+	// 	)
+	// }
+
+
+	//! @ingroup SIMDInstructions
+	//! A bunch of vector instructions (for SSE)
+	inline void VectorProcessing()
+	{ 
+		alignas(16) float floatSrc[16/sizeof(float)] = {};
+		alignas(16) float floatDst[16/sizeof(float)] = {};
+		
+		// alignas(16) int intSrc[16/sizeof(int)] = {};
+		// alignas(16) int intDst[16/sizeof(int)] = {};
+
+		__m128* floatSrcPtr = reinterpret_cast<__m128*>(floatSrc);
+		float*  floatDstPtr = reinterpret_cast<float*> (floatDst);
+
+		//__m128i* intSrcPtr = reinterpret_cast<__m128i*>(intSrc);	
+		//__m128i* intDstPtr = reinterpret_cast<__m128i*>(intDst);	
+
+		REPEAT_100(
+			_mm_store_ps(floatDst, _mm_sub_ps(*floatSrcPtr, *floatSrcPtr)); // dst = src - src;
+			// _mm_store_ps(floatDst, _mm_add_ps(*floatSrcPtr, *floatSrcPtr)); // dst = src + src;
+			// _mm_store_ps(floatDst, _mm_mul_ps(*floatSrcPtr, *floatSrcPtr)); // dst = src * src;
+			// _mm_store_ps(floatDst, _mm_min_ps(*floatSrcPtr, *floatSrcPtr)); // dst = min(src, src);
+			
+			// _mm_store_si128(intDstPtr, _mm_sub_epi32(*intSrcPtr, *intSrcPtr)); // dst = src - src;
+			// _mm_store_si128(intDstPtr, _mm_add_epi32(*intSrcPtr, *intSrcPtr)); // dst = src + src;
+			// _mm_store_si128(intDstPtr, _mm_mul_epi32(*intSrcPtr, *intSrcPtr)); // dst = src * src;
+			// _mm_store_si128(intDstPtr, _mm_min_epi32(*intSrcPtr, *intSrcPtr)); // dst = min(src, src);
+	)
+	}
+
 }}
 
 #endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_HPP_INCLUDED

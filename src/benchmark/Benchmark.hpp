@@ -5,47 +5,36 @@
 #ifndef ARM_VM_BENCHMARKING_BENCHMARK_HPP_INCLUDED
 #define ARM_VM_BENCHMARKING_BENCHMARK_HPP_INCLUDED
 
+#include <ctime>
 #include <chrono>
 #include <cassert>
 
-namespace Benchmark
+//! A simplest benchmark possible - a single time measurement for a workload in a cycle
+template <typename... Args>
+std::chrono::duration<long double, std::nano> BenchTime(void (*load)(Args...), Args... args)
 {
-	namespace Details
-	{
-		void Dummy() {}
-	}
+	assert(load != nullptr);
 
-	//! A simplest benchmark possible - a single time measurement for a workload in a cycle
-	std::chrono::duration<long double, std::nano> SimpleBench(unsigned cycleCount, void (*load)())
-	{
-		assert(cycleCount != 0);
-		assert(load != nullptr);
+	static std::chrono::steady_clock clock{};
 
-		static std::chrono::steady_clock clock{};
-		static void (*dummyFunction)() = &Details::Dummy;
+	// Measuring the load itself:
+	auto begin = clock.now();
+	load(args...);
+	auto end = clock.now();
 
-		// Measuring the cycle overhead:
-		auto begin = clock.now();
-		for (unsigned i = 0; i < cycleCount; ++i)
-		{
-			(*dummyFunction)();
-		}
-		auto end = clock.now();
+	return end - begin;
+}
 
-		auto cycleDuration = end - begin;
+template <typename... Args>
+std::clock_t BenchCycles(void (*load)(Args... ), Args... args)
+{
+	assert(load != nullptr);
 
-		// Measuring the load itself:
-		begin = clock.now();
-		for (unsigned i = 0; i < cycleCount; ++i)
-		{
-			(*load)();
-		}
-		end = clock.now();
+	auto begin = std::clock();
+	load(args...);
+	auto end = std::clock();
 
-		auto loadDuration = end - begin;
-
-		return (loadDuration - cycleDuration) / cycleCount;
-	}
+	return end - begin;
 }
 
 #endif  // ARM_VM_BENCHMARKING_BENCHMARK_HPP_INCLUDED
