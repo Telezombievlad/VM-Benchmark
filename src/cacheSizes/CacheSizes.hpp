@@ -2,8 +2,8 @@
 //! @file  MemoryAccess.hpp
 //! @brief A file with definition for memory access and paging load
 //=================================================================================================
-#ifndef ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_MEMORY_ACCESS_HPP_INCLUDED
-#define ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_MEMORY_ACCESS_HPP_INCLUDED
+#ifndef ARM_VM_BENCHMARKING_CACHE_SIZES_HPP_INCLUDED
+#define ARM_VM_BENCHMARKING_CACHE_SIZES_HPP_INCLUDED
 
 #include <cstdlib>
 #include <stdexcept>
@@ -23,24 +23,20 @@ struct DummyStruct
 template <size_t PADDING>
 struct WorkingSet
 {
-public:
-	WorkingSet(bool sequential, size_t workingSetSize);
-	~WorkingSet();
-
-	WorkingSet(const WorkingSet&) = delete;
-	WorkingSet& operator=(const WorkingSet&) = delete;
-
 	size_t size;
 	DummyStruct<PADDING>* arr;
 };
 
 //! Working set initialization
 template <size_t PADDING>
-WorkingSet<PADDING>::WorkingSet(bool sequential, size_t workingSetSize) :
-	size (workingSetSize / sizeof(DummyStruct<PADDING>)),
-	arr  (nullptr)
+void InitWorkingSet(WorkingSet<PADDING>* toInit, bool sequential, size_t workingSetSize)
 {
-	arr = (DummyStruct<PADDING>*) std::calloc(size, sizeof(*arr));
+	assert(toInit);
+
+	// Initialising variables
+	size_t size = workingSetSize / sizeof(DummyStruct<PADDING>);
+
+	DummyStruct<PADDING>* arr = (DummyStruct<PADDING>*) std::calloc(size, sizeof(*arr));
 	if (arr == nullptr)
 	{
 		throw std::invalid_argument("InitWorkingSet(): Unable to allocate working set");
@@ -65,23 +61,27 @@ WorkingSet<PADDING>::WorkingSet(bool sequential, size_t workingSetSize) :
 
 		for (size_t i = 0; i < size; ++i)
 			arr[indexes[i]].next = &(arr[indexes[(i + 1) % size]]);
+
+		std::free(indexes);
 	}
+
+	toInit->arr = arr;
+	toInit->size = size;
 }
 
 //! Working set deallocation
 template <size_t PADDING>
-WorkingSet<PADDING>::~WorkingSet()
+void FreeWorkingSet(WorkingSet<PADDING>* toFree)
 {
-	std::free(arr);
+	assert(toFree);
+
+	std::free(toFree->arr);
 }
 
 //! A load, which simply walks through the 'arr' elements
 template <size_t PADDING>
 inline void MemoryWalk(WorkingSet<PADDING>* workingSet, size_t jumpCount)
 {
-	assert(workingSet != nullptr);
-	assert(workingSet->arr != nullptr);
-
 	DummyStruct<PADDING>* ptr = workingSet->arr;
 	for (size_t jumps = 0; jumps < jumpCount; ++jumps)
 		ptr = ptr->next;
@@ -91,9 +91,6 @@ inline void MemoryWalk(WorkingSet<PADDING>* workingSet, size_t jumpCount)
 template <size_t PADDING>
 inline void MemoryWalkIncrement(WorkingSet<PADDING>* workingSet, size_t jumpCount)
 {
-	assert(workingSet != nullptr);
-	assert(workingSet->arr != nullptr);
-
 	DummyStruct<PADDING>* ptr = workingSet->arr;
 	for (size_t jumps = 0; jumps < jumpCount; ++jumps)
 	{
@@ -106,9 +103,6 @@ inline void MemoryWalkIncrement(WorkingSet<PADDING>* workingSet, size_t jumpCoun
 template <size_t PADDING>
 inline void MemoryWalkAddNext(WorkingSet<PADDING>* workingSet, size_t jumpCount)
 {
-	assert(workingSet != nullptr);
-	assert(workingSet->arr != nullptr);
-
 	DummyStruct<PADDING>* ptr = workingSet->arr;
 	for (size_t jumps = 0; jumps < jumpCount; ++jumps)
 	{
@@ -117,5 +111,5 @@ inline void MemoryWalkAddNext(WorkingSet<PADDING>* workingSet, size_t jumpCount)
 	}
 }
 
-#endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_MEMORY_ACCESS_HPP_INCLUDED
+#endif  // ARM_VM_BENCHMARKING_CACHE_SIZES_HPP_INCLUDED
 

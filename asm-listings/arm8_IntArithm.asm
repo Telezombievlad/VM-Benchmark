@@ -16,7 +16,7 @@
 @ options passed:  -imultilib thumb/v7-ar
 @ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
 @ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ src/workloads/IntArithm.cpp -march=armv8-a
+@ -D__USES_INITFINI__ src/atomic/workloads/IntArithm.cpp -march=armv8-a
 @ -auxbase-strip asm-listings/arm8_IntArithm.asm -Werror -Wall -std=c++1z
 @ -fno-stack-protector -fverbose-asm
 @ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
@@ -46,70 +46,105 @@
 @ -mvectorize-with-neon-quad
 
 	.text
-	.section	.text._Z9IntArithmv,"axG",%progbits,_Z9IntArithmv,comdat
 	.align	2
-	.weak	_Z9IntArithmv
+	.global	_Z9IntArithmj
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	_Z9IntArithmv, %function
-_Z9IntArithmv:
+	.type	_Z9IntArithmj, %function
+_Z9IntArithmj:
 	.fnstart
-.LFB0:
-	@ args = 0, pretend = 0, frame = 16
+.LFB12:
+	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
 	@ link register save eliminated.
 	str	fp, [sp, #-4]!	@,
 	add	fp, sp, #0	@,,
-	sub	sp, sp, #20	@,,
-@ src/workloads/IntArithm.cpp:10: 	int a = 1;              
-	mov	r3, #1	@ tmp110,
-	str	r3, [fp, #-8]	@ tmp110, a
-@ src/workloads/IntArithm.cpp:11: 	int b = 1;                       
-	mov	r3, #1	@ tmp111,
-	str	r3, [fp, #-12]	@ tmp111, b
-@ src/workloads/IntArithm.cpp:12: 	int c = 1;                
-	mov	r3, #1	@ tmp112,
-	str	r3, [fp, #-16]	@ tmp112, c
-@ src/workloads/IntArithm.cpp:14: 	c = a - b;
-	ldr	r2, [fp, #-8]	@ tmp114, a
-	ldr	r3, [fp, #-12]	@ tmp115, b
-	sub	r3, r2, r3	@ tmp113, tmp114, tmp115
-	str	r3, [fp, #-16]	@ tmp113, c
-@ src/workloads/IntArithm.cpp:15: 	c = a + b;
-	ldr	r2, [fp, #-8]	@ tmp117, a
-	ldr	r3, [fp, #-12]	@ tmp118, b
-	add	r3, r2, r3	@ tmp116, tmp117, tmp118
-	str	r3, [fp, #-16]	@ tmp116, c
-@ src/workloads/IntArithm.cpp:16: 	c = a << 2;
-	ldr	r3, [fp, #-8]	@ tmp120, a
-	lsl	r3, r3, #2	@ tmp119, tmp120,
-	str	r3, [fp, #-16]	@ tmp119, c
-@ src/workloads/IntArithm.cpp:17: 	c = a & b;
-	ldr	r2, [fp, #-8]	@ tmp122, a
-	ldr	r3, [fp, #-12]	@ tmp123, b
-	and	r3, r3, r2	@ tmp121, tmp123, tmp122
-	str	r3, [fp, #-16]	@ tmp121, c
-@ src/workloads/IntArithm.cpp:18: 	c = a * c;
-	ldr	r3, [fp, #-16]	@ tmp125, c
-	ldr	r2, [fp, #-8]	@ tmp126, a
-	mul	r3, r2, r3	@ tmp124, tmp126, tmp125
-	str	r3, [fp, #-16]	@ tmp124, c
-@ src/workloads/IntArithm.cpp:19: 	c = a / b;
-	ldr	r2, [fp, #-8]	@ tmp129, a
-	ldr	r3, [fp, #-12]	@ tmp130, b
-	sdiv	r3, r2, r3	@ tmp128, tmp129, tmp130
-	str	r3, [fp, #-16]	@ tmp128, c
-@ src/workloads/IntArithm.cpp:20: }
-	nop
+	sub	sp, sp, #28	@,,
+	str	r0, [fp, #-24]	@ iterCount, iterCount
+@ src/atomic/workloads/IntArithm.cpp:10: 	int a = 1;
+	mov	r3, #1	@ tmp119,
+	str	r3, [fp, #-16]	@ tmp119, a
+@ src/atomic/workloads/IntArithm.cpp:11: 	int b = 1;
+	mov	r3, #1	@ tmp120,
+	str	r3, [fp, #-20]	@ tmp120, b
+@ src/atomic/workloads/IntArithm.cpp:12: 	int c = 1;
+	mov	r3, #1	@ tmp121,
+	str	r3, [fp, #-8]	@ tmp121, c
+@ src/atomic/workloads/IntArithm.cpp:14: 	for (size_t i = 0; i < iterCount; ++i)
+	mov	r3, #0	@ tmp122,
+	str	r3, [fp, #-12]	@ tmp122, i
+.L3:
+@ src/atomic/workloads/IntArithm.cpp:14: 	for (size_t i = 0; i < iterCount; ++i)
+	ldr	r2, [fp, #-12]	@ tmp123, i
+	ldr	r3, [fp, #-24]	@ tmp124, iterCount
+	cmp	r2, r3	@ tmp123, tmp124
+	bcs	.L2	@,
+@ src/atomic/workloads/IntArithm.cpp:16: 		c += a - b;
+	ldr	r2, [fp, #-16]	@ tmp125, a
+	ldr	r3, [fp, #-20]	@ tmp126, b
+	sub	r3, r2, r3	@ _1, tmp125, tmp126
+	ldr	r2, [fp, #-8]	@ tmp128, c
+	add	r3, r2, r3	@ tmp127, tmp128, _1
+	str	r3, [fp, #-8]	@ tmp127, c
+@ src/atomic/workloads/IntArithm.cpp:17: 		c += a + b;
+	ldr	r2, [fp, #-16]	@ tmp129, a
+	ldr	r3, [fp, #-20]	@ tmp130, b
+	add	r3, r2, r3	@ _2, tmp129, tmp130
+	ldr	r2, [fp, #-8]	@ tmp132, c
+	add	r3, r2, r3	@ tmp131, tmp132, _2
+	str	r3, [fp, #-8]	@ tmp131, c
+@ src/atomic/workloads/IntArithm.cpp:18: 		c += a << 2;
+	ldr	r3, [fp, #-16]	@ tmp133, a
+	lsl	r3, r3, #2	@ _3, tmp133,
+	ldr	r2, [fp, #-8]	@ tmp135, c
+	add	r3, r2, r3	@ tmp134, tmp135, _3
+	str	r3, [fp, #-8]	@ tmp134, c
+@ src/atomic/workloads/IntArithm.cpp:19: 		c += a & b;
+	ldr	r2, [fp, #-16]	@ tmp136, a
+	ldr	r3, [fp, #-20]	@ tmp137, b
+	and	r3, r3, r2	@ _4, tmp137, tmp136
+	ldr	r2, [fp, #-8]	@ tmp139, c
+	add	r3, r2, r3	@ tmp138, tmp139, _4
+	str	r3, [fp, #-8]	@ tmp138, c
+@ src/atomic/workloads/IntArithm.cpp:20: 		c += a | b;
+	ldr	r2, [fp, #-16]	@ tmp140, a
+	ldr	r3, [fp, #-20]	@ tmp141, b
+	orr	r3, r2, r3	@ _5, tmp140, tmp141
+	ldr	r2, [fp, #-8]	@ tmp143, c
+	add	r3, r2, r3	@ tmp142, tmp143, _5
+	str	r3, [fp, #-8]	@ tmp142, c
+@ src/atomic/workloads/IntArithm.cpp:21: 		c += a * b;
+	ldr	r3, [fp, #-16]	@ tmp144, a
+	ldr	r2, [fp, #-20]	@ tmp145, b
+	mul	r3, r2, r3	@ _6, tmp145, tmp144
+	ldr	r2, [fp, #-8]	@ tmp147, c
+	add	r3, r2, r3	@ tmp146, tmp147, _6
+	str	r3, [fp, #-8]	@ tmp146, c
+@ src/atomic/workloads/IntArithm.cpp:22: 		c += a / b; 
+	ldr	r2, [fp, #-16]	@ tmp148, a
+	ldr	r3, [fp, #-20]	@ tmp149, b
+	sdiv	r3, r2, r3	@ _7, tmp148, tmp149
+	ldr	r2, [fp, #-8]	@ tmp151, c
+	add	r3, r2, r3	@ tmp150, tmp151, _7
+	str	r3, [fp, #-8]	@ tmp150, c
+@ src/atomic/workloads/IntArithm.cpp:14: 	for (size_t i = 0; i < iterCount; ++i)
+	ldr	r3, [fp, #-12]	@ tmp153, i
+	add	r3, r3, #1	@ tmp152, tmp153,
+	str	r3, [fp, #-12]	@ tmp152, i
+	b	.L3	@
+.L2:
+@ src/atomic/workloads/IntArithm.cpp:25: 	return c;
+	ldr	r3, [fp, #-8]	@ _23, c
+@ src/atomic/workloads/IntArithm.cpp:26: }
+	mov	r0, r3	@, <retval>
 	add	sp, fp, #0	@,,
 	@ sp needed	@
 	ldr	fp, [sp], #4	@,
 	bx	lr	@
 	.cantunwind
 	.fnend
-	.size	_Z9IntArithmv, .-_Z9IntArithmv
-	.text
+	.size	_Z9IntArithmj, .-_Z9IntArithmj
 	.align	2
 	.syntax unified
 	.arm
@@ -117,14 +152,15 @@ _Z9IntArithmv:
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
 	.fnstart
-.LFB1:
+.LFB13:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{fp, lr}	@
 	add	fp, sp, #4	@,,
-@ src/workloads/IntArithm.cpp:25: 	IntArithm();
-	bl	_Z9IntArithmv	@
-@ src/workloads/IntArithm.cpp:26: }
+@ src/atomic/workloads/IntArithm.cpp:31: 	IntArithm(0);
+	mov	r0, #0	@,
+	bl	_Z9IntArithmj	@
+@ src/atomic/workloads/IntArithm.cpp:32: }
 	nop
 	pop	{fp, pc}	@
 	.cantunwind

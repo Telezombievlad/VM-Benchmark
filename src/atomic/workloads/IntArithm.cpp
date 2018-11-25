@@ -1,26 +1,32 @@
 //=================================================================================================
 //! @file  IntArithm.cpp
-//! @brief Implementation for integer arithmetic load
+//! @brief ALU arithmetic loads impkementations
 //=================================================================================================
 
 #include "IntArithm.hpp"
 
-inline void IntArithm()
+int IntArithm(size_t iterCount)
 {
-	int a = 1;              
-	int b = 1;                       
-	int c = 1;                
+	int a = 1;
+	int b = 1;
+	int c = 1;
 
-	c = a - b;
-	c = a + b;
-	c = a << 2;
-	c = a & b;
-	c = a * c;
-	c = a / b;
+	for (size_t i = 0; i < iterCount; ++i)
+	{
+		c += a - b;
+		c += a + b;
+		c += a << 2;
+		c += a & b;
+		c += a | b;
+		c += a * b;
+		c += a / b; 
+	}
+
+	return c;
 }
 
 //! This function enforces the compiler to generate assembler listings
 __attribute__ ((used)) static void GENERATE_LISTINGS()
 {
-	IntArithm();
+	IntArithm(0);
 }

@@ -8,7 +8,7 @@
 	.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
 	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
 	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
-	.file	"FloatArithm.cpp"
+	.file	"SystemCall.cpp"
 @ GNU C++14 (GNU Tools for Arm Embedded Processors 7-2018-q2-update) version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (arm-none-eabi)
 @	compiled by GNU C version 7.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.15-GMP
 
@@ -16,8 +16,8 @@
 @ options passed:  -imultilib thumb/v7-ar
 @ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
 @ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ src/atomic/workloads/FloatArithm.cpp -march=armv8-a
-@ -auxbase-strip asm-listings/arm8_FloatArithm.asm -Werror -Wall -std=c++1z
+@ -D__USES_INITFINI__ src/atomic/workloads/SystemCall.cpp -march=armv8-a
+@ -auxbase-strip asm-listings/arm8_SystemCall.asm -Werror -Wall -std=c++1z
 @ -fno-stack-protector -fverbose-asm
 @ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
 @ -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
@@ -46,120 +46,57 @@
 @ -mvectorize-with-neon-quad
 
 	.text
-	.global	__aeabi_dsub
-	.global	__aeabi_dadd
-	.global	__aeabi_dmul
-	.global	__aeabi_ddiv
 	.align	2
-	.global	_Z11FloatArithmj
+	.global	_Z22SystemCallGetProcessIdj
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	_Z11FloatArithmj, %function
-_Z11FloatArithmj:
+	.type	_Z22SystemCallGetProcessIdj, %function
+_Z22SystemCallGetProcessIdj:
 	.fnstart
-.LFB878:
-	@ args = 0, pretend = 0, frame = 40
+.LFB12:
+	@ args = 0, pretend = 0, frame = 16
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{fp, lr}	@
+	.save {fp, lr}
+	.setfp fp, sp, #4
 	add	fp, sp, #4	@,,
-	sub	sp, sp, #40	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/FloatArithm.cpp:13: 	double a = 1.0;
-	mov	r2, #0	@ tmp117,
-	mov	r3, #0	@,
-	movt	r3, 16368	@,
-	strd	r2, [fp, #-28]	@ tmp117,,
-@ src/atomic/workloads/FloatArithm.cpp:14: 	double b = 1.0;
-	mov	r2, #0	@ tmp118,
-	mov	r3, #0	@,
-	movt	r3, 16368	@,
-	strd	r2, [fp, #-36]	@ tmp118,,
-@ src/atomic/workloads/FloatArithm.cpp:15: 	double c = 1.0;
-	mov	r2, #0	@ tmp119,
-	mov	r3, #0	@,
-	movt	r3, 16368	@,
-	strd	r2, [fp, #-12]	@ tmp119,,
-@ src/atomic/workloads/FloatArithm.cpp:17: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-16]	@ tmp120, i
+	.pad #16
+	sub	sp, sp, #16	@,,
+	str	r0, [fp, #-16]	@ iterCount, iterCount
+@ src/atomic/workloads/SystemCall.cpp:11: 	pid_t toReturn = 0;
+	mov	r3, #0	@ tmp113,
+	str	r3, [fp, #-8]	@ tmp113, toReturn
+@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+	mov	r3, #0	@ tmp114,
+	str	r3, [fp, #-12]	@ tmp114, i
 .L3:
-@ src/atomic/workloads/FloatArithm.cpp:17: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-16]	@ tmp121, i
-	ldr	r3, [fp, #-40]	@ tmp122, iterCount
-	cmp	r2, r3	@ tmp121, tmp122
+@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+	ldr	r2, [fp, #-12]	@ tmp115, i
+	ldr	r3, [fp, #-16]	@ tmp116, iterCount
+	cmp	r2, r3	@ tmp115, tmp116
 	bcs	.L2	@,
-@ src/atomic/workloads/FloatArithm.cpp:19: 		c += a - b;
-	ldrd	r2, [fp, #-36]	@,,
-	ldrd	r0, [fp, #-28]	@,,
-	bl	__aeabi_dsub	@
-	mov	r2, r0	@ tmp123,
-	mov	r3, r1	@,
-	ldrd	r0, [fp, #-12]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp124,
-	mov	r3, r1	@,
-	strd	r2, [fp, #-12]	@ tmp124,,
-@ src/atomic/workloads/FloatArithm.cpp:20: 		c += a + b;
-	ldrd	r2, [fp, #-36]	@,,
-	ldrd	r0, [fp, #-28]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp125,
-	mov	r3, r1	@,
-	ldrd	r0, [fp, #-12]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp126,
-	mov	r3, r1	@,
-	strd	r2, [fp, #-12]	@ tmp126,,
-@ src/atomic/workloads/FloatArithm.cpp:21: 		c += a * b;
-	ldrd	r2, [fp, #-36]	@,,
-	ldrd	r0, [fp, #-28]	@,,
-	bl	__aeabi_dmul	@
-	mov	r2, r0	@ tmp127,
-	mov	r3, r1	@,
-	ldrd	r0, [fp, #-12]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp128,
-	mov	r3, r1	@,
-	strd	r2, [fp, #-12]	@ tmp128,,
-@ src/atomic/workloads/FloatArithm.cpp:22: 		c += a / b;
-	ldrd	r2, [fp, #-36]	@,,
-	ldrd	r0, [fp, #-28]	@,,
-	bl	__aeabi_ddiv	@
-	mov	r2, r0	@ tmp129,
-	mov	r3, r1	@,
-	ldrd	r0, [fp, #-12]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp130,
-	mov	r3, r1	@,
-	strd	r2, [fp, #-12]	@ tmp130,,
-@ src/atomic/workloads/FloatArithm.cpp:23: 		c += sqrt(a);
-	ldrd	r0, [fp, #-28]	@,,
-	bl	sqrt	@
-	mov	r2, r0	@ _19,
-	mov	r3, r1	@ _19,
-	ldrd	r0, [fp, #-12]	@,,
-	bl	__aeabi_dadd	@
-	mov	r2, r0	@ tmp131,
-	mov	r3, r1	@,
-	strd	r2, [fp, #-12]	@ tmp131,,
-@ src/atomic/workloads/FloatArithm.cpp:17: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-16]	@ tmp133, i
-	add	r3, r3, #1	@ tmp132, tmp133,
-	str	r3, [fp, #-16]	@ tmp132, i
+@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn += getpid();
+	bl	getpid	@
+	mov	r2, r0	@ _9,
+	ldr	r3, [fp, #-8]	@ tmp118, toReturn
+	add	r3, r3, r2	@ tmp117, tmp118, _9
+	str	r3, [fp, #-8]	@ tmp117, toReturn
+@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+	ldr	r3, [fp, #-12]	@ tmp120, i
+	add	r3, r3, #1	@ tmp119, tmp120,
+	str	r3, [fp, #-12]	@ tmp119, i
 	b	.L3	@
 .L2:
-@ src/atomic/workloads/FloatArithm.cpp:26: 	return c;
-	ldrd	r2, [fp, #-12]	@ _22,,
-@ src/atomic/workloads/FloatArithm.cpp:27: }
-	mov	r0, r2	@, <retval>
-	mov	r1, r3	@, <retval>
+@ src/atomic/workloads/SystemCall.cpp:18: 	return toReturn;
+	ldr	r3, [fp, #-8]	@ _13, toReturn
+@ src/atomic/workloads/SystemCall.cpp:19: }
+	mov	r0, r3	@, <retval>
 	sub	sp, fp, #4	@,,
 	@ sp needed	@
 	pop	{fp, pc}	@
-	.cantunwind
 	.fnend
-	.size	_Z11FloatArithmj, .-_Z11FloatArithmj
+	.size	_Z22SystemCallGetProcessIdj, .-_Z22SystemCallGetProcessIdj
 	.align	2
 	.syntax unified
 	.arm
@@ -167,18 +104,19 @@ _Z11FloatArithmj:
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
 	.fnstart
-.LFB879:
+.LFB13:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{fp, lr}	@
+	.save {fp, lr}
+	.setfp fp, sp, #4
 	add	fp, sp, #4	@,,
-@ src/atomic/workloads/FloatArithm.cpp:32: 	FloatArithm(0);
+@ src/atomic/workloads/SystemCall.cpp:24: 	SystemCallGetProcessId(0);
 	mov	r0, #0	@,
-	bl	_Z11FloatArithmj	@
-@ src/atomic/workloads/FloatArithm.cpp:33: }
+	bl	_Z22SystemCallGetProcessIdj	@
+@ src/atomic/workloads/SystemCall.cpp:25: }
 	nop
 	pop	{fp, pc}	@
-	.cantunwind
 	.fnend
 	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
 	.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"

@@ -6,35 +6,59 @@
 // In order to supress asserts
 #define NDEBUG
 
-#include "workloads/IntArithm.hpp"
-#include "workloads/FloatArithm.hpp"
-#include "workloads/Branching.hpp"
-#include "workloads/MemoryAccess.hpp"
-#include "workloads/VectorArithm.hpp"
-
-#include "benchmark/Benchmark.hpp"
+#include "CacheSizes.hpp"
+#include "../Benchmark.hpp"
 
 #include <cstdio>
 #include <cmath>
 #include <cstring>
 
-//! 
+// Constants which determine what information benchmark gets:
+constexpr double MIN_W_SET_SIZE = 10.0;
+constexpr double MAX_W_SET_SIZE = 24.0;
+constexpr double DELTA_W_SET_SIZE = 0.15;
+constexpr size_t ARR_SIZE = (MAX_W_SET_SIZE - MIN_W_SET_SIZE) / DELTA_W_SET_SIZE + 1;
+const size_t JUMP_COUNT_COEFF = 2;
+const size_t NUM_OF_SAMPLES = 5;
+
+
+size_t calcWorkingSetSize(size_t n)
+{
+	double pow = MIN_W_SET_SIZE + n * DELTA_W_SET_SIZE;
+
+	return std::abs(std::pow(2, pow));
+}
+
+//! A memory access benchmark
 template <size_t PADDING>
 void MemoryTest(FILE* outFile, bool isSequential, void (*load)(WorkingSet<PADDING>*, size_t), const char* accessType)
 {
 	std::printf("Starting test [%02d,%10s,%3zu]\n", isSequential, accessType, sizeof(DummyStruct<PADDING>));
 
-	for (double pow = 10.0; pow < 24.0; pow += 0.15)
+	long double sampleSums[ARR_SIZE] = {};
+
+	for (size_t measurement = 0; measurement < NUM_OF_SAMPLES; ++measurement)
 	{
-		size_t workingSetSize = std::abs(std::pow(2, pow));
-		WorkingSet<PADDING> workingSet{isSequential, workingSetSize};
-		size_t jumpCount = workingSetSize;
+		for (size_t i = 0; i < ARR_SIZE; ++i)
+		{
+			size_t workingSetSize = calcWorkingSetSize(i);
+			size_t jumpCount = JUMP_COUNT_COEFF * workingSetSize;
 
-		auto timePerElement = BenchTime(load, &workingSet, jumpCount) / jumpCount;
+			WorkingSet<PADDING> workingSet;
+			InitWorkingSet(&workingSet, isSequential, workingSetSize);
 
+			auto timePerElement = BenchTime(load, &workingSet, jumpCount) / jumpCount;
+
+			sampleSums[i] += timePerElement.count();
+		}
+	}
+	
+
+	for (size_t i = 0; i < ARR_SIZE; ++i)
+	{
 		std::fprintf(outFile, "%d,%s,%zu,%07zu,%.3Lf\n", 
 			isSequential, accessType, sizeof(DummyStruct<PADDING>),
-			workingSetSize, timePerElement.count());
+			calcWorkingSetSize(i), sampleSums[i] / NUM_OF_SAMPLES);
 	}
 }
 
