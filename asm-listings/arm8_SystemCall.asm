@@ -47,12 +47,12 @@
 
 	.text
 	.align	2
-	.global	_Z22SystemCallGetProcessIdj
+	.global	_Z22SystemCallGetSetUserIdj
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	_Z22SystemCallGetProcessIdj, %function
-_Z22SystemCallGetProcessIdj:
+	.type	_Z22SystemCallGetSetUserIdj, %function
+_Z22SystemCallGetSetUserIdj:
 	.fnstart
 .LFB12:
 	@ args = 0, pretend = 0, frame = 16
@@ -64,39 +64,41 @@ _Z22SystemCallGetProcessIdj:
 	.pad #16
 	sub	sp, sp, #16	@,,
 	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/SystemCall.cpp:11: 	pid_t toReturn = 0;
-	mov	r3, #0	@ tmp113,
-	str	r3, [fp, #-8]	@ tmp113, toReturn
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/SystemCall.cpp:11: 	uid_t toReturn = 0;
 	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-12]	@ tmp114, i
+	strh	r3, [fp, #-6]	@ movhi	@ tmp113, toReturn
+@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+	mov	r3, #0	@ tmp115,
+	str	r3, [fp, #-12]	@ tmp115, i
 .L3:
 @ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-12]	@ tmp115, i
-	ldr	r3, [fp, #-16]	@ tmp116, iterCount
-	cmp	r2, r3	@ tmp115, tmp116
+	ldr	r2, [fp, #-12]	@ tmp116, i
+	ldr	r3, [fp, #-16]	@ tmp117, iterCount
+	cmp	r2, r3	@ tmp116, tmp117
 	bcs	.L2	@,
-@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn += getpid();
-	bl	getpid	@
-	mov	r2, r0	@ _9,
-	ldr	r3, [fp, #-8]	@ tmp118, toReturn
-	add	r3, r3, r2	@ tmp117, tmp118, _9
-	str	r3, [fp, #-8]	@ tmp117, toReturn
+@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn = getuid();
+	bl	getuid	@
+	mov	r3, r0	@ tmp118,
+	strh	r3, [fp, #-6]	@ movhi	@ _9, toReturn
+@ src/atomic/workloads/SystemCall.cpp:16: 		setuid(toReturn);
+	ldrh	r3, [fp, #-6]	@ tmp119, toReturn
+	mov	r0, r3	@, tmp119
+	bl	setuid	@
 @ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-12]	@ tmp120, i
-	add	r3, r3, #1	@ tmp119, tmp120,
-	str	r3, [fp, #-12]	@ tmp119, i
+	ldr	r3, [fp, #-12]	@ tmp121, i
+	add	r3, r3, #1	@ tmp120, tmp121,
+	str	r3, [fp, #-12]	@ tmp120, i
 	b	.L3	@
 .L2:
-@ src/atomic/workloads/SystemCall.cpp:18: 	return toReturn;
-	ldr	r3, [fp, #-8]	@ _13, toReturn
-@ src/atomic/workloads/SystemCall.cpp:19: }
+@ src/atomic/workloads/SystemCall.cpp:19: 	return toReturn;
+	ldrh	r3, [fp, #-6]	@ _13, toReturn
+@ src/atomic/workloads/SystemCall.cpp:20: }
 	mov	r0, r3	@, <retval>
 	sub	sp, fp, #4	@,,
 	@ sp needed	@
 	pop	{fp, pc}	@
 	.fnend
-	.size	_Z22SystemCallGetProcessIdj, .-_Z22SystemCallGetProcessIdj
+	.size	_Z22SystemCallGetSetUserIdj, .-_Z22SystemCallGetSetUserIdj
 	.align	2
 	.syntax unified
 	.arm
@@ -111,10 +113,10 @@ _ZL17GENERATE_LISTINGSv:
 	.save {fp, lr}
 	.setfp fp, sp, #4
 	add	fp, sp, #4	@,,
-@ src/atomic/workloads/SystemCall.cpp:24: 	SystemCallGetProcessId(0);
+@ src/atomic/workloads/SystemCall.cpp:25: 	SystemCallGetSetUserId(0);
 	mov	r0, #0	@,
-	bl	_Z22SystemCallGetProcessIdj	@
-@ src/atomic/workloads/SystemCall.cpp:25: }
+	bl	_Z22SystemCallGetSetUserIdj	@
+@ src/atomic/workloads/SystemCall.cpp:26: }
 	nop
 	pop	{fp, pc}	@
 	.fnend

@@ -110,15 +110,31 @@ _Z12FunctionCallj:
 	ldr	r3, [fp, #-16]	@ tmp117, dummy
 	ldr	r0, [fp, #-12]	@, toReturn
 	blx	r3	@ tmp117
+@ src/atomic/workloads/FunctionCalls.cpp:23: 		(*dummy)(toReturn);
+	ldr	r3, [fp, #-16]	@ tmp118, dummy
+	ldr	r0, [fp, #-12]	@, toReturn
+	blx	r3	@ tmp118
+@ src/atomic/workloads/FunctionCalls.cpp:24: 		(*dummy)(toReturn);
+	ldr	r3, [fp, #-16]	@ tmp119, dummy
+	ldr	r0, [fp, #-12]	@, toReturn
+	blx	r3	@ tmp119
+@ src/atomic/workloads/FunctionCalls.cpp:25: 		(*dummy)(toReturn);
+	ldr	r3, [fp, #-16]	@ tmp120, dummy
+	ldr	r0, [fp, #-12]	@, toReturn
+	blx	r3	@ tmp120
+@ src/atomic/workloads/FunctionCalls.cpp:26: 		(*dummy)(toReturn);
+	ldr	r3, [fp, #-16]	@ tmp121, dummy
+	ldr	r0, [fp, #-12]	@, toReturn
+	blx	r3	@ tmp121
 @ src/atomic/workloads/FunctionCalls.cpp:20: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-8]	@ tmp119, i
-	add	r3, r3, #1	@ tmp118, tmp119,
-	str	r3, [fp, #-8]	@ tmp118, i
+	ldr	r3, [fp, #-8]	@ tmp123, i
+	add	r3, r3, #1	@ tmp122, tmp123,
+	str	r3, [fp, #-8]	@ tmp122, i
 	b	.L5	@
 .L4:
-@ src/atomic/workloads/FunctionCalls.cpp:25: 	return 0;
-	mov	r3, #0	@ _10,
-@ src/atomic/workloads/FunctionCalls.cpp:26: }
+@ src/atomic/workloads/FunctionCalls.cpp:29: 	return 0;
+	mov	r3, #0	@ _14,
+@ src/atomic/workloads/FunctionCalls.cpp:30: }
 	mov	r0, r3	@, <retval>
 	sub	sp, fp, #4	@,,
 	@ sp needed	@
@@ -139,10 +155,10 @@ _ZL17GENERATE_LISTINGSv:
 	.save {fp, lr}
 	.setfp fp, sp, #4
 	add	fp, sp, #4	@,,
-@ src/atomic/workloads/FunctionCalls.cpp:31: 	FunctionCall(0);
+@ src/atomic/workloads/FunctionCalls.cpp:35: 	FunctionCall(0);
 	mov	r0, #0	@,
 	bl	_Z12FunctionCallj	@
-@ src/atomic/workloads/FunctionCalls.cpp:32: }
+@ src/atomic/workloads/FunctionCalls.cpp:36: }
 	nop
 	pop	{fp, pc}	@
 	.fnend

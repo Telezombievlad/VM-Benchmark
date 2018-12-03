@@ -1,7 +1,10 @@
 x86_COMPILER = g++
 ARM_COMPILER = ~/opt/gcc-arm-none-eabi/bin/arm-none-eabi-g++ # This is an arm development toolchain
 CUR_COMPILER = ${x86_COMPILER}
+
 CFLAGS = -std=c++17 -Werror -Wall -fno-stack-protector
+ASM_x86_FLAGS = -fverbose-asm -march=x86-64
+ASM_ARM_FLAGS = -fverbose-asm -march=armv8-a
 
 all : directories listings atomic memory
 
@@ -9,7 +12,7 @@ directories :
 	mkdir -p bin obj ${WORKLOAD_OBJ_PREFIX} $(dir ${CACHE_SIZES_OBJ}) asm-listings
 
 #--------------------------------------------------------------------------------------------------
-# ATOMIC WORKLOADS
+# LISTINGS OF ATOMIC WORKLOADS
 # Workloads need the assembly listings done
 #--------------------------------------------------------------------------------------------------
 WORKLOAD = IntArithm FloatArithm Branching MemoryAccess FunctionCalls SystemCall
@@ -20,8 +23,6 @@ WORKLOAD_OBJ_PREFIX = obj/atomic/workloads
 # Workload listings
 WORKLOAD_ASM_x86_PREFIX = asm-listings/x86_64_
 WORKLOAD_ASM_ARM_PREFIX = asm-listings/arm8_
-ASM_x86_FLAGS = -fverbose-asm -march=x86-64
-ASM_ARM_FLAGS = -fverbose-asm -march=armv8-a
 
 WORKLOAD_OBJS = ${WORKLOAD:%=${WORKLOAD_OBJ_PREFIX}/%.o}
 

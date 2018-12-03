@@ -1,6 +1,6 @@
 //=================================================================================================
 //! @file  Branching.cpp
-//! @brief Branching loads impkementations
+//! @brief Branching loads implementations
 //=================================================================================================
 
 #include "Branching.hpp"

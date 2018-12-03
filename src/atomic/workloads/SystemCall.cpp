@@ -5,14 +5,15 @@
 
 #include "SystemCall.hpp"
 
-//! A benchmark with the getpid() call
-pid_t SystemCallGetProcessId(size_t iterCount)
+//! A benchmark with the getuid() and setuid() call
+uid_t SystemCallGetSetUserId(size_t iterCount)
 {
-	pid_t toReturn = 0;
+	uid_t toReturn = 0;
 
 	for (size_t i = 0; i < iterCount; ++i)
 	{
-		toReturn += getpid();
+		toReturn = getuid();
+		setuid(toReturn);
 	}
 
 	return toReturn;
@@ -21,5 +22,5 @@ pid_t SystemCallGetProcessId(size_t iterCount)
 //! This function enforces the compiler to generate assembler listings
 __attribute__ ((used)) static void GENERATE_LISTINGS()
 {
-	SystemCallGetProcessId(0);
+	SystemCallGetSetUserId(0);
 }

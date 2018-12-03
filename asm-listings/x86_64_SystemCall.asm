@@ -1,8 +1,8 @@
 	.section	__TEXT,__text,regular,pure_instructions
 	.build_version macos, 10, 14
-	.globl	__Z22SystemCallGetProcessIdm ## -- Begin function _Z22SystemCallGetProcessIdm
+	.globl	__Z22SystemCallGetSetUserIdm ## -- Begin function _Z22SystemCallGetSetUserIdm
 	.p2align	4, 0x90
-__Z22SystemCallGetProcessIdm:           ## @_Z22SystemCallGetProcessIdm
+__Z22SystemCallGetSetUserIdm:           ## @_Z22SystemCallGetSetUserIdm
 	.cfi_startproc
 ## %bb.0:
 	pushq	%rbp
@@ -19,9 +19,11 @@ LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
 	cmpq	-8(%rbp), %rax
 	jae	LBB0_4
 ## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
-	callq	_getpid
-	addl	-12(%rbp), %eax
+	callq	_getuid
 	movl	%eax, -12(%rbp)
+	movl	-12(%rbp), %edi
+	callq	_setuid
+	movl	%eax, -28(%rbp)         ## 4-byte Spill
 ## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
 	movq	-24(%rbp), %rax
 	addq	$1, %rax
@@ -46,7 +48,7 @@ __ZL17GENERATE_LISTINGSv:               ## @_ZL17GENERATE_LISTINGSv
 	subq	$16, %rsp
 	xorl	%eax, %eax
 	movl	%eax, %edi
-	callq	__Z22SystemCallGetProcessIdm
+	callq	__Z22SystemCallGetSetUserIdm
 	movl	%eax, -4(%rbp)          ## 4-byte Spill
 	addq	$16, %rsp
 	popq	%rbp

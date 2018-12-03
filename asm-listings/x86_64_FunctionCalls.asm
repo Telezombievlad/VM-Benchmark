@@ -10,7 +10,7 @@ __Z12FunctionCallm:                     ## @_Z12FunctionCallm
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$48, %rsp
+	subq	$64, %rsp
 	leaq	__ZL9DummyFunci(%rip), %rax
 	movq	%rdi, -8(%rbp)
 	movl	$0, -12(%rbp)
@@ -24,7 +24,23 @@ LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
 	movq	-24(%rbp), %rax
 	movl	-12(%rbp), %edi
 	callq	*%rax
+	movq	-24(%rbp), %rcx
+	movl	-12(%rbp), %edi
 	movl	%eax, -36(%rbp)         ## 4-byte Spill
+	callq	*%rcx
+	movq	-24(%rbp), %rcx
+	movl	-12(%rbp), %edi
+	movl	%eax, -40(%rbp)         ## 4-byte Spill
+	callq	*%rcx
+	movq	-24(%rbp), %rcx
+	movl	-12(%rbp), %edi
+	movl	%eax, -44(%rbp)         ## 4-byte Spill
+	callq	*%rcx
+	movq	-24(%rbp), %rcx
+	movl	-12(%rbp), %edi
+	movl	%eax, -48(%rbp)         ## 4-byte Spill
+	callq	*%rcx
+	movl	%eax, -52(%rbp)         ## 4-byte Spill
 ## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
 	movq	-32(%rbp), %rax
 	addq	$1, %rax
@@ -32,7 +48,7 @@ LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
 	jmp	LBB0_1
 LBB0_4:
 	xorl	%eax, %eax
-	addq	$48, %rsp
+	addq	$64, %rsp
 	popq	%rbp
 	retq
 	.cfi_endproc

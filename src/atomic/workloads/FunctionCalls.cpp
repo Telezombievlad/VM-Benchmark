@@ -20,6 +20,10 @@ int FunctionCall(size_t iterCount)
 	for (size_t i = 0; i < iterCount; ++i)
 	{
 		(*dummy)(toReturn);
+		(*dummy)(toReturn);
+		(*dummy)(toReturn);
+		(*dummy)(toReturn);
+		(*dummy)(toReturn);
 	}
 
 	return 0;

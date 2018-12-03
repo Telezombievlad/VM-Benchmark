@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <cstddef>
 
-//! A benchmark with the getpid() call
-pid_t SystemCallGetProcessId(size_t iterCount);
+//! A benchmark with the getuid() and setuid() call
+uid_t SystemCallGetSetUserId(size_t iterCount);
 
 #endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_SYSTEM_CALL_H_INCLUDED
