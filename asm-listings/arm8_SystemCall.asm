@@ -64,35 +64,35 @@ _Z22SystemCallGetSetUserIdj:
 	.pad #16
 	sub	sp, sp, #16	@,,
 	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/SystemCall.cpp:11: 	uid_t toReturn = 0;
+@ src/atomic/workloads/SystemCall.cpp:13: 	uid_t toReturn = 0;
 	mov	r3, #0	@ tmp114,
 	strh	r3, [fp, #-6]	@ movhi	@ tmp113, toReturn
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/SystemCall.cpp:15: 	for (size_t i = 0; i < iterCount; ++i)
 	mov	r3, #0	@ tmp115,
 	str	r3, [fp, #-12]	@ tmp115, i
 .L3:
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/SystemCall.cpp:15: 	for (size_t i = 0; i < iterCount; ++i)
 	ldr	r2, [fp, #-12]	@ tmp116, i
 	ldr	r3, [fp, #-16]	@ tmp117, iterCount
 	cmp	r2, r3	@ tmp116, tmp117
 	bcs	.L2	@,
-@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn = getuid();
+@ src/atomic/workloads/SystemCall.cpp:17: 		toReturn = getuid();
 	bl	getuid	@
 	mov	r3, r0	@ tmp118,
 	strh	r3, [fp, #-6]	@ movhi	@ _9, toReturn
-@ src/atomic/workloads/SystemCall.cpp:16: 		setuid(toReturn);
+@ src/atomic/workloads/SystemCall.cpp:18: 		setuid(toReturn);
 	ldrh	r3, [fp, #-6]	@ tmp119, toReturn
 	mov	r0, r3	@, tmp119
 	bl	setuid	@
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/SystemCall.cpp:15: 	for (size_t i = 0; i < iterCount; ++i)
 	ldr	r3, [fp, #-12]	@ tmp121, i
 	add	r3, r3, #1	@ tmp120, tmp121,
 	str	r3, [fp, #-12]	@ tmp120, i
 	b	.L3	@
 .L2:
-@ src/atomic/workloads/SystemCall.cpp:19: 	return toReturn;
+@ src/atomic/workloads/SystemCall.cpp:21: 	return toReturn;
 	ldrh	r3, [fp, #-6]	@ _13, toReturn
-@ src/atomic/workloads/SystemCall.cpp:20: }
+@ src/atomic/workloads/SystemCall.cpp:22: }
 	mov	r0, r3	@, <retval>
 	sub	sp, fp, #4	@,,
 	@ sp needed	@
@@ -113,10 +113,10 @@ _ZL17GENERATE_LISTINGSv:
 	.save {fp, lr}
 	.setfp fp, sp, #4
 	add	fp, sp, #4	@,,
-@ src/atomic/workloads/SystemCall.cpp:25: 	SystemCallGetSetUserId(0);
+@ src/atomic/workloads/SystemCall.cpp:27: 	SystemCallGetSetUserId(0);
 	mov	r0, #0	@,
 	bl	_Z22SystemCallGetSetUserIdj	@
-@ src/atomic/workloads/SystemCall.cpp:26: }
+@ src/atomic/workloads/SystemCall.cpp:28: }
 	nop
 	pop	{fp, pc}	@
 	.fnend

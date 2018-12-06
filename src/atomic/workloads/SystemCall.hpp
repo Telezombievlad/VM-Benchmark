@@ -5,6 +5,7 @@
 #ifndef ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_SYSTEM_CALL_H_INCLUDED
 #define ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_SYSTEM_CALL_H_INCLUDED
 
+#include <sys/types.h>
 #include <unistd.h>
 #include <cstddef>
 

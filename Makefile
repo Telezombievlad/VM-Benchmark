@@ -1,15 +1,16 @@
 x86_COMPILER = g++
 ARM_COMPILER = ~/opt/gcc-arm-none-eabi/bin/arm-none-eabi-g++ # This is an arm development toolchain
-CUR_COMPILER = ${x86_COMPILER}
+CUR_COMPILER = ${ARM_COMPILER}
 
 CFLAGS = -std=c++17 -Werror -Wall -fno-stack-protector
 ASM_x86_FLAGS = -fverbose-asm -march=x86-64
-ASM_ARM_FLAGS = -fverbose-asm -march=armv8-a
+ASM_ARM_FLAGS = -fverbose-asm -march=armv8-a --specs=nosys.specs
+CUR_FLAGS = ${ASM_ARM_FLAGS}
 
 all : directories listings atomic memory
 
 directories :  
-	mkdir -p bin obj ${WORKLOAD_OBJ_PREFIX} $(dir ${CACHE_SIZES_OBJ}) asm-listings
+	mkdir -p bin obj res ${WORKLOAD_OBJ_PREFIX} $(dir ${CACHE_SIZES_OBJ}) asm-listings
 
 #--------------------------------------------------------------------------------------------------
 # LISTINGS OF ATOMIC WORKLOADS
@@ -27,7 +28,7 @@ WORKLOAD_ASM_ARM_PREFIX = asm-listings/arm8_
 WORKLOAD_OBJS = ${WORKLOAD:%=${WORKLOAD_OBJ_PREFIX}/%.o}
 
 ${WORKLOAD_OBJ_PREFIX}/%.o : ${WORKLOAD_SRC_PREFIX}/%.cpp ${WORKLOAD_HDR_PREFIX}/%.hpp
-	${CUR_COMPILER} -c ${CFLAGS} $< -o $@ 
+	${CUR_COMPILER} -c ${CFLAGS} ${CUR_FLAGS} $< -o $@ 
 
 ${WORKLOAD_ASM_x86_PREFIX}%.asm : ${WORKLOAD_SRC_PREFIX}/%.cpp ${WORKLOAD_HDR_PREFIX}/%.hpp
 	${x86_COMPILER} -S ${CFLAGS} ${ASM_x86_FLAGS} $< -o $@
@@ -47,7 +48,7 @@ ATOMIC_SRC  = src/atomic/vabench.cpp
 ATOMIC_HDRS = src/atomic/Workloads.hpp src/Benchmark.hpp
 
 ${ATOMIC_EXE} : ${ATOMIC_SRC} ${WORKLOAD_OBJS} ${ATOMIC_HDRS}
-	${CUR_COMPILER} ${CFLAGS} ${WORKLOAD_OBJS} $< -o $@
+	${CUR_COMPILER} ${CFLAGS} ${CUR_FLAGS} ${WORKLOAD_OBJS} $< -o $@
 
 atomic : ${ATOMIC_EXE}
 
@@ -62,10 +63,10 @@ CACHE_SIZES_SRC = src/cacheSizes/CacheSizes.cpp
 CACHE_SIZES_OBJ = obj/cacheSizes/CacheSizes.obj
 
 ${CACHE_SIZES_OBJ} : ${CACHE_SIZES_SRC} ${CACHE_SIZES_HDR}
-	${CUR_COMPILER} -c ${CFLAGS} $< -o $@
+	${CUR_COMPILER} -c ${CFLAGS} ${CUR_FLAGS} $< -o $@
 
 ${MEMORY_EXE} : ${MEMORY_SRC} ${CACHE_SIZES_OBJ}
-	${CUR_COMPILER} ${CFLAGS} ${CACHE_SIZES_OBJ} $< -o $@
+	${CUR_COMPILER} ${CFLAGS} ${CUR_FLAGS} ${CACHE_SIZES_OBJ} $< -o $@
 
 memory : ${MEMORY_EXE}
 
