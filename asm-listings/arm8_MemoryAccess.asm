@@ -16,7 +16,8 @@
 @ options passed:  -imultilib thumb/v7-ar
 @ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
 @ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ src/atomic/workloads/MemoryAccess.cpp -march=armv8-a
+@ -D__USES_INITFINI__ -D VENDOR_OSX -D HOST_IA32 -D TARGET_ARM
+@ src/atomic/workloads/MemoryAccess.cpp -march=armv8-a
 @ -auxbase-strip asm-listings/arm8_MemoryAccess.asm -Werror -Wall
 @ -std=c++1z -fno-stack-protector -fverbose-asm
 @ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec

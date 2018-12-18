@@ -7,7 +7,22 @@
 
 #include <cstddef>
 
-//! A workload consisting of ALU operations
-int IntArithm(size_t iterCount);
+//! Integer arithmetic load consisting of +, -, &, | and ^ operations
+int IntArithmLogic(size_t iterCount);
+
+//! Integer arithmetic load consisting of +, -, &, | and ^ operations, implemented as an inline asssembly
+void IntArithmLogicInlineAsm(size_t iterCount);
+
+//! Integer arithmetic load with multiplication
+int IntArithmMul(size_t iterCount);
+
+//! Integer arithmetic load with multiplication implemented as an inline assembly
+void IntArithmMulInlineAsm(size_t iterCount);
+
+//! Integer arithmetic load with division
+int IntArithmDiv(size_t iterCount);
+
+//! Integer arithmetic load with division implemented as an inline assembly
+void IntArithmDivInlineAsm(size_t iterCount);
 
 #endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_INTEGER_ARITHMETICS_H_INCLUDED

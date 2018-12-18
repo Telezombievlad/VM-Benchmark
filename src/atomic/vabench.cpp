@@ -7,6 +7,7 @@
 #include "workloads/MemoryAccess.hpp"
 #include "workloads/FunctionCalls.hpp"
 #include "workloads/SystemCall.hpp"
+#include "workloads/Cycle.hpp"
 
 #include "../Benchmark.hpp"
 
@@ -45,13 +46,15 @@ void insertColumnNames(FILE* output)
 
 	if (beg == end)
 	{
-		fprintf(output, "|       BENCH TIME       |       SESSION NAME      | ARCH |         WORKLOAD        |ITERATIONS| SCORE  |        EXPLANATION      |\n");
-		fprintf(output, "|:----------------------:|:-----------------------:|:----:|:-----------------------:|:--------:|:------:|:-----------------------:|\n");
+		fprintf(output, "|       BENCH TIME       |       SESSION NAME      | ARCH |         WORKLOAD        |ITERATIONS|   CYCLES   |                EXPLANATION             |\n");
+		fprintf(output, "|:----------------------:|:-----------------------:|:----:|:-----------------------:|:--------:|:----------:|:--------------------------------------:|\n");
 	}
 }
 
 int main(int argc, char* argv[])
 {
+	std::printf("CPU_FREQUENCY = %f\n", CPU_FREQUENCY);
+
 	FILE* outputFile = nullptr;
 	std::list<Workloads> toMeasure{};
 	const char* sessionName = nullptr;
@@ -144,13 +147,13 @@ int main(int argc, char* argv[])
 			case WORKLOAD_##func:                                                                 \
 			{                                                                                     \
 				printf("[-] %-25s", name);                                                        \
-				double score = BenchScore(iters, func);                                           \
-				printf("\r[+] %-25s\t%10d\t%8.01f\n", name, iters, score);                        \
+				double cycles = BenchScore(iters, func);                                          \
+				printf("\r[+] %-25s\t%10d\t%12.06f\n", name, iters, cycles);                      \
 				if (outputFile != nullptr)                                                        \
 				{                                                                                 \
 					time_t cur = std::time(nullptr);                                              \
-				    fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%10d|%8.01f|%-25s|\n",         \
-				        std::ctime(&cur), sessionName, ARCH, name, iters, score, explanation);    \
+				    fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%10d|%12.06f|%-40s|\n",        \
+				        std::ctime(&cur), sessionName, ARCH, name, iters, cycles, explanation);   \
 				}                                                                                 \
 				break;                                                                            \
 			}

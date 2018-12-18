@@ -23,7 +23,7 @@ for group in data.groupby(['Sequential', 'Element Size']):
 		plt.grid(True)
 		plt.ylabel('NanoSeconds/List Element')
 		plt.xlabel('Working Set Size')
-	plt.legend(('Read', 'Write', 'Read/Write'))
+	plt.legend(('+Write', 'Write', 'Read'))
 	plt.title(('Sequential' if group[0][0] else 'Random') + ' access with EL_SIZE=' + str(group[0][1]))
 	plt.savefig("res/graphs/graph_" + str(group[0][0]) + '_' + "all_" + str(group[0][1]), dpi=400)
 	plt.gcf().clear()

@@ -8,7 +8,7 @@
 	.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
 	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
 	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
-	.file	"SystemCall.cpp"
+	.file	"Cycle.cpp"
 @ GNU C++14 (GNU Tools for Arm Embedded Processors 7-2018-q2-update) version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (arm-none-eabi)
 @	compiled by GNU C version 7.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.15-GMP
 
@@ -16,8 +16,8 @@
 @ options passed:  -imultilib thumb/v7-ar
 @ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
 @ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ src/atomic/workloads/SystemCall.cpp -march=armv8-a
-@ -auxbase-strip asm-listings/arm8_SystemCall.asm -Werror -Wall -std=c++1z
+@ -D__USES_INITFINI__ src/atomic/workloads/Cycle.cpp -march=armv8-a
+@ -auxbase-strip asm-listings/arm8_Cycle.asm -Werror -Wall -std=c++1z
 @ -fno-stack-protector -fverbose-asm
 @ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
 @ -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
@@ -47,78 +47,43 @@
 
 	.text
 	.align	2
-	.global	_Z22SystemCallGetSetUserIdj
+	.global	_Z5Cyclej
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	_Z22SystemCallGetSetUserIdj, %function
-_Z22SystemCallGetSetUserIdj:
+	.type	_Z5Cyclej, %function
+_Z5Cyclej:
 	.fnstart
 .LFB12:
 	@ args = 0, pretend = 0, frame = 16
 	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-	.pad #16
-	sub	sp, sp, #16	@,,
+	@ link register save eliminated.
+	str	fp, [sp, #-4]!	@,
+	add	fp, sp, #0	@,,
+	sub	sp, sp, #20	@,,
 	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/SystemCall.cpp:11: 	uid_t toReturn = 0;
-	mov	r3, #0	@ tmp114,
-	strh	r3, [fp, #-6]	@ movhi	@ tmp113, toReturn
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp115,
-	str	r3, [fp, #-12]	@ tmp115, i
+@ src/atomic/workloads/Cycle.cpp:11: 	for (size_t i = 0; i < iterCount; ++i) {}
+	mov	r3, #0	@ tmp110,
+	str	r3, [fp, #-8]	@ tmp110, i
 .L3:
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-12]	@ tmp116, i
-	ldr	r3, [fp, #-16]	@ tmp117, iterCount
-	cmp	r2, r3	@ tmp116, tmp117
-	bcs	.L2	@,
-@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn = getuid();
-	bl	getuid	@
-	mov	r3, r0	@ tmp118,
-	strh	r3, [fp, #-6]	@ movhi	@ _9, toReturn
-@ src/atomic/workloads/SystemCall.cpp:16: 		setuid(toReturn);
-	ldrh	r3, [fp, #-6]	@ tmp119, toReturn
-	mov	r0, r3	@, tmp119
-	bl	setuid	@
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-12]	@ tmp121, i
-	add	r3, r3, #1	@ tmp120, tmp121,
-	str	r3, [fp, #-12]	@ tmp120, i
+@ src/atomic/workloads/Cycle.cpp:11: 	for (size_t i = 0; i < iterCount; ++i) {}
+	ldr	r2, [fp, #-8]	@ tmp111, i
+	ldr	r3, [fp, #-16]	@ tmp112, iterCount
+	cmp	r2, r3	@ tmp111, tmp112
+	bcs	.L4	@,
+@ src/atomic/workloads/Cycle.cpp:11: 	for (size_t i = 0; i < iterCount; ++i) {}
+	ldr	r3, [fp, #-8]	@ tmp114, i
+	add	r3, r3, #1	@ tmp113, tmp114,
+	str	r3, [fp, #-8]	@ tmp113, i
 	b	.L3	@
-.L2:
-@ src/atomic/workloads/SystemCall.cpp:19: 	return toReturn;
-	ldrh	r3, [fp, #-6]	@ _13, toReturn
-@ src/atomic/workloads/SystemCall.cpp:20: }
-	mov	r0, r3	@, <retval>
-	sub	sp, fp, #4	@,,
-	@ sp needed	@
-	pop	{fp, pc}	@
-	.fnend
-	.size	_Z22SystemCallGetSetUserIdj, .-_Z22SystemCallGetSetUserIdj
-	.align	2
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_ZL17GENERATE_LISTINGSv, %function
-_ZL17GENERATE_LISTINGSv:
-	.fnstart
-.LFB13:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-@ src/atomic/workloads/SystemCall.cpp:25: 	SystemCallGetSetUserId(0);
-	mov	r0, #0	@,
-	bl	_Z22SystemCallGetSetUserIdj	@
-@ src/atomic/workloads/SystemCall.cpp:26: }
+.L4:
+@ src/atomic/workloads/Cycle.cpp:12: }
 	nop
-	pop	{fp, pc}	@
+	add	sp, fp, #0	@,,
+	@ sp needed	@
+	ldr	fp, [sp], #4	@,
+	bx	lr	@
+	.cantunwind
 	.fnend
-	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
+	.size	_Z5Cyclej, .-_Z5Cyclej
 	.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"

@@ -51,13 +51,6 @@ clock_t BenchCycles(RetT (*load)(Args...), Args... args)
 	return end - begin;
 }
 
-
-//! A load needed to exclude the cycle walk overhead
-static inline void ArrayWalkLoad(size_t iterCount)
-{
-	for (size_t i = 0; i < iterCount; ++i);
-}
-
 //! @brief   A benchmark that gets workload score (average amount of CPU cycles)
 //! 
 //! @param   load  A workload to be measured
@@ -69,11 +62,9 @@ double BenchScore(size_t iterCount, RetT (*load)(size_t iterCount, Args...), Arg
 	assert(load != nullptr);
 	assert(iterCount != 0);
 
-	auto cycleTime = BenchTime(&ArrayWalkLoad, iterCount);
-
 	auto loadTime = BenchTime(load, iterCount, args...);
 
-	return (loadTime - cycleTime).count() / iterCount;
+	return loadTime.count() / iterCount * CPU_FREQUENCY;
 }
 
 #endif  // ARM_VM_BENCHMARKING_BENCHMARK_HPP_INCLUDED
