@@ -55,8 +55,12 @@ endif
 # GETTNG APPROXIMATE MACHINE CPU FREQUENCY
 #==================================================================================================
 
-CPU_FREQUENCY = $(shell sysctl -n machdep.cpu.brand_string | grep -o "\d*\.\d*GHz" | grep -o "\d*\.\d*")
-CCFLAGS += -D CPU_FREQUENCY=${CPU_FREQUENCY}
+ifeq (${HOST},IA32)
+	CPU_FREQUENCY = $(shell sysctl -n machdep.cpu.brand_string | grep -o "\d*\.\d*GHz" | grep -o "\d*\.\d*")
+	CCFLAGS += -D CPU_FREQUENCY=${CPU_FREQUENCY}
+endif
+
+ifeq 
 
 #==================================================================================================
 # COMPILER OPTIONS
@@ -97,11 +101,11 @@ all : directories listings atomic memory
 # An associative array of load-specific compiler options
 $(call set,WORKLOAD_FLAGS,IntArithm,     -Ofast)
 $(call set,WORKLOAD_FLAGS,FloatArithm,   -Ofast)
-$(call set,WORKLOAD_FLAGS,Branching,     -O1   )
+$(call set,WORKLOAD_FLAGS,Branching,     -Ofast)
 $(call set,WORKLOAD_FLAGS,MemoryAccess,  -O1   )
 $(call set,WORKLOAD_FLAGS,FunctionCalls, -O1   )
 $(call set,WORKLOAD_FLAGS,SystemCall,    -O1   )
-$(call set,WORKLOAD_FLAGS,Cycle,         -O1   )
+$(call set,WORKLOAD_FLAGS,Cycle,         -Ofast)
 
 WORKLOADS = $(call keys,WORKLOAD_FLAGS)
 

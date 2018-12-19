@@ -9,6 +9,9 @@
 #include <chrono>
 #include <cassert>
 
+//! A number of benchmarks to take average of
+const size_t SAMPLE_SIZE = 5;
+
 //! @brief A single time measurement for the given workload
 //! 
 //! @param   load  A workload to be measured
@@ -62,9 +65,10 @@ double BenchScore(size_t iterCount, RetT (*load)(size_t iterCount, Args...), Arg
 	assert(load != nullptr);
 	assert(iterCount != 0);
 
-	auto loadTime = BenchTime(load, iterCount, args...);
+	double sampleTime = 0;
+	for (size_t i = 0; i < SAMPLE_SIZE; ++i) sampleTime += BenchTime(load, iterCount, args...).count();
 
-	return loadTime.count() / iterCount * CPU_FREQUENCY;
+	return sampleTime / iterCount * CPU_FREQUENCY / SAMPLE_SIZE;
 }
 
 #endif  // ARM_VM_BENCHMARKING_BENCHMARK_HPP_INCLUDED

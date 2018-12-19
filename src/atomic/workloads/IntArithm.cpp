@@ -105,20 +105,24 @@ int IntArithmDiv(size_t iterCount)
 }
 
 //! Integer arithmetic load with division implemented as an inline assembly
-void IntArithmDivInlineAsm(size_t iterCount)
+int IntArithmDivInlineAsm(size_t iterCount)
 {
 	#if defined(TARGET_ARM)
+		register volatile int val asm("r0") = 1;
+
 		for (size_t i = 0; i < iterCount; ++i)
 		{
-			asm volatile ("sdiv r0, r0, #1\n\t"
-			              "sdiv r0, r0, #1\n\t"
-			              "sdiv r0, r0, #1\n\t"
-			              "sdiv r0, r0, #1\n\t"
-			              "sdiv r0, r0, #1\n\t"
-			             : /* no outputs */
-			             : /* no  inputs */
-			             : "r0");
+			asm volatile ("sdiv %%0, %%0, %%0\n\t"
+			              "sdiv %%0, %%0, %%0\n\t"
+			              "sdiv %%0, %%0, %%0\n\t"
+			              "sdiv %%0, %%0, %%0\n\t"
+			              "sdiv %%0, %%0, %%0\n\t"
+			             : "=r"(val)
+			             : /* no inputs */	
+			             : );
 		}
+
+		return val;
 	#elif defined(TARGET_x86)
 		register volatile int val asm("%ebx") = 1; 
 
@@ -136,9 +140,10 @@ void IntArithmDivInlineAsm(size_t iterCount)
 			              "idivl %0\n\t"
 			             : /* no outputs */	
 			             : "r"(val)
-			             : "%eax", "%edx"
-			             );
+			             : "%eax", "%edx");
 		}
+
+		return val;
 	#else
 		static_assert(false, "IntArithmDivInlineAsm: Implementation is defined only for ARM or x86 machines");
 	#endif

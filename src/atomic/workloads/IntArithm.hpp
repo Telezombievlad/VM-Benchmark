@@ -23,6 +23,6 @@ void IntArithmMulInlineAsm(size_t iterCount);
 int IntArithmDiv(size_t iterCount);
 
 //! Integer arithmetic load with division implemented as an inline assembly
-void IntArithmDivInlineAsm(size_t iterCount);
+int IntArithmDivInlineAsm(size_t iterCount);
 
 #endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_INTEGER_ARITHMETICS_H_INCLUDED
