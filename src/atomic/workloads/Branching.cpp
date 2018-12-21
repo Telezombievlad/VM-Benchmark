@@ -20,7 +20,7 @@ int BranchingLocalHistory2(size_t iterCount)
 }
 
 //! A benchmark checking for the presence of at least 4 local history bits
-int BranchingLocalHistory4(size_t iterCount) 
+int BranchingLocalHistory4(size_t iterCount)
 {                                                    
 	int dummy = 0;                                   
 	                                                 

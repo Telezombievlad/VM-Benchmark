@@ -7,6 +7,9 @@
 
 #include <cstddef>
 
+//! Integer arithmetic load consisting of +1 operation
+int IntArithmSimpleAdd(size_t iterCount);
+
 //! Integer arithmetic load consisting of +, -, &, | and ^ operations
 int IntArithmLogic(size_t iterCount);
 
@@ -21,8 +24,5 @@ void IntArithmMulInlineAsm(size_t iterCount);
 
 //! Integer arithmetic load with division
 int IntArithmDiv(size_t iterCount);
-
-//! Integer arithmetic load with division implemented as an inline assembly
-int IntArithmDivInlineAsm(size_t iterCount);
 
 #endif  // ARM_VM_BENCHMARKING_SIMPLE_WORKLOADS_INTEGER_ARITHMETICS_H_INCLUDED

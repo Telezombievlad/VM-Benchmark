@@ -5,10 +5,24 @@
 
 #include "IntArithm.hpp"
 
+//! Integer arithmetic load consisting of +1 operation
+int IntArithmSimpleAdd(size_t iterCount)
+{
+	int a = 1;
+	int b = 1;
+
+	for (size_t i = 0; i < iterCount; ++i)
+	{
+		a = a + b;
+	}
+
+	return a;
+}
+
 //! Integer arithmetic load consisting of +, -, &, | and ^ operations
 int IntArithmLogic(size_t iterCount)
 {
-	volatile int a = 0;
+	int a = 0;
 
 	for (size_t i = 0; i < iterCount; ++i)
 	{
@@ -102,51 +116,6 @@ int IntArithmDiv(size_t iterCount)
 	}
 
 	return a;
-}
-
-//! Integer arithmetic load with division implemented as an inline assembly
-int IntArithmDivInlineAsm(size_t iterCount)
-{
-	#if defined(TARGET_ARM)
-		register volatile int val asm("r0") = 1;
-
-		for (size_t i = 0; i < iterCount; ++i)
-		{
-			asm volatile ("sdiv %%0, %%0, %%0\n\t"
-			              "sdiv %%0, %%0, %%0\n\t"
-			              "sdiv %%0, %%0, %%0\n\t"
-			              "sdiv %%0, %%0, %%0\n\t"
-			              "sdiv %%0, %%0, %%0\n\t"
-			             : "=r"(val)
-			             : /* no inputs */	
-			             : );
-		}
-
-		return val;
-	#elif defined(TARGET_x86)
-		register volatile int val asm("%ebx") = 1; 
-
-		for (size_t i = 0; i < iterCount; ++i)
-		{
-			asm volatile ("cltd\n\t"
-				          "idivl %0\n\t"
-				          "cltd\n\t"
-			              "idivl %0\n\t"
-			              "cltd\n\t"
-			              "idivl %0\n\t"
-			              "cltd\n\t"
-			              "idivl %0\n\t"
-			              "cltd\n\t"
-			              "idivl %0\n\t"
-			             : /* no outputs */	
-			             : "r"(val)
-			             : "%eax", "%edx");
-		}
-
-		return val;
-	#else
-		static_assert(false, "IntArithmDivInlineAsm: Implementation is defined only for ARM or x86 machines");
-	#endif
 }
 
 //! This function enforces the compiler to generate assembler listings

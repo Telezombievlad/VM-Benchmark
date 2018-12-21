@@ -16,7 +16,7 @@
 @ options passed:  -imultilib thumb/v7-ar
 @ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
 @ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ -D VENDOR_OSX -D HOST_IA32 -D CPU_FREQUENCY=2.20
+@ -D__USES_INITFINI__ -D VENDOR_OSX -D HOST_IA32 -D CPU_FREQUENCY_GHZ=2.2
 @ -D TARGET_ARM src/atomic/workloads/FloatArithm.cpp -march=armv8-a
 @ -auxbase-strip asm-listings/arm8_FloatArithm.asm -Werror -Wall -std=c++1z
 @ -fno-stack-protector -fverbose-asm
@@ -124,58 +124,6 @@ _Z14FloatArithmAddj:
 	.cantunwind
 	.fnend
 	.size	_Z14FloatArithmAddj, .-_Z14FloatArithmAddj
-	.align	2
-	.global	_Z23FloatArithmAddInlineAsmj
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23FloatArithmAddInlineAsmj, %function
-_Z23FloatArithmAddInlineAsmj:
-	.fnstart
-.LFB879:
-	@ args = 0, pretend = 0, frame = 16
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #20	@,,
-	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/FloatArithm.cpp:26: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp110,
-	str	r3, [fp, #-8]	@ tmp110, i
-.L7:
-@ src/atomic/workloads/FloatArithm.cpp:26: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-8]	@ tmp111, i
-	ldr	r3, [fp, #-16]	@ tmp112, iterCount
-	cmp	r2, r3	@ tmp111, tmp112
-	bcs	.L8	@,
-@ src/atomic/workloads/FloatArithm.cpp:36: 			             : "r0");
-	.syntax divided
-@ 36 "src/atomic/workloads/FloatArithm.cpp" 1
-	bl __aeabi_dadd
-	bl __aeabi_dadd
-	bl __aeabi_dadd
-	bl __aeabi_dadd
-	bl __aeabi_dadd
-	
-@ 0 "" 2
-@ src/atomic/workloads/FloatArithm.cpp:26: 	for (size_t i = 0; i < iterCount; ++i)
-	.arm
-	.syntax unified
-	ldr	r3, [fp, #-8]	@ tmp114, i
-	add	r3, r3, #1	@ tmp113, tmp114,
-	str	r3, [fp, #-8]	@ tmp113, i
-	b	.L7	@
-.L8:
-@ src/atomic/workloads/FloatArithm.cpp:51: }
-	nop
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23FloatArithmAddInlineAsmj, .-_Z23FloatArithmAddInlineAsmj
 	.global	__aeabi_dmul
 	.align	2
 	.global	_Z14FloatArithmMulj
@@ -185,28 +133,28 @@ _Z23FloatArithmAddInlineAsmj:
 	.type	_Z14FloatArithmMulj, %function
 _Z14FloatArithmMulj:
 	.fnstart
-.LFB880:
+.LFB879:
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{fp, lr}	@
 	add	fp, sp, #4	@,,
 	sub	sp, sp, #24	@,,
 	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/FloatArithm.cpp:56: 	double a = 1.0;
+@ src/atomic/workloads/FloatArithm.cpp:26: 	double a = 1.0;
 	mov	r2, #0	@ tmp116,
 	mov	r3, #0	@,
 	movt	r3, 16368	@,
 	strd	r2, [fp, #-12]	@ tmp116,,
-@ src/atomic/workloads/FloatArithm.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/FloatArithm.cpp:28: 	for (size_t i = 0; i < iterCount; ++i)
 	mov	r3, #0	@ tmp117,
 	str	r3, [fp, #-16]	@ tmp117, i
-.L11:
-@ src/atomic/workloads/FloatArithm.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)
+.L7:
+@ src/atomic/workloads/FloatArithm.cpp:28: 	for (size_t i = 0; i < iterCount; ++i)
 	ldr	r2, [fp, #-16]	@ tmp118, i
 	ldr	r3, [fp, #-24]	@ tmp119, iterCount
 	cmp	r2, r3	@ tmp118, tmp119
-	bcs	.L10	@,
-@ src/atomic/workloads/FloatArithm.cpp:60: 		a = a * a * a * a * a * a;	
+	bcs	.L6	@,
+@ src/atomic/workloads/FloatArithm.cpp:30: 		a = a * a * a * a * a * a;	
 	ldrd	r2, [fp, #-12]	@,,
 	ldrd	r0, [fp, #-12]	@,,
 	bl	__aeabi_dmul	@
@@ -235,15 +183,15 @@ _Z14FloatArithmMulj:
 	mov	r2, r0	@ tmp124,
 	mov	r3, r1	@,
 	strd	r2, [fp, #-12]	@ tmp124,,
-@ src/atomic/workloads/FloatArithm.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)
+@ src/atomic/workloads/FloatArithm.cpp:28: 	for (size_t i = 0; i < iterCount; ++i)
 	ldr	r3, [fp, #-16]	@ tmp126, i
 	add	r3, r3, #1	@ tmp125, tmp126,
 	str	r3, [fp, #-16]	@ tmp125, i
-	b	.L11	@
-.L10:
-@ src/atomic/workloads/FloatArithm.cpp:63: 	return a;
+	b	.L7	@
+.L6:
+@ src/atomic/workloads/FloatArithm.cpp:33: 	return a;
 	ldrd	r2, [fp, #-12]	@ _12,,
-@ src/atomic/workloads/FloatArithm.cpp:64: }
+@ src/atomic/workloads/FloatArithm.cpp:34: }
 	mov	r0, r2	@, <retval>
 	mov	r1, r3	@, <retval>
 	sub	sp, fp, #4	@,,
@@ -253,82 +201,24 @@ _Z14FloatArithmMulj:
 	.fnend
 	.size	_Z14FloatArithmMulj, .-_Z14FloatArithmMulj
 	.align	2
-	.global	_Z23FloatArithmMulInlineAsmj
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23FloatArithmMulInlineAsmj, %function
-_Z23FloatArithmMulInlineAsmj:
-	.fnstart
-.LFB881:
-	@ args = 0, pretend = 0, frame = 16
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #20	@,,
-	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/FloatArithm.cpp:69: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp110,
-	str	r3, [fp, #-8]	@ tmp110, i
-.L15:
-@ src/atomic/workloads/FloatArithm.cpp:69: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-8]	@ tmp111, i
-	ldr	r3, [fp, #-16]	@ tmp112, iterCount
-	cmp	r2, r3	@ tmp111, tmp112
-	bcs	.L16	@,
-@ src/atomic/workloads/FloatArithm.cpp:79: 			             : "r0");
-	.syntax divided
-@ 79 "src/atomic/workloads/FloatArithm.cpp" 1
-	bl __aeabi_dmul
-	bl __aeabi_dmul
-	bl __aeabi_dmul
-	bl __aeabi_dmul
-	bl __aeabi_dmul
-	
-@ 0 "" 2
-@ src/atomic/workloads/FloatArithm.cpp:69: 	for (size_t i = 0; i < iterCount; ++i)
-	.arm
-	.syntax unified
-	ldr	r3, [fp, #-8]	@ tmp114, i
-	add	r3, r3, #1	@ tmp113, tmp114,
-	str	r3, [fp, #-8]	@ tmp113, i
-	b	.L15	@
-.L16:
-@ src/atomic/workloads/FloatArithm.cpp:94: }
-	nop
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23FloatArithmMulInlineAsmj, .-_Z23FloatArithmMulInlineAsmj
-	.align	2
 	.syntax unified
 	.arm
 	.fpu softvfp
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
 	.fnstart
-.LFB882:
+.LFB880:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{fp, lr}	@
 	add	fp, sp, #4	@,,
-@ src/atomic/workloads/FloatArithm.cpp:99: 	FloatArithmAdd(0);
+@ src/atomic/workloads/FloatArithm.cpp:39: 	FloatArithmAdd(0);
 	mov	r0, #0	@,
 	bl	_Z14FloatArithmAddj	@
-@ src/atomic/workloads/FloatArithm.cpp:100: 	FloatArithmAddInlineAsm(0);
-	mov	r0, #0	@,
-	bl	_Z23FloatArithmAddInlineAsmj	@
-@ src/atomic/workloads/FloatArithm.cpp:101: 	FloatArithmMul(0);
+@ src/atomic/workloads/FloatArithm.cpp:40: 	FloatArithmMul(0);
 	mov	r0, #0	@,
 	bl	_Z14FloatArithmMulj	@
-@ src/atomic/workloads/FloatArithm.cpp:102: 	FloatArithmMulInlineAsm(0);
-	mov	r0, #0	@,
-	bl	_Z23FloatArithmMulInlineAsmj	@
-@ src/atomic/workloads/FloatArithm.cpp:103: }
+@ src/atomic/workloads/FloatArithm.cpp:41: }
 	nop
 	pop	{fp, pc}	@
 	.cantunwind

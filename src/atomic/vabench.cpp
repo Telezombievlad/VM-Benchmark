@@ -17,21 +17,25 @@
 #include <ctime>
 #include <list>
 
-#if defined(__arm__)
-	const char* ARCH = "ARMv8";
-#elif defined(__i386__)
-	const char* ARCH = "i386"
-#elif defined(__x86_64__)
-	const char* ARCH = "x86_64";
+#if defined(TARGET_ARM)
+	const char* TARGET_ARCH = "ARMv8";
+#elif defined(TARGET_x86)
+	const char* TARGET_ARCH = "x86_64";
 #else 
-	const char* ARCH = "????";
+	const char* TARGET_ARCH = "????";
 #endif
 
 
-enum Workloads {
+enum WorkloadType {
 #define DEF_LOAD(name, iters, func, explanation) WORKLOAD_##func,
 #include "Workloads.hpp"
 #undef DEF_LOAD
+};
+
+struct Workload
+{
+	WorkloadType type;
+	size_t iterations;
 };
 
 void insertColumnNames(FILE* output)
@@ -46,17 +50,15 @@ void insertColumnNames(FILE* output)
 
 	if (beg == end)
 	{
-		fprintf(output, "|       BENCH TIME       |       SESSION NAME      | ARCH |         WORKLOAD        |ITERATIONS|   CYCLES   |                EXPLANATION             |\n");
-		fprintf(output, "|:----------------------:|:-----------------------:|:----:|:-----------------------:|:--------:|:----------:|:--------------------------------------:|\n");
+		fprintf(output, "|       BENCH TIME       |       SESSION NAME      | ARCH |         WORKLOAD        | ITERATIONS |   CYCLES   |                EXPLANATION             |\n");
+		fprintf(output, "|:----------------------:|:-----------------------:|:----:|:-----------------------:|:----------:|:----------:|:--------------------------------------:|\n");
 	}
 }
 
 int main(int argc, char* argv[])
 {
-	std::printf("CPU_FREQUENCY = %f\n", CPU_FREQUENCY);
-
 	FILE* outputFile = nullptr;
-	std::list<Workloads> toMeasure{};
+	std::list<Workload> toMeasure{};
 	const char* sessionName = nullptr;
 
 	// Getting arguments
@@ -64,12 +66,14 @@ int main(int argc, char* argv[])
 	{
 		if (strcmp(argv[i], "help") == 0)
 		{
-			printf("USAGE: va_bench [options] <workloads>\n");
+			printf("USAGE: va_bench [help] [-o <out_file>] [-n <session_name>]\n"
+			       "                [all] [[<load_name> [--iters=<num>]] ...] \n");
 			printf("OPTIONS:\n");
-			printf("    help            \tPrint the list of availible commands.\n");
-			printf("    -o <output_file>\tSet the file to print results to.\n");
-			printf("    all             \tBench all availible workloads.\n");
-			printf("    -n <name>       \tLog bench under specified name.\n");
+			printf("    help            \n\tPrint the list of availible commands.\n");
+			printf("    -o <output_file>\n\tSet the file to print results to.\n");
+			printf("    -n <name>       \n\tLog bench under specified name.\n");
+			printf("    all             \n\tBench all availible workloads.\n");
+			printf("    <load_name> [--iters=<num>]\n\tBench <load_name> workload with <num> iterations.\n");
 			printf("WORKLOADS:\n");
 
 			// Printing workloads
@@ -81,16 +85,6 @@ int main(int argc, char* argv[])
 			break;
 		}
 		//-----------------------------------------------------------------------------------------
-		// "all" argument
-		//-----------------------------------------------------------------------------------------
-		else if (strcmp(argv[i], "all") == 0) 
-		{
-			// benching all the workloads
-			#define DEF_LOAD(name, iters, func, explanation) toMeasure.push_back(WORKLOAD_##func);
-			#include "Workloads.hpp"
-			#undef DEF_LOAD
-		}
-		//-----------------------------------------------------------------------------------------
 		// "-o" argument
 		//-----------------------------------------------------------------------------------------
 		else if (strcmp(argv[i], "-o") == 0)
@@ -98,6 +92,11 @@ int main(int argc, char* argv[])
 			if (++i >= argc)
 			{
 				printf("Unspecified output file. Type in \"vabench help\" to get help.\n");
+			}
+
+			if (outputFile != nullptr)
+			{
+				printf("Resetting output file is forbidden.\n");
 			}
 
 			outputFile = fopen(argv[i], "a");
@@ -108,16 +107,6 @@ int main(int argc, char* argv[])
 
 			insertColumnNames(outputFile);
 		}
-		//-----------------------------------------------------------------------------------------
-		// <workload> argument
-		//-----------------------------------------------------------------------------------------
-		#define DEF_LOAD(name, iters, func, explanation) \
-			else if (strcmp(argv[i], name) == 0) toMeasure.push_back(WORKLOAD_##func);
-		#include "Workloads.hpp"
-		#undef DEF_LOAD
-		//-----------------------------------------------------------------------------------------
-		// "-n" argument
-		//-----------------------------------------------------------------------------------------
 		else if (strcmp(argv[i], "-n") == 0)
 		{
 			if (++i >= argc)
@@ -125,8 +114,44 @@ int main(int argc, char* argv[])
 				printf("Unspecified session name. Type in \"vabench help\" to get help.\n");
 			}
 
+			if (sessionName != nullptr)
+			{
+				printf("Resetting session name is forbidden.\n");
+			}
+
 			sessionName = argv[i];
 		}
+		//-----------------------------------------------------------------------------------------
+		// "all" argument
+		//-----------------------------------------------------------------------------------------
+		else if (strcmp(argv[i], "all") == 0) 
+		{
+			// benching all the workloads
+			#define DEF_LOAD(name, iters, func, explanation) \
+				toMeasure.push_back({WORKLOAD_##func, iters});
+			#include "Workloads.hpp"
+			#undef DEF_LOAD
+		}
+		//-----------------------------------------------------------------------------------------
+		// <workload> argument
+		//-----------------------------------------------------------------------------------------
+		#define DEF_LOAD(name, iters, func, explanation)                           \
+			else if (strcmp(argv[i], name) == 0)                                   \
+			{                                                                      \
+				size_t itersToSet = iters;                                         \
+				if (++i < argc)                                                    \
+				{                                                                  \
+					int stuffRead = sscanf(argv[i], "--iters=%zu", &itersToSet);   \
+					if (stuffRead == 0) --i;                                       \
+				}                                                                  \
+				                                                                   \
+				toMeasure.push_back({WORKLOAD_##func, itersToSet});                \
+			}
+		#include "Workloads.hpp"
+		#undef DEF_LOAD
+		//-----------------------------------------------------------------------------------------
+		// "-n" argument
+		//-----------------------------------------------------------------------------------------
 		else
 		{
 			printf("Unknown format. Type in \"vabench help\" to get help.\n");
@@ -141,21 +166,28 @@ int main(int argc, char* argv[])
 
 	for (auto curLoad : toMeasure)
 	{
-		switch (curLoad)
-		{  
-		#define DEF_LOAD(name, iters, func, explanation)                                          \
-			case WORKLOAD_##func:                                                                 \
-			{                                                                                     \
-				printf("[-] %-25s", name);                                                        \
-				double cycles = BenchScore(iters, func);                                          \
-				printf("\r[+] %-25s\t%10d\t%12.06f\n", name, iters, cycles);                      \
-				if (outputFile != nullptr)                                                        \
-				{                                                                                 \
-					time_t cur = std::time(nullptr);                                              \
-				    fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%10d|%12.06f|%-40s|\n",        \
-				        std::ctime(&cur), sessionName, ARCH, name, iters, cycles, explanation);   \
-				}                                                                                 \
-				break;                                                                            \
+		switch (curLoad.type)
+		{   
+		#define DEF_LOAD(name, iters, func, explanation)                                         \
+			case WORKLOAD_##func:                                                                \
+			{                                                                                    \
+				printf("[-] %-25s", name);                                                       \
+				try {                                                                            \
+					double result = BenchInstrChronoSteady(curLoad.iterations, func);            \
+					printf("\r[+] %-25s\t%12zu\t%12.06lf\n", name, curLoad.iterations, result);  \
+					if (outputFile != nullptr)                                                   \
+					{                                                                            \
+						time_t cur = std::time(nullptr);                                         \
+						fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%12zu|%12.06lf|%-40s|\n", \
+						    std::ctime(&cur), sessionName, TARGET_ARCH, name,                    \
+						    curLoad.iterations, result, explanation);                            \
+					}                                                                            \
+				}                                                                                \
+				catch(...)                                                                       \
+				{                                                                                \
+					printf("[-] %-25s FAILED\n", name);                                          \
+				}                                                                                \
+				break;                                                                           \
 			}
 		#include "Workloads.hpp"
 		#undef DEF_LOAD

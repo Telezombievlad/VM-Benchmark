@@ -55,12 +55,10 @@ endif
 # GETTNG APPROXIMATE MACHINE CPU FREQUENCY
 #==================================================================================================
 
-ifeq (${HOST},IA32)
-	CPU_FREQUENCY = $(shell sysctl -n machdep.cpu.brand_string | grep -o "\d*\.\d*GHz" | grep -o "\d*\.\d*")
-	CCFLAGS += -D CPU_FREQUENCY=${CPU_FREQUENCY}
-endif
+# On mac: sysctl -n machdep.cpu.brand_string | grep -o "\d*\.\d*GHz" | grep -o "\d*\.\d*"
+# On linux: lscpu | grep MHz
 
-ifeq 
+CCFLAGS += -D CPU_FREQUENCY_GHZ="2.2"#GHz
 
 #==================================================================================================
 # COMPILER OPTIONS
@@ -86,7 +84,7 @@ CUR_COMPILER = g++
 
 CCFLAGS += -std=c++17 -Werror -Wall -fno-stack-protector
 ASM_x86_FLAGS = -D TARGET_x86 -fverbose-asm -march=x86-64
-ASM_ARM_FLAGS = -D TARGET_ARM -fverbose-asm -march=armv8-a --specs=nosys.specs
+ASM_ARM_FLAGS = -D TARGET_ARM -fverbose-asm -march=armv8-a
 
 #==================================================================================================
 # MAKEFILE MAIN TARGET
@@ -99,7 +97,7 @@ all : directories listings atomic memory
 #==================================================================================================
 
 # An associative array of load-specific compiler options
-$(call set,WORKLOAD_FLAGS,IntArithm,     -Ofast)
+$(call set,WORKLOAD_FLAGS,IntArithm,     -Ofast -Wno-error=volatile-register-var)
 $(call set,WORKLOAD_FLAGS,FloatArithm,   -Ofast)
 $(call set,WORKLOAD_FLAGS,Branching,     -Ofast)
 $(call set,WORKLOAD_FLAGS,MemoryAccess,  -O1   )
@@ -191,8 +189,9 @@ install_python_deps:
 #==================================================================================================
 
 # Creating directories
-directories :  
+directories:  
 	mkdir -p bin obj res ${WORKLOAD_OBJ_PREFIX} $(dir ${CACHE_SIZES_OBJ}) asm-listings
 
 # Cleaning
-clean: rm -f build/*.o
+clean:
+	rm -rf obj/*
