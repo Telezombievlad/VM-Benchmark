@@ -17,6 +17,7 @@
 #include <ctime>
 #include <list>
 
+// Getting target architecture
 #if defined(TARGET_ARM)
 	const char* TARGET_ARCH = "ARMv8";
 #elif defined(TARGET_x86)
@@ -24,7 +25,6 @@
 #else 
 	const char* TARGET_ARCH = "????";
 #endif
-
 
 enum WorkloadType {
 #define DEF_LOAD(name, iters, func, explanation) WORKLOAD_##func,
@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
 	if (sessionName == nullptr) sessionName = "UNNAMED SESSION";
 
 	// Executing microbenchmarks
-	if (!toMeasure.empty()) printf("[V] %25s\t%10s\t%8s\n", "WORKLOAD", "ITERATIONS", "SCORE");
+	if (!toMeasure.empty()) printf("[V] %-24s\t%12s\t%12s\n", "WORKLOAD", "ITERATIONS", "SCORE");
 
 	for (auto curLoad : toMeasure)
 	{
@@ -171,21 +171,21 @@ int main(int argc, char* argv[])
 		#define DEF_LOAD(name, iters, func, explanation)                                         \
 			case WORKLOAD_##func:                                                                \
 			{                                                                                    \
-				printf("[-] %-25s", name);                                                       \
+				printf("[X] %-25s", name);                                                       \
 				try {                                                                            \
-					double result = BenchInstrChronoSteady(curLoad.iterations, func);            \
-					printf("\r[+] %-25s\t%12zu\t%12.06lf\n", name, curLoad.iterations, result);  \
+					double result = BenchInstr(curLoad.iterations, func);            \
+					printf("\r[+] %-25s\t%12zu\t%12.03lf\n", name, curLoad.iterations, result);  \
 					if (outputFile != nullptr)                                                   \
 					{                                                                            \
 						time_t cur = std::time(nullptr);                                         \
-						fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%12zu|%12.06lf|%-40s|\n", \
+						fprintf(outputFile, "|%24.24s|%-25s|%-6s|%-25s|%12zu|%12.03lf|%-40s|\n", \
 						    std::ctime(&cur), sessionName, TARGET_ARCH, name,                    \
 						    curLoad.iterations, result, explanation);                            \
 					}                                                                            \
 				}                                                                                \
 				catch(...)                                                                       \
 				{                                                                                \
-					printf("[-] %-25s FAILED\n", name);                                          \
+					printf("[X] %-25s FAILED\n", name);                                          \
 				}                                                                                \
 				break;                                                                           \
 			}

@@ -6,78 +6,32 @@ include vendor/gmsl-1.1.8/gmsl
 $(call assert,$(call gmsl_compatible,1 1 0),Incompatible GMSL Version)
 
 #==================================================================================================
-# DETECTING CURRENT OS AND ARCHITECTURE
-#==================================================================================================
-# Partly taken from https://stackoverflow.com/questions/714100/os-detecting-makefile
-# Go there for explanation
-ifeq ($(OS),Windows_NT)
-    CCFLAGS += -D VENDOR_WIN32
-    VENDOR = WIN32
-    ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-        CCFLAGS += -D HOST_AMD64
-        HOST = AMD64
-    else
-        ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-            CCFLAGS += -D HOST_AMD64
-            HOST = AMD64
-        endif
-        ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-            CCFLAGS += -D HOST_IA32
-            HOST = IA32
-        endif
-    endif
-else
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Linux)
-        CCFLAGS += -D VENDOR_LINUX
-        VENDOR = LINUX
-    endif
-    ifeq ($(UNAME_S),Darwin)
-        CCFLAGS += -D VENDOR_OSX
-        VENDOR = OSX
-    endif
-    UNAME_P := $(shell uname -p)
-    ifeq ($(UNAME_P),x86_64)
-        CCFLAGS += -D HOST_AMD64
-        HOST = AMD64
-    endif
-    ifneq ($(filter %86,$(UNAME_P)),)
-        CCFLAGS += -D HOST_IA32
-        HOST = IA32
-    endif
-    ifneq ($(filter arm%,$(UNAME_P)),)
-        CCFLAGS += -D HOST_ARM
-        HOST = ARM
-    endif
-endif
-
-#==================================================================================================
-# GETTNG APPROXIMATE MACHINE CPU FREQUENCY
+# GETTNG APPROPRIATE MACHINE CPU FREQUENCY
 #==================================================================================================
 
-# On mac: sysctl -n machdep.cpu.brand_string | grep -o "\d*\.\d*GHz" | grep -o "\d*\.\d*"
-# On linux: lscpu | grep MHz
-
-CCFLAGS += -D CPU_FREQUENCY_GHZ="2.2"#GHz
+# CCFLAGS += -D CPU_FREQUENCY="2200" #MHz
+CCFLAGS += -D AUTO_CPU_FREQUENCY_LINUX
 
 #==================================================================================================
 # COMPILER OPTIONS
 #==================================================================================================
 # There are three compiler settings:
 # CUR_COMPILER - Needed to build an actual working application on the current machine
-# ARM_COMPILER - For making assembly listings on any machine
+# ARM_COMPILER - For ARM target
+# x86_COMPILER - For x86 target
 
+HOST_ARCH = $(shell uname -p)
 
-ifeq (${HOST},IA32)
-	ARM_COMPILER = ~/opt/gcc-arm-none-eabi/bin/arm-none-eabi-g++
+ifeq (${HOST_ARCH},x86_64)
+	ARM_COMPILER = /opt/gcc-arm-none-eabi-8-2018-q4-major/bin/arm-none-eabi-g++
 	x86_COMPILER = g++
 	CUR_FLAGS = -D TARGET_x86
 endif
 
-ifeq (${HOST},ARM)
+ifeq (${HOST_ARCH},ARM)
 	ARM_COMPILER = g++
 	x86_COMPILER = echo "ARM-x86 HOST-TARGET BUNDLE NOT SUPPORTED" && :
-	CUR_FLAGS = -D TARGET_ARM
+	CUR_FLAGS = TARGET_ARM
 endif
 
 CUR_COMPILER = g++
@@ -141,7 +95,7 @@ listings : $(patsubst %,${WORKLOAD_ASM_x86_PREFIX}%.asm,${WORKLOADS}) \
 
 ATOMIC_EXE  = bin/vabench
 ATOMIC_SRC  = src/atomic/vabench.cpp
-ATOMIC_HDRS = src/atomic/Workloads.hpp src/Benchmark.hpp
+ATOMIC_HDRS = src/atomic/Workloads.hpp src/Benchmark.hpp src/PlatformSpecific.hpp
 
 ${ATOMIC_EXE} : ${ATOMIC_SRC} ${WORKLOAD_OBJS} ${ATOMIC_HDRS}
 	${CUR_COMPILER} ${CCFLAGS} ${CUR_FLAGS} ${WORKLOAD_OBJS} $< -o $@

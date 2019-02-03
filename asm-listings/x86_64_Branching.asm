@@ -1,489 +1,594 @@
-	.section	__TEXT,__text,regular,pure_instructions
-	.build_version macos, 10, 14
-	.globl	__Z22BranchingLocalHistory2m ## -- Begin function _Z22BranchingLocalHistory2m
-	.p2align	4, 0x90
-__Z22BranchingLocalHistory2m:           ## @_Z22BranchingLocalHistory2m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -8(%rbp)
-	movl	$0, -12(%rbp)
-	movq	$0, -24(%rbp)
-LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-24(%rbp), %rax
-	cmpq	-8(%rbp), %rax
-	jae	LBB0_7
-## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
-	movq	-24(%rbp), %rax
-	andq	$1, %rax
-	cmpq	$0, %rax
-	je	LBB0_4
-## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -12(%rbp)
-	jmp	LBB0_5
-LBB0_4:                                 ##   in Loop: Header=BB0_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$-1, %eax
-	movl	%eax, -12(%rbp)
-LBB0_5:                                 ##   in Loop: Header=BB0_1 Depth=1
-	jmp	LBB0_6
-LBB0_6:                                 ##   in Loop: Header=BB0_1 Depth=1
-	movq	-24(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -24(%rbp)
-	jmp	LBB0_1
-LBB0_7:
-	movl	-12(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.globl	__Z22BranchingLocalHistory4m ## -- Begin function _Z22BranchingLocalHistory4m
-	.p2align	4, 0x90
-__Z22BranchingLocalHistory4m:           ## @_Z22BranchingLocalHistory4m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -8(%rbp)
-	movl	$0, -12(%rbp)
-	movq	$0, -24(%rbp)
-LBB1_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-24(%rbp), %rax
-	cmpq	-8(%rbp), %rax
-	jae	LBB1_7
-## %bb.2:                               ##   in Loop: Header=BB1_1 Depth=1
-	movq	-24(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB1_4
-## %bb.3:                               ##   in Loop: Header=BB1_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -12(%rbp)
-	jmp	LBB1_5
-LBB1_4:                                 ##   in Loop: Header=BB1_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$-1, %eax
-	movl	%eax, -12(%rbp)
-LBB1_5:                                 ##   in Loop: Header=BB1_1 Depth=1
-	jmp	LBB1_6
-LBB1_6:                                 ##   in Loop: Header=BB1_1 Depth=1
-	movq	-24(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -24(%rbp)
-	jmp	LBB1_1
-LBB1_7:
-	movl	-12(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.globl	__Z22BranchingLocalHistory8m ## -- Begin function _Z22BranchingLocalHistory8m
-	.p2align	4, 0x90
-__Z22BranchingLocalHistory8m:           ## @_Z22BranchingLocalHistory8m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -8(%rbp)
-	movl	$0, -12(%rbp)
-	movq	$0, -24(%rbp)
-LBB2_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-24(%rbp), %rax
-	cmpq	-8(%rbp), %rax
-	jae	LBB2_7
-## %bb.2:                               ##   in Loop: Header=BB2_1 Depth=1
-	movq	-24(%rbp), %rax
-	andq	$7, %rax
-	cmpq	$0, %rax
-	je	LBB2_4
-## %bb.3:                               ##   in Loop: Header=BB2_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -12(%rbp)
-	jmp	LBB2_5
-LBB2_4:                                 ##   in Loop: Header=BB2_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$-1, %eax
-	movl	%eax, -12(%rbp)
-LBB2_5:                                 ##   in Loop: Header=BB2_1 Depth=1
-	jmp	LBB2_6
-LBB2_6:                                 ##   in Loop: Header=BB2_1 Depth=1
-	movq	-24(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -24(%rbp)
-	jmp	LBB2_1
-LBB2_7:
-	movl	-12(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.globl	__Z23BranchingLocalHistory16m ## -- Begin function _Z23BranchingLocalHistory16m
-	.p2align	4, 0x90
-__Z23BranchingLocalHistory16m:          ## @_Z23BranchingLocalHistory16m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -8(%rbp)
-	movl	$0, -12(%rbp)
-	movq	$0, -24(%rbp)
-LBB3_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-24(%rbp), %rax
-	cmpq	-8(%rbp), %rax
-	jae	LBB3_7
-## %bb.2:                               ##   in Loop: Header=BB3_1 Depth=1
-	movq	-24(%rbp), %rax
-	andq	$15, %rax
-	cmpq	$0, %rax
-	je	LBB3_4
-## %bb.3:                               ##   in Loop: Header=BB3_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -12(%rbp)
-	jmp	LBB3_5
-LBB3_4:                                 ##   in Loop: Header=BB3_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$-1, %eax
-	movl	%eax, -12(%rbp)
-LBB3_5:                                 ##   in Loop: Header=BB3_1 Depth=1
-	jmp	LBB3_6
-LBB3_6:                                 ##   in Loop: Header=BB3_1 Depth=1
-	movq	-24(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -24(%rbp)
-	jmp	LBB3_1
-LBB3_7:
-	movl	-12(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.globl	__Z23BranchingGlobalHistory2m ## -- Begin function _Z23BranchingGlobalHistory2m
-	.p2align	4, 0x90
-__Z23BranchingGlobalHistory2m:          ## @_Z23BranchingGlobalHistory2m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -16(%rbp)
-	movb	$0, -17(%rbp)
-	movb	$0, -18(%rbp)
-	movl	$0, -24(%rbp)
-	movq	$0, -32(%rbp)
-LBB4_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-32(%rbp), %rax
-	cmpq	-16(%rbp), %rax
-	jae	LBB4_14
-## %bb.2:                               ##   in Loop: Header=BB4_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$15, %rax
-	cmpq	$0, %rax
-	je	LBB4_4
-## %bb.3:                               ##   in Loop: Header=BB4_1 Depth=1
-	movb	$0, -17(%rbp)
-	jmp	LBB4_5
-LBB4_4:                                 ##   in Loop: Header=BB4_1 Depth=1
-	movb	$1, -17(%rbp)
-LBB4_5:                                 ##   in Loop: Header=BB4_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB4_7
-## %bb.6:                               ##   in Loop: Header=BB4_1 Depth=1
-	movb	$0, -18(%rbp)
-	jmp	LBB4_8
-LBB4_7:                                 ##   in Loop: Header=BB4_1 Depth=1
-	movb	$1, -18(%rbp)
-LBB4_8:                                 ##   in Loop: Header=BB4_1 Depth=1
-	testb	$1, -17(%rbp)
-	je	LBB4_11
-## %bb.9:                               ##   in Loop: Header=BB4_1 Depth=1
-	testb	$1, -18(%rbp)
-	je	LBB4_11
-## %bb.10:                              ##   in Loop: Header=BB4_1 Depth=1
-	movl	-24(%rbp), %eax
-	movl	%eax, -8(%rbp)
-	movl	-8(%rbp), %eax
-	cvtsi2sdl	%eax, %xmm0
-	sqrtsd	%xmm0, %xmm0
-	cvttsd2si	%xmm0, %eax
-	movl	%eax, -24(%rbp)
-	jmp	LBB4_12
-LBB4_11:                                ##   in Loop: Header=BB4_1 Depth=1
-	movl	-24(%rbp), %eax
-	movl	%eax, -4(%rbp)
-	movl	-4(%rbp), %eax
-	cvtsi2sdl	%eax, %xmm0
-	sqrtsd	%xmm0, %xmm0
-	cvttsd2si	%xmm0, %eax
-	movl	%eax, -24(%rbp)
-LBB4_12:                                ##   in Loop: Header=BB4_1 Depth=1
-	jmp	LBB4_13
-LBB4_13:                                ##   in Loop: Header=BB4_1 Depth=1
-	movq	-32(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -32(%rbp)
-	jmp	LBB4_1
-LBB4_14:
-	movl	-24(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.section	__TEXT,__literal8,8byte_literals
-	.p2align	3               ## -- Begin function _Z23BranchingGlobalHistory3m
-LCPI5_0:
-	.quad	4607182418800017408     ## double 1
-	.section	__TEXT,__text,regular,pure_instructions
-	.globl	__Z23BranchingGlobalHistory3m
-	.p2align	4, 0x90
-__Z23BranchingGlobalHistory3m:          ## @_Z23BranchingGlobalHistory3m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movsd	LCPI5_0(%rip), %xmm0    ## xmm0 = mem[0],zero
-	movq	%rdi, -8(%rbp)
-	movb	$0, -9(%rbp)
-	movb	$0, -10(%rbp)
-	movb	$0, -11(%rbp)
-	movsd	%xmm0, -24(%rbp)
-	movq	$0, -32(%rbp)
-LBB5_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-32(%rbp), %rax
-	cmpq	-8(%rbp), %rax
-	jae	LBB5_18
-## %bb.2:                               ##   in Loop: Header=BB5_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$15, %rax
-	cmpq	$0, %rax
-	je	LBB5_4
-## %bb.3:                               ##   in Loop: Header=BB5_1 Depth=1
-	movb	$0, -9(%rbp)
-	jmp	LBB5_5
-LBB5_4:                                 ##   in Loop: Header=BB5_1 Depth=1
-	movb	$1, -9(%rbp)
-LBB5_5:                                 ##   in Loop: Header=BB5_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB5_7
-## %bb.6:                               ##   in Loop: Header=BB5_1 Depth=1
-	movb	$0, -10(%rbp)
-	jmp	LBB5_8
-LBB5_7:                                 ##   in Loop: Header=BB5_1 Depth=1
-	movb	$1, -10(%rbp)
-LBB5_8:                                 ##   in Loop: Header=BB5_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB5_10
-## %bb.9:                               ##   in Loop: Header=BB5_1 Depth=1
-	movb	$0, -11(%rbp)
-	jmp	LBB5_11
-LBB5_10:                                ##   in Loop: Header=BB5_1 Depth=1
-	movb	$1, -11(%rbp)
-LBB5_11:                                ##   in Loop: Header=BB5_1 Depth=1
-	testb	$1, -9(%rbp)
-	je	LBB5_15
-## %bb.12:                              ##   in Loop: Header=BB5_1 Depth=1
-	testb	$1, -10(%rbp)
-	je	LBB5_15
-## %bb.13:                              ##   in Loop: Header=BB5_1 Depth=1
-	testb	$1, -11(%rbp)
-	je	LBB5_15
-## %bb.14:                              ##   in Loop: Header=BB5_1 Depth=1
-	movsd	-24(%rbp), %xmm0        ## xmm0 = mem[0],zero
-	sqrtsd	%xmm0, %xmm0
-	movsd	%xmm0, -24(%rbp)
-	jmp	LBB5_16
-LBB5_15:                                ##   in Loop: Header=BB5_1 Depth=1
-	movsd	-24(%rbp), %xmm0        ## xmm0 = mem[0],zero
-	sqrtsd	%xmm0, %xmm0
-	movsd	%xmm0, -24(%rbp)
-LBB5_16:                                ##   in Loop: Header=BB5_1 Depth=1
-	jmp	LBB5_17
-LBB5_17:                                ##   in Loop: Header=BB5_1 Depth=1
-	movq	-32(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -32(%rbp)
-	jmp	LBB5_1
-LBB5_18:
-	cvttsd2si	-24(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.globl	__Z23BranchingGlobalHistory4m ## -- Begin function _Z23BranchingGlobalHistory4m
-	.p2align	4, 0x90
-__Z23BranchingGlobalHistory4m:          ## @_Z23BranchingGlobalHistory4m
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movq	%rdi, -16(%rbp)
-	movb	$0, -17(%rbp)
-	movb	$0, -18(%rbp)
-	movb	$0, -19(%rbp)
-	movb	$0, -20(%rbp)
-	movl	$0, -24(%rbp)
-	movq	$0, -32(%rbp)
-LBB6_1:                                 ## =>This Inner Loop Header: Depth=1
-	movq	-32(%rbp), %rax
-	cmpq	-16(%rbp), %rax
-	jae	LBB6_22
-## %bb.2:                               ##   in Loop: Header=BB6_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$15, %rax
-	cmpq	$0, %rax
-	je	LBB6_4
-## %bb.3:                               ##   in Loop: Header=BB6_1 Depth=1
-	movb	$0, -17(%rbp)
-	jmp	LBB6_5
-LBB6_4:                                 ##   in Loop: Header=BB6_1 Depth=1
-	movb	$1, -17(%rbp)
-LBB6_5:                                 ##   in Loop: Header=BB6_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB6_7
-## %bb.6:                               ##   in Loop: Header=BB6_1 Depth=1
-	movb	$0, -18(%rbp)
-	jmp	LBB6_8
-LBB6_7:                                 ##   in Loop: Header=BB6_1 Depth=1
-	movb	$1, -18(%rbp)
-LBB6_8:                                 ##   in Loop: Header=BB6_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB6_10
-## %bb.9:                               ##   in Loop: Header=BB6_1 Depth=1
-	movb	$0, -19(%rbp)
-	jmp	LBB6_11
-LBB6_10:                                ##   in Loop: Header=BB6_1 Depth=1
-	movb	$1, -19(%rbp)
-LBB6_11:                                ##   in Loop: Header=BB6_1 Depth=1
-	movq	-32(%rbp), %rax
-	andq	$3, %rax
-	cmpq	$0, %rax
-	je	LBB6_13
-## %bb.12:                              ##   in Loop: Header=BB6_1 Depth=1
-	movb	$0, -20(%rbp)
-	jmp	LBB6_14
-LBB6_13:                                ##   in Loop: Header=BB6_1 Depth=1
-	movb	$1, -20(%rbp)
-LBB6_14:                                ##   in Loop: Header=BB6_1 Depth=1
-	testb	$1, -17(%rbp)
-	je	LBB6_19
-## %bb.15:                              ##   in Loop: Header=BB6_1 Depth=1
-	testb	$1, -18(%rbp)
-	je	LBB6_19
-## %bb.16:                              ##   in Loop: Header=BB6_1 Depth=1
-	testb	$1, -19(%rbp)
-	je	LBB6_19
-## %bb.17:                              ##   in Loop: Header=BB6_1 Depth=1
-	testb	$1, -20(%rbp)
-	je	LBB6_19
-## %bb.18:                              ##   in Loop: Header=BB6_1 Depth=1
-	movl	-24(%rbp), %eax
-	movl	%eax, -8(%rbp)
-	movl	-8(%rbp), %eax
-	cvtsi2sdl	%eax, %xmm0
-	sqrtsd	%xmm0, %xmm0
-	cvttsd2si	%xmm0, %eax
-	movl	%eax, -24(%rbp)
-	jmp	LBB6_20
-LBB6_19:                                ##   in Loop: Header=BB6_1 Depth=1
-	movl	-24(%rbp), %eax
-	movl	%eax, -4(%rbp)
-	movl	-4(%rbp), %eax
-	cvtsi2sdl	%eax, %xmm0
-	sqrtsd	%xmm0, %xmm0
-	cvttsd2si	%xmm0, %eax
-	movl	%eax, -24(%rbp)
-LBB6_20:                                ##   in Loop: Header=BB6_1 Depth=1
-	jmp	LBB6_21
-LBB6_21:                                ##   in Loop: Header=BB6_1 Depth=1
-	movq	-32(%rbp), %rax
-	addq	$1, %rax
-	movq	%rax, -32(%rbp)
-	jmp	LBB6_1
-LBB6_22:
-	movl	-24(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.p2align	4, 0x90         ## -- Begin function _ZL17GENERATE_LISTINGSv
-__ZL17GENERATE_LISTINGSv:               ## @_ZL17GENERATE_LISTINGSv
-	.cfi_startproc
-## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	subq	$32, %rsp
-	xorl	%eax, %eax
-	movl	%eax, %edi
-	callq	__Z22BranchingLocalHistory2m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -4(%rbp)          ## 4-byte Spill
-	callq	__Z22BranchingLocalHistory4m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -8(%rbp)          ## 4-byte Spill
-	callq	__Z22BranchingLocalHistory8m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -12(%rbp)         ## 4-byte Spill
-	callq	__Z23BranchingLocalHistory16m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -16(%rbp)         ## 4-byte Spill
-	callq	__Z23BranchingGlobalHistory2m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -20(%rbp)         ## 4-byte Spill
-	callq	__Z23BranchingGlobalHistory2m
-	xorl	%ecx, %ecx
-	movl	%ecx, %edi
-	movl	%eax, -24(%rbp)         ## 4-byte Spill
-	callq	__Z23BranchingGlobalHistory2m
-	movl	%eax, -28(%rbp)         ## 4-byte Spill
-	addq	$32, %rsp
-	popq	%rbp
-	retq
-	.cfi_endproc
-                                        ## -- End function
-	.no_dead_strip	__ZL17GENERATE_LISTINGSv
+	.file	"Branching.cpp"
+# GNU C++14 (Ubuntu 7.3.0-27ubuntu1~18.04) version 7.3.0 (x86_64-linux-gnu)
+#	compiled by GNU C version 7.3.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
-.subsections_via_symbols
+# GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+# options passed:  -imultiarch x86_64-linux-gnu -D_GNU_SOURCE
+# -D AUTO_CPU_FREQUENCY_LINUX -D TARGET_x86
+# src/atomic/workloads/Branching.cpp -march=x86-64
+# -auxbase-strip asm-listings/x86_64_Branching.asm -Werror -Wall -std=c++1z
+# -fno-stack-protector -fverbose-asm -Wformat-security
+# options enabled:  -fPIC -fPIE -faggressive-loop-optimizations
+# -fasynchronous-unwind-tables -fauto-inc-dec -fchkp-check-incomplete-type
+# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+# -fchkp-use-wrappers -fcommon -fdelete-null-pointer-checks
+# -fdwarf2-cfi-asm -fearly-inlining -feliminate-unused-debug-types
+# -fexceptions -ffp-int-builtin-inexact -ffunction-cse -fgcse-lm
+# -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+# -fira-share-save-slots -fira-share-spill-slots -fivopts
+# -fkeep-static-consts -fleading-underscore -flifetime-dse
+# -flto-odr-type-merging -fmath-errno -fmerge-debug-strings -fpeephole
+# -fplt -fprefetch-loop-arrays -freg-struct-return
+# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+# -fsched-stalled-insns-dep -fschedule-fusion -fsemantic-interposition
+# -fshow-column -fshrink-wrap-separate -fsigned-zeros
+# -fsplit-ivs-in-unroller -fssa-backprop -fstdarg-opt
+# -fstrict-volatile-bitfields -fsync-libcalls -ftrapping-math -ftree-cselim
+# -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+# -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop
+# -ftree-reassoc -ftree-scev-cprop -funit-at-a-time -funwind-tables
+# -fverbose-asm -fzero-initialized-in-bss -m128bit-long-double -m64 -m80387
+# -malign-stringops -mavx256-split-unaligned-load
+# -mavx256-split-unaligned-store -mfancy-math-387 -mfp-ret-in-387 -mfxsr
+# -mglibc -mieee-fp -mlong-double-80 -mmmx -mno-sse4 -mpush-args -mred-zone
+# -msse -msse2 -mstv -mtls-direct-seg-refs -mvzeroupper
+
+	.text
+	.globl	_Z22BranchingLocalHistory2m
+	.type	_Z22BranchingLocalHistory2m, @function
+_Z22BranchingLocalHistory2m:
+.LFB897:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:11: 	int dummy = 0;                                   
+	movl	$0, -4(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	$0, -16(%rbp)	#, i
+.L5:
+# src/atomic/workloads/Branching.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	-16(%rbp), %rax	# i, tmp90
+	cmpq	-24(%rbp), %rax	# iterCount, tmp90
+	jnb	.L2	#,
+# src/atomic/workloads/Branching.cpp:15: 		if (i & 1) ++dummy;               
+	movq	-16(%rbp), %rax	# i, tmp91
+	andl	$1, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L3	#,
+# src/atomic/workloads/Branching.cpp:15: 		if (i & 1) ++dummy;               
+	addl	$1, -4(%rbp)	#, dummy
+	jmp	.L4	#
+.L3:
+# src/atomic/workloads/Branching.cpp:16: 		else --dummy;                                
+	subl	$1, -4(%rbp)	#, dummy
+.L4:
+# src/atomic/workloads/Branching.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)           
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L5	#
+.L2:
+# src/atomic/workloads/Branching.cpp:19: 	return dummy;                                    
+	movl	-4(%rbp), %eax	# dummy, _11
+# src/atomic/workloads/Branching.cpp:20: }
+	popq	%rbp	#
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE897:
+	.size	_Z22BranchingLocalHistory2m, .-_Z22BranchingLocalHistory2m
+	.globl	_Z22BranchingLocalHistory4m
+	.type	_Z22BranchingLocalHistory4m, @function
+_Z22BranchingLocalHistory4m:
+.LFB898:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:25: 	int dummy = 0;                                   
+	movl	$0, -4(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:27: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	$0, -16(%rbp)	#, i
+.L11:
+# src/atomic/workloads/Branching.cpp:27: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	-16(%rbp), %rax	# i, tmp90
+	cmpq	-24(%rbp), %rax	# iterCount, tmp90
+	jnb	.L8	#,
+# src/atomic/workloads/Branching.cpp:30: 		if (i & 3) ++dummy;             
+	movq	-16(%rbp), %rax	# i, tmp91
+	andl	$3, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L9	#,
+# src/atomic/workloads/Branching.cpp:30: 		if (i & 3) ++dummy;             
+	addl	$1, -4(%rbp)	#, dummy
+	jmp	.L10	#
+.L9:
+# src/atomic/workloads/Branching.cpp:31: 		else --dummy;                                
+	subl	$1, -4(%rbp)	#, dummy
+.L10:
+# src/atomic/workloads/Branching.cpp:27: 	for (size_t i = 0; i < iterCount; ++i)           
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L11	#
+.L8:
+# src/atomic/workloads/Branching.cpp:34: 	return dummy;                                    
+	movl	-4(%rbp), %eax	# dummy, _11
+# src/atomic/workloads/Branching.cpp:35: }
+	popq	%rbp	#
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE898:
+	.size	_Z22BranchingLocalHistory4m, .-_Z22BranchingLocalHistory4m
+	.globl	_Z22BranchingLocalHistory8m
+	.type	_Z22BranchingLocalHistory8m, @function
+_Z22BranchingLocalHistory8m:
+.LFB899:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:40: 	int dummy = 0;                                   
+	movl	$0, -4(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:42: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	$0, -16(%rbp)	#, i
+.L17:
+# src/atomic/workloads/Branching.cpp:42: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	-16(%rbp), %rax	# i, tmp90
+	cmpq	-24(%rbp), %rax	# iterCount, tmp90
+	jnb	.L14	#,
+# src/atomic/workloads/Branching.cpp:45: 		if (i & 7) ++dummy;               
+	movq	-16(%rbp), %rax	# i, tmp91
+	andl	$7, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L15	#,
+# src/atomic/workloads/Branching.cpp:45: 		if (i & 7) ++dummy;               
+	addl	$1, -4(%rbp)	#, dummy
+	jmp	.L16	#
+.L15:
+# src/atomic/workloads/Branching.cpp:46: 		else --dummy;                                
+	subl	$1, -4(%rbp)	#, dummy
+.L16:
+# src/atomic/workloads/Branching.cpp:42: 	for (size_t i = 0; i < iterCount; ++i)           
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L17	#
+.L14:
+# src/atomic/workloads/Branching.cpp:49: 	return dummy;                                    
+	movl	-4(%rbp), %eax	# dummy, _11
+# src/atomic/workloads/Branching.cpp:50: }
+	popq	%rbp	#
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE899:
+	.size	_Z22BranchingLocalHistory8m, .-_Z22BranchingLocalHistory8m
+	.globl	_Z23BranchingLocalHistory16m
+	.type	_Z23BranchingLocalHistory16m, @function
+_Z23BranchingLocalHistory16m:
+.LFB900:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:56: 	int dummy = 0;                                   
+	movl	$0, -4(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	$0, -16(%rbp)	#, i
+.L23:
+# src/atomic/workloads/Branching.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)           
+	movq	-16(%rbp), %rax	# i, tmp90
+	cmpq	-24(%rbp), %rax	# iterCount, tmp90
+	jnb	.L20	#,
+# src/atomic/workloads/Branching.cpp:61: 		if (i & 15) ++dummy;               
+	movq	-16(%rbp), %rax	# i, tmp91
+	andl	$15, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L21	#,
+# src/atomic/workloads/Branching.cpp:61: 		if (i & 15) ++dummy;               
+	addl	$1, -4(%rbp)	#, dummy
+	jmp	.L22	#
+.L21:
+# src/atomic/workloads/Branching.cpp:62: 		else --dummy;                                
+	subl	$1, -4(%rbp)	#, dummy
+.L22:
+# src/atomic/workloads/Branching.cpp:58: 	for (size_t i = 0; i < iterCount; ++i)           
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L23	#
+.L20:
+# src/atomic/workloads/Branching.cpp:65: 	return dummy;                                    
+	movl	-4(%rbp), %eax	# dummy, _11
+# src/atomic/workloads/Branching.cpp:66: }
+	popq	%rbp	#
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE900:
+	.size	_Z23BranchingLocalHistory16m, .-_Z23BranchingLocalHistory16m
+	.globl	_Z23BranchingGlobalHistory2m
+	.type	_Z23BranchingGlobalHistory2m, @function
+_Z23BranchingGlobalHistory2m:
+.LFB901:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp	#,
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:71: 	bool a = false; 
+	movb	$0, -1(%rbp)	#, a
+# src/atomic/workloads/Branching.cpp:72: 	bool b = false;	
+	movb	$0, -2(%rbp)	#, b
+# src/atomic/workloads/Branching.cpp:73: 	int dummy = 0; 
+	movl	$0, -8(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:75: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	$0, -16(%rbp)	#, i
+.L33:
+# src/atomic/workloads/Branching.cpp:75: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	-16(%rbp), %rax	# i, tmp93
+	cmpq	-24(%rbp), %rax	# iterCount, tmp93
+	jnb	.L26	#,
+# src/atomic/workloads/Branching.cpp:78: 		if (i & 15) a = false;
+	movq	-16(%rbp), %rax	# i, tmp94
+	andl	$15, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L27	#,
+# src/atomic/workloads/Branching.cpp:78: 		if (i & 15) a = false;
+	movb	$0, -1(%rbp)	#, a
+	jmp	.L28	#
+.L27:
+# src/atomic/workloads/Branching.cpp:79: 		else a = true;
+	movb	$1, -1(%rbp)	#, a
+.L28:
+# src/atomic/workloads/Branching.cpp:80: 		if (i & 3) b = false;
+	movq	-16(%rbp), %rax	# i, tmp95
+	andl	$3, %eax	#, _2
+	testq	%rax, %rax	# _2
+	je	.L29	#,
+# src/atomic/workloads/Branching.cpp:80: 		if (i & 3) b = false;
+	movb	$0, -2(%rbp)	#, b
+	jmp	.L30	#
+.L29:
+# src/atomic/workloads/Branching.cpp:81: 		else b = true;
+	movb	$1, -2(%rbp)	#, b
+.L30:
+# src/atomic/workloads/Branching.cpp:83: 		if (a && b) dummy = std::sqrt(dummy);
+	cmpb	$0, -1(%rbp)	#, a
+	je	.L31	#,
+# src/atomic/workloads/Branching.cpp:83: 		if (a && b) dummy = std::sqrt(dummy);
+	cmpb	$0, -2(%rbp)	#, b
+	je	.L31	#,
+# src/atomic/workloads/Branching.cpp:83: 		if (a && b) dummy = std::sqrt(dummy);
+	movl	-8(%rbp), %eax	# dummy, tmp96
+	movl	%eax, %edi	# tmp96,
+	call	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_	#
+	cvttsd2si	%xmm0, %eax	# _3, tmp97
+	movl	%eax, -8(%rbp)	# tmp97, dummy
+	jmp	.L32	#
+.L31:
+# src/atomic/workloads/Branching.cpp:84: 		else        dummy = std::sqrt(dummy);
+	movl	-8(%rbp), %eax	# dummy, tmp98
+	movl	%eax, %edi	# tmp98,
+	call	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_	#
+	cvttsd2si	%xmm0, %eax	# _4, tmp99
+	movl	%eax, -8(%rbp)	# tmp99, dummy
+.L32:
+# src/atomic/workloads/Branching.cpp:75: 	for (size_t i = 0; i < iterCount; ++i)
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L33	#
+.L26:
+# src/atomic/workloads/Branching.cpp:87: 	return dummy;
+	movl	-8(%rbp), %eax	# dummy, _27
+# src/atomic/workloads/Branching.cpp:88: }
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE901:
+	.size	_Z23BranchingGlobalHistory2m, .-_Z23BranchingGlobalHistory2m
+	.globl	_Z23BranchingGlobalHistory3m
+	.type	_Z23BranchingGlobalHistory3m, @function
+_Z23BranchingGlobalHistory3m:
+.LFB902:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp	#,
+	movq	%rdi, -40(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:93: 	bool a = false; 
+	movb	$0, -1(%rbp)	#, a
+# src/atomic/workloads/Branching.cpp:94: 	bool b = false;	
+	movb	$0, -2(%rbp)	#, b
+# src/atomic/workloads/Branching.cpp:95: 	bool c = false;
+	movb	$0, -3(%rbp)	#, c
+# src/atomic/workloads/Branching.cpp:96: 	double dummy = 1; 
+	movsd	.LC0(%rip), %xmm0	#, tmp92
+	movsd	%xmm0, -16(%rbp)	# tmp92, dummy
+# src/atomic/workloads/Branching.cpp:98: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	$0, -24(%rbp)	#, i
+.L45:
+# src/atomic/workloads/Branching.cpp:98: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	-24(%rbp), %rax	# i, tmp93
+	cmpq	-40(%rbp), %rax	# iterCount, tmp93
+	jnb	.L36	#,
+# src/atomic/workloads/Branching.cpp:101: 		if (i & 15) a = false;
+	movq	-24(%rbp), %rax	# i, tmp94
+	andl	$15, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L37	#,
+# src/atomic/workloads/Branching.cpp:101: 		if (i & 15) a = false;
+	movb	$0, -1(%rbp)	#, a
+	jmp	.L38	#
+.L37:
+# src/atomic/workloads/Branching.cpp:102: 		else a = true;
+	movb	$1, -1(%rbp)	#, a
+.L38:
+# src/atomic/workloads/Branching.cpp:103: 		if (i & 3) b = false;
+	movq	-24(%rbp), %rax	# i, tmp95
+	andl	$3, %eax	#, _2
+	testq	%rax, %rax	# _2
+	je	.L39	#,
+# src/atomic/workloads/Branching.cpp:103: 		if (i & 3) b = false;
+	movb	$0, -2(%rbp)	#, b
+	jmp	.L40	#
+.L39:
+# src/atomic/workloads/Branching.cpp:104: 		else b = true;
+	movb	$1, -2(%rbp)	#, b
+.L40:
+# src/atomic/workloads/Branching.cpp:105: 		if (i & 3) c = false;
+	movq	-24(%rbp), %rax	# i, tmp96
+	andl	$3, %eax	#, _3
+	testq	%rax, %rax	# _3
+	je	.L41	#,
+# src/atomic/workloads/Branching.cpp:105: 		if (i & 3) c = false;
+	movb	$0, -3(%rbp)	#, c
+	jmp	.L42	#
+.L41:
+# src/atomic/workloads/Branching.cpp:106: 		else c = true;
+	movb	$1, -3(%rbp)	#, c
+.L42:
+# src/atomic/workloads/Branching.cpp:108: 		if (a && b && c) dummy = std::sqrt(dummy);
+	cmpb	$0, -1(%rbp)	#, a
+	je	.L43	#,
+# src/atomic/workloads/Branching.cpp:108: 		if (a && b && c) dummy = std::sqrt(dummy);
+	cmpb	$0, -2(%rbp)	#, b
+	je	.L43	#,
+# src/atomic/workloads/Branching.cpp:108: 		if (a && b && c) dummy = std::sqrt(dummy);
+	cmpb	$0, -3(%rbp)	#, c
+	je	.L43	#,
+# src/atomic/workloads/Branching.cpp:108: 		if (a && b && c) dummy = std::sqrt(dummy);
+	movq	-16(%rbp), %rax	# dummy, tmp97
+	movq	%rax, -48(%rbp)	# tmp97, %sfp
+	movsd	-48(%rbp), %xmm0	# %sfp,
+	call	sqrt@PLT	#
+	movq	%xmm0, %rax	#, tmp98
+	movq	%rax, -16(%rbp)	# tmp98, dummy
+	jmp	.L44	#
+.L43:
+# src/atomic/workloads/Branching.cpp:109: 		else             dummy = std::sqrt(dummy);
+	movq	-16(%rbp), %rax	# dummy, tmp99
+	movq	%rax, -48(%rbp)	# tmp99, %sfp
+	movsd	-48(%rbp), %xmm0	# %sfp,
+	call	sqrt@PLT	#
+	movq	%xmm0, %rax	#, tmp100
+	movq	%rax, -16(%rbp)	# tmp100, dummy
+.L44:
+# src/atomic/workloads/Branching.cpp:98: 	for (size_t i = 0; i < iterCount; ++i)
+	addq	$1, -24(%rbp)	#, i
+	jmp	.L45	#
+.L36:
+# src/atomic/workloads/Branching.cpp:112: 	return dummy;
+	movsd	-16(%rbp), %xmm0	# dummy, tmp101
+	cvttsd2si	%xmm0, %eax	# tmp101, _30
+# src/atomic/workloads/Branching.cpp:113: }
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE902:
+	.size	_Z23BranchingGlobalHistory3m, .-_Z23BranchingGlobalHistory3m
+	.globl	_Z23BranchingGlobalHistory4m
+	.type	_Z23BranchingGlobalHistory4m, @function
+_Z23BranchingGlobalHistory4m:
+.LFB903:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp	#,
+	movq	%rdi, -24(%rbp)	# iterCount, iterCount
+# src/atomic/workloads/Branching.cpp:118: 	bool a = false; 
+	movb	$0, -1(%rbp)	#, a
+# src/atomic/workloads/Branching.cpp:119: 	bool b = false;	
+	movb	$0, -2(%rbp)	#, b
+# src/atomic/workloads/Branching.cpp:120: 	bool c = false;
+	movb	$0, -3(%rbp)	#, c
+# src/atomic/workloads/Branching.cpp:121: 	bool d = false;
+	movb	$0, -4(%rbp)	#, d
+# src/atomic/workloads/Branching.cpp:122: 	int dummy = 0; 
+	movl	$0, -8(%rbp)	#, dummy
+# src/atomic/workloads/Branching.cpp:124: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	$0, -16(%rbp)	#, i
+.L59:
+# src/atomic/workloads/Branching.cpp:124: 	for (size_t i = 0; i < iterCount; ++i)
+	movq	-16(%rbp), %rax	# i, tmp95
+	cmpq	-24(%rbp), %rax	# iterCount, tmp95
+	jnb	.L48	#,
+# src/atomic/workloads/Branching.cpp:127: 		if (i & 15) a = false;
+	movq	-16(%rbp), %rax	# i, tmp96
+	andl	$15, %eax	#, _1
+	testq	%rax, %rax	# _1
+	je	.L49	#,
+# src/atomic/workloads/Branching.cpp:127: 		if (i & 15) a = false;
+	movb	$0, -1(%rbp)	#, a
+	jmp	.L50	#
+.L49:
+# src/atomic/workloads/Branching.cpp:128: 		else a = true;
+	movb	$1, -1(%rbp)	#, a
+.L50:
+# src/atomic/workloads/Branching.cpp:129: 		if (i & 3) b = false;
+	movq	-16(%rbp), %rax	# i, tmp97
+	andl	$3, %eax	#, _2
+	testq	%rax, %rax	# _2
+	je	.L51	#,
+# src/atomic/workloads/Branching.cpp:129: 		if (i & 3) b = false;
+	movb	$0, -2(%rbp)	#, b
+	jmp	.L52	#
+.L51:
+# src/atomic/workloads/Branching.cpp:130: 		else b = true;
+	movb	$1, -2(%rbp)	#, b
+.L52:
+# src/atomic/workloads/Branching.cpp:131: 		if (i & 3) c = false;
+	movq	-16(%rbp), %rax	# i, tmp98
+	andl	$3, %eax	#, _3
+	testq	%rax, %rax	# _3
+	je	.L53	#,
+# src/atomic/workloads/Branching.cpp:131: 		if (i & 3) c = false;
+	movb	$0, -3(%rbp)	#, c
+	jmp	.L54	#
+.L53:
+# src/atomic/workloads/Branching.cpp:132: 		else c = true;
+	movb	$1, -3(%rbp)	#, c
+.L54:
+# src/atomic/workloads/Branching.cpp:133: 		if (i & 3) d = false;
+	movq	-16(%rbp), %rax	# i, tmp99
+	andl	$3, %eax	#, _4
+	testq	%rax, %rax	# _4
+	je	.L55	#,
+# src/atomic/workloads/Branching.cpp:133: 		if (i & 3) d = false;
+	movb	$0, -4(%rbp)	#, d
+	jmp	.L56	#
+.L55:
+# src/atomic/workloads/Branching.cpp:134: 		else d = true;
+	movb	$1, -4(%rbp)	#, d
+.L56:
+# src/atomic/workloads/Branching.cpp:136: 		if (a && b && c && d) dummy = std::sqrt(dummy);
+	cmpb	$0, -1(%rbp)	#, a
+	je	.L57	#,
+# src/atomic/workloads/Branching.cpp:136: 		if (a && b && c && d) dummy = std::sqrt(dummy);
+	cmpb	$0, -2(%rbp)	#, b
+	je	.L57	#,
+# src/atomic/workloads/Branching.cpp:136: 		if (a && b && c && d) dummy = std::sqrt(dummy);
+	cmpb	$0, -3(%rbp)	#, c
+	je	.L57	#,
+# src/atomic/workloads/Branching.cpp:136: 		if (a && b && c && d) dummy = std::sqrt(dummy);
+	cmpb	$0, -4(%rbp)	#, d
+	je	.L57	#,
+# src/atomic/workloads/Branching.cpp:136: 		if (a && b && c && d) dummy = std::sqrt(dummy);
+	movl	-8(%rbp), %eax	# dummy, tmp100
+	movl	%eax, %edi	# tmp100,
+	call	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_	#
+	cvttsd2si	%xmm0, %eax	# _5, tmp101
+	movl	%eax, -8(%rbp)	# tmp101, dummy
+	jmp	.L58	#
+.L57:
+# src/atomic/workloads/Branching.cpp:137: 		else                  dummy = std::sqrt(dummy);
+	movl	-8(%rbp), %eax	# dummy, tmp102
+	movl	%eax, %edi	# tmp102,
+	call	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_	#
+	cvttsd2si	%xmm0, %eax	# _6, tmp103
+	movl	%eax, -8(%rbp)	# tmp103, dummy
+.L58:
+# src/atomic/workloads/Branching.cpp:124: 	for (size_t i = 0; i < iterCount; ++i)
+	addq	$1, -16(%rbp)	#, i
+	jmp	.L59	#
+.L48:
+# src/atomic/workloads/Branching.cpp:140: 	return dummy;
+	movl	-8(%rbp), %eax	# dummy, _37
+# src/atomic/workloads/Branching.cpp:141: }
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE903:
+	.size	_Z23BranchingGlobalHistory4m, .-_Z23BranchingGlobalHistory4m
+	.type	_ZL17GENERATE_LISTINGSv, @function
+_ZL17GENERATE_LISTINGSv:
+.LFB904:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+# src/atomic/workloads/Branching.cpp:146: 	BranchingLocalHistory2(0);
+	movl	$0, %edi	#,
+	call	_Z22BranchingLocalHistory2m	#
+# src/atomic/workloads/Branching.cpp:147: 	BranchingLocalHistory4(0);
+	movl	$0, %edi	#,
+	call	_Z22BranchingLocalHistory4m	#
+# src/atomic/workloads/Branching.cpp:148: 	BranchingLocalHistory8(0);
+	movl	$0, %edi	#,
+	call	_Z22BranchingLocalHistory8m	#
+# src/atomic/workloads/Branching.cpp:149: 	BranchingLocalHistory16(0);
+	movl	$0, %edi	#,
+	call	_Z23BranchingLocalHistory16m	#
+# src/atomic/workloads/Branching.cpp:151: 	BranchingGlobalHistory2(0);
+	movl	$0, %edi	#,
+	call	_Z23BranchingGlobalHistory2m	#
+# src/atomic/workloads/Branching.cpp:152: 	BranchingGlobalHistory2(0);
+	movl	$0, %edi	#,
+	call	_Z23BranchingGlobalHistory2m	#
+# src/atomic/workloads/Branching.cpp:153: 	BranchingGlobalHistory2(0);
+	movl	$0, %edi	#,
+	call	_Z23BranchingGlobalHistory2m	#
+# src/atomic/workloads/Branching.cpp:154: }
+	nop
+	popq	%rbp	#
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE904:
+	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
+	.section	.text._ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_,"axG",@progbits,_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_,comdat
+	.weak	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_
+	.type	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_, @function
+_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_:
+.LFB954:
+	.cfi_startproc
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp	#,
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp	#,
+	movl	%edi, -4(%rbp)	# __x, __x
+# /usr/include/c++/7/cmath:476:     { return __builtin_sqrt(__x); }
+	cvtsi2sd	-4(%rbp), %xmm0	# __x, _1
+	call	sqrt@PLT	#
+	movq	%xmm0, %rax	#, _5
+	movq	%rax, -16(%rbp)	# _5, %sfp
+	movsd	-16(%rbp), %xmm0	# %sfp, <retval>
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE954:
+	.size	_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_, .-_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_
+	.section	.rodata
+	.align 8
+.LC0:
+	.long	0
+	.long	1072693248
+	.ident	"GCC: (Ubuntu 7.3.0-27ubuntu1~18.04) 7.3.0"
+	.section	.note.GNU-stack,"",@progbits
