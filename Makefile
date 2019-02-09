@@ -9,8 +9,8 @@ $(call assert,$(call gmsl_compatible,1 1 0),Incompatible GMSL Version)
 # GETTNG APPROPRIATE MACHINE CPU FREQUENCY
 #==================================================================================================
 
-# CCFLAGS += -D CPU_FREQUENCY="2200" #MHz
-CCFLAGS += -D AUTO_CPU_FREQUENCY_LINUX
+CCFLAGS += -D CPU_FREQUENCY="1536" #MHz
+# CCFLAGS += -D AUTO_CPU_FREQUENCY_LINUX
 
 #==================================================================================================
 # COMPILER OPTIONS
@@ -31,7 +31,13 @@ endif
 ifeq (${HOST_ARCH},ARM)
 	ARM_COMPILER = g++
 	x86_COMPILER = echo "ARM-x86 HOST-TARGET BUNDLE NOT SUPPORTED" && :
-	CUR_FLAGS = TARGET_ARM
+	CUR_FLAGS = -D TARGET_ARM
+endif
+
+ifeq (${HOST_ARCH},aarch64)
+	ARM_COMPILER = g++
+	x86_COMPILER = echo "ARM-x86 HOST-TARGET BUNDLE NOT SUPPORTED" && :
+	CUR_FLAGS = -D TARGET_ARM
 endif
 
 CUR_COMPILER = g++

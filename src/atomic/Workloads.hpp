@@ -31,6 +31,39 @@ DEF_LOAD("IntArithmDivThroughput4", 1000000, IntArithmDivThroughput4, "4 DEPENDE
 DEF_LOAD("IntArithmDivThroughput5", 1000000, IntArithmDivThroughput5, "5 DEPENDENCY CHAINS")
 DEF_LOAD("IntArithmDivThroughput6", 1000000, IntArithmDivThroughput6, "6 DEPENDENCY CHAINS")
 
+DEF_LOAD("FloatArithmAddLatency1",    1000000, FloatArithmAddLatency1,    "ADDx1")
+DEF_LOAD("FloatArithmAddLatency2",    1000000, FloatArithmAddLatency2,    "ADDx2")
+DEF_LOAD("FloatArithmAddLatency3",    1000000, FloatArithmAddLatency3,    "ADDx3")
+
+DEF_LOAD("FloatArithmAddThroughput1", 1000000, FloatArithmAddThroughput1, "1 DEPENDENCY CHAIN")
+DEF_LOAD("FloatArithmAddThroughput2", 1000000, FloatArithmAddThroughput2, "2 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmAddThroughput3", 1000000, FloatArithmAddThroughput3, "3 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmAddThroughput4", 1000000, FloatArithmAddThroughput4, "4 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmAddThroughput5", 1000000, FloatArithmAddThroughput5, "5 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmAddThroughput6", 1000000, FloatArithmAddThroughput6, "6 DEPENDENCY CHAINS")
+
+DEF_LOAD("FloatArithmMulLatency1",    1000000, FloatArithmMulLatency1,    "MULx1")
+DEF_LOAD("FloatArithmMulLatency2",    1000000, FloatArithmMulLatency2,    "MULx2")
+DEF_LOAD("FloatArithmMulLatency3",    1000000, FloatArithmMulLatency3,    "MULx3")
+
+DEF_LOAD("FloatArithmMulThroughput1", 1000000, FloatArithmMulThroughput1, "1 DEPENDENCY CHAIN")
+DEF_LOAD("FloatArithmMulThroughput2", 1000000, FloatArithmMulThroughput2, "2 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmMulThroughput3", 1000000, FloatArithmMulThroughput3, "3 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmMulThroughput4", 1000000, FloatArithmMulThroughput4, "4 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmMulThroughput5", 1000000, FloatArithmMulThroughput5, "5 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmMulThroughput6", 1000000, FloatArithmMulThroughput6, "6 DEPENDENCY CHAINS")
+
+DEF_LOAD("FloatArithmDivLatency1",    1000000, FloatArithmDivLatency1,    "DIVx1")
+DEF_LOAD("FloatArithmDivLatency2",    1000000, FloatArithmDivLatency2,    "DIVx2")
+DEF_LOAD("FloatArithmDivLatency3",    1000000, FloatArithmDivLatency3,    "DIVx3")
+
+DEF_LOAD("FloatArithmDivThroughput1", 1000000, FloatArithmDivThroughput1, "1 DEPENDENCY CHAIN")
+DEF_LOAD("FloatArithmDivThroughput2", 1000000, FloatArithmDivThroughput2, "2 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmDivThroughput3", 1000000, FloatArithmDivThroughput3, "3 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmDivThroughput4", 1000000, FloatArithmDivThroughput4, "4 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmDivThroughput5", 1000000, FloatArithmDivThroughput5, "5 DEPENDENCY CHAINS")
+DEF_LOAD("FloatArithmDivThroughput6", 1000000, FloatArithmDivThroughput6, "6 DEPENDENCY CHAINS")
+
 DEF_LOAD("BranchingLocalHistory2",  1000000, BranchingLocalHistory2,  "TESTING FOR 2 LOCAL HISTORY BITS")
 DEF_LOAD("BranchingLocalHistory4",  1000000, BranchingLocalHistory4,  "TESTING FOR 4 LOCAL HISTORY BITS")
 DEF_LOAD("BranchingLocalHistory8",  1000000, BranchingLocalHistory8,  "TESTING FOR 8 LOCAL HISTORY BITS")

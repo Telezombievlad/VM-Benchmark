@@ -1,2210 +1,1679 @@
 	.arch armv8-a
-	.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
-	.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
-	.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
-	.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
-	.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
-	.eabi_attribute 26, 1	@ Tag_ABI_enum_size
-	.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
-	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
-	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
 	.file	"IntArithm.cpp"
-@ GNU C++17 (GNU Tools for Arm Embedded Processors 8-2018-q4-major) version 8.2.1 20181213 (release) [gcc-8-branch revision 267074] (arm-none-eabi)
-@	compiled by GNU C version 4.8.4, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
-
-@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-@ options passed:  -imultilib thumb/v7/nofp
-@ -iprefix /opt/gcc-arm-none-eabi-8-2018-q4-major/bin/../lib/gcc/arm-none-eabi/8.2.1/
-@ -isysroot /opt/gcc-arm-none-eabi-8-2018-q4-major/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ -D AUTO_CPU_FREQUENCY_LINUX -D TARGET_ARM
-@ src/atomic/workloads/IntArithm.cpp -mfloat-abi=soft -marm -march=armv8-a
-@ -auxbase-strip asm-listings/arm8_IntArithm.asm -Werror -Wall -std=c++17
-@ -fno-stack-protector -fverbose-asm
-@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
-@ -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
-@ -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
-@ -fchkp-store-bounds -fchkp-use-static-bounds
-@ -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
-@ -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
-@ -feliminate-unused-debug-types -fexceptions -ffp-int-builtin-inexact
-@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
-@ -finline-atomics -fira-hoist-pressure -fira-share-save-slots
-@ -fira-share-spill-slots -fivopts -fkeep-static-consts
-@ -fleading-underscore -flifetime-dse -flto-odr-type-merging -fmath-errno
-@ -fmerge-debug-strings -fpeephole -fplt -fprefetch-loop-arrays
-@ -freg-struct-return -fsched-critical-path-heuristic
-@ -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
-@ -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
-@ -fsched-spec-insn-heuristic -fsched-stalled-insns-dep
-@ -fsemantic-interposition -fshow-column -fshrink-wrap-separate
-@ -fsigned-zeros -fsplit-ivs-in-unroller -fssa-backprop -fstdarg-opt
-@ -fstrict-volatile-bitfields -fsync-libcalls -ftrapping-math -ftree-cselim
-@ -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
-@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop
-@ -ftree-reassoc -ftree-scev-cprop -funit-at-a-time -fverbose-asm
-@ -fzero-initialized-in-bss -marm -mbe32 -mlittle-endian
-@ -mpic-data-is-text-relative -msched-prolog -munaligned-access
-@ -mvectorize-with-neon-quad
+// GNU C++14 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) version 5.4.0 20160609 (aarch64-linux-gnu)
+//	compiled by GNU C version 5.4.0 20160609, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3
+// GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+// options passed:  -imultiarch aarch64-linux-gnu -D_GNU_SOURCE
+// -D CPU_FREQUENCY=1536 -D TARGET_ARM src/atomic/workloads/IntArithm.cpp
+// -march=armv8-a -mlittle-endian -mabi=lp64
+// -auxbase-strip asm-listings/arm8_IntArithm.asm -Werror -Wall -std=c++1z
+// -fno-stack-protector -fverbose-asm -Wformat-security
+// options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+// -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
+// -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
+// -fchkp-store-bounds -fchkp-use-static-bounds
+// -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
+// -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
+// -feliminate-unused-debug-types -fexceptions -ffunction-cse -fgcse-lm
+// -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+// -fira-share-save-slots -fira-share-spill-slots -fivopts
+// -fkeep-static-consts -fleading-underscore -flifetime-dse
+// -flto-odr-type-merging -fmath-errno -fmerge-debug-strings
+// -fomit-frame-pointer -fpeephole -fplt -fprefetch-loop-arrays
+// -freg-struct-return -fsched-critical-path-heuristic
+// -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
+// -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
+// -fsched-spec-insn-heuristic -fsched-stalled-insns-dep -fschedule-fusion
+// -fsemantic-interposition -fshow-column -fsigned-zeros
+// -fsplit-ivs-in-unroller -fstdarg-opt -fstrict-volatile-bitfields
+// -fsync-libcalls -ftrapping-math -ftree-coalesce-vars -ftree-cselim
+// -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im
+// -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+// -ftree-phiprop -ftree-reassoc -ftree-scev-cprop -funit-at-a-time
+// -fverbose-asm -fzero-initialized-in-bss -mfix-cortex-a53-835769
+// -mfix-cortex-a53-843419 -mglibc -mlittle-endian
+// -momit-leaf-frame-pointer -mpc-relative-literal-loads
 
 	.text
 	.align	2
-	.global	_Z20IntArithmAddLatency1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmAddLatency1j, %function
-_Z20IntArithmAddLatency1j:
-	.fnstart
-.LFB12:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #0	@ tmp112,
-	str	r3, [fp, #-8]	@ tmp112, var
-	mov	r3, #1	@ tmp113,
-	str	r3, [fp, #-16]	@ tmp113, var1
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-12]	@ tmp114, i
+	.global	_Z20IntArithmAddLatency1m
+	.type	_Z20IntArithmAddLatency1m, %function
+_Z20IntArithmAddLatency1m:
+.LFB0:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp75,
+	str	w0, [sp, 28]	// tmp75, var1
+	str	xzr, [sp, 32]	//, i
 .L3:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-12]	@ tmp115, i
-	ldr	r3, [fp, #-24]	@ tmp116, iterCount
-	cmp	r2, r3	@ tmp115, tmp116
-	bcs	.L2		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp118, var
-	ldr	r3, [fp, #-16]	@ tmp119, var1
-	add	r3, r2, r3	@ tmp117, tmp118, tmp119
-	str	r3, [fp, #-8]	@ tmp117, var
-	ldr	r3, [fp, #-12]	@ tmp121, i
-	add	r3, r3, #1	@ tmp120, tmp121,
-	str	r3, [fp, #-12]	@ tmp120, i
-	b	.L3		@
+	ldr	x1, [sp, 32]	// tmp76, i
+	ldr	x0, [sp, 8]	// tmp77, iterCount
+	cmp	x1, x0	// tmp76, tmp77
+	bcs	.L2	//,
+	ldr	w1, [sp, 44]	// tmp79, var
+	ldr	w0, [sp, 28]	// tmp80, var1
+	add	w0, w1, w0	// tmp78, tmp79, tmp80
+	str	w0, [sp, 44]	// tmp78, var
+	ldr	x0, [sp, 32]	// tmp82, i
+	add	x0, x0, 1	// tmp81, tmp82,
+	str	x0, [sp, 32]	// tmp81, i
+	b	.L3	//
 .L2:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r3, [fp, #-8]	@ _9, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmAddLatency1j, .-_Z20IntArithmAddLatency1j
+	ldr	w0, [sp, 44]	// D.3660, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	_Z20IntArithmAddLatency1m, .-_Z20IntArithmAddLatency1m
 	.align	2
-	.global	_Z20IntArithmAddLatency2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmAddLatency2j, %function
-_Z20IntArithmAddLatency2j:
-	.fnstart
-.LFB13:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #0	@ tmp113,
-	str	r3, [fp, #-8]	@ tmp113, var
-	mov	r3, #1	@ tmp114,
-	str	r3, [fp, #-16]	@ tmp114, var1
-	mov	r3, #0	@ tmp115,
-	str	r3, [fp, #-12]	@ tmp115, i
+	.global	_Z20IntArithmAddLatency2m
+	.type	_Z20IntArithmAddLatency2m, %function
+_Z20IntArithmAddLatency2m:
+.LFB1:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp76,
+	str	w0, [sp, 28]	// tmp76, var1
+	str	xzr, [sp, 32]	//, i
 .L7:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-12]	@ tmp116, i
-	ldr	r3, [fp, #-24]	@ tmp117, iterCount
-	cmp	r2, r3	@ tmp116, tmp117
-	bcs	.L6		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp118, var
-	ldr	r3, [fp, #-16]	@ tmp119, var1
-	add	r3, r2, r3	@ _1, tmp118, tmp119
-	ldr	r2, [fp, #-16]	@ tmp121, var1
-	add	r3, r2, r3	@ tmp120, tmp121, _1
-	str	r3, [fp, #-8]	@ tmp120, var
-	ldr	r3, [fp, #-12]	@ tmp123, i
-	add	r3, r3, #1	@ tmp122, tmp123,
-	str	r3, [fp, #-12]	@ tmp122, i
-	b	.L7		@
+	ldr	x1, [sp, 32]	// tmp77, i
+	ldr	x0, [sp, 8]	// tmp78, iterCount
+	cmp	x1, x0	// tmp77, tmp78
+	bcs	.L6	//,
+	ldr	w1, [sp, 44]	// tmp79, var
+	ldr	w0, [sp, 28]	// tmp80, var1
+	add	w1, w1, w0	// D.3661, tmp79, tmp80
+	ldr	w0, [sp, 28]	// tmp82, var1
+	add	w0, w1, w0	// tmp81, D.3661, tmp82
+	str	w0, [sp, 44]	// tmp81, var
+	ldr	x0, [sp, 32]	// tmp84, i
+	add	x0, x0, 1	// tmp83, tmp84,
+	str	x0, [sp, 32]	// tmp83, i
+	b	.L7	//
 .L6:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r3, [fp, #-8]	@ _10, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmAddLatency2j, .-_Z20IntArithmAddLatency2j
+	ldr	w0, [sp, 44]	// D.3661, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	_Z20IntArithmAddLatency2m, .-_Z20IntArithmAddLatency2m
 	.align	2
-	.global	_Z20IntArithmAddLatency3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmAddLatency3j, %function
-_Z20IntArithmAddLatency3j:
-	.fnstart
-.LFB14:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-8]	@ tmp114, var
-	mov	r3, #1	@ tmp115,
-	str	r3, [fp, #-16]	@ tmp115, var1
-	mov	r3, #0	@ tmp116,
-	str	r3, [fp, #-12]	@ tmp116, i
+	.global	_Z20IntArithmAddLatency3m
+	.type	_Z20IntArithmAddLatency3m, %function
+_Z20IntArithmAddLatency3m:
+.LFB2:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp77,
+	str	w0, [sp, 28]	// tmp77, var1
+	str	xzr, [sp, 32]	//, i
 .L11:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-12]	@ tmp117, i
-	ldr	r3, [fp, #-24]	@ tmp118, iterCount
-	cmp	r2, r3	@ tmp117, tmp118
-	bcs	.L10		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp119, var
-	ldr	r3, [fp, #-16]	@ tmp120, var1
-	add	r2, r2, r3	@ _1, tmp119, tmp120
-	ldr	r3, [fp, #-16]	@ tmp121, var1
-	add	r3, r2, r3	@ _2, _1, tmp121
-	ldr	r2, [fp, #-16]	@ tmp123, var1
-	add	r3, r2, r3	@ tmp122, tmp123, _2
-	str	r3, [fp, #-8]	@ tmp122, var
-	ldr	r3, [fp, #-12]	@ tmp125, i
-	add	r3, r3, #1	@ tmp124, tmp125,
-	str	r3, [fp, #-12]	@ tmp124, i
-	b	.L11		@
+	ldr	x1, [sp, 32]	// tmp78, i
+	ldr	x0, [sp, 8]	// tmp79, iterCount
+	cmp	x1, x0	// tmp78, tmp79
+	bcs	.L10	//,
+	ldr	w1, [sp, 44]	// tmp80, var
+	ldr	w0, [sp, 28]	// tmp81, var1
+	add	w1, w1, w0	// D.3662, tmp80, tmp81
+	ldr	w0, [sp, 28]	// tmp82, var1
+	add	w1, w1, w0	// D.3662, D.3662, tmp82
+	ldr	w0, [sp, 28]	// tmp84, var1
+	add	w0, w1, w0	// tmp83, D.3662, tmp84
+	str	w0, [sp, 44]	// tmp83, var
+	ldr	x0, [sp, 32]	// tmp86, i
+	add	x0, x0, 1	// tmp85, tmp86,
+	str	x0, [sp, 32]	// tmp85, i
+	b	.L11	//
 .L10:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r3, [fp, #-8]	@ _11, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmAddLatency3j, .-_Z20IntArithmAddLatency3j
+	ldr	w0, [sp, 44]	// D.3662, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	_Z20IntArithmAddLatency3m, .-_Z20IntArithmAddLatency3m
 	.align	2
-	.global	_Z23IntArithmAddThroughput6j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput6j, %function
-_Z23IntArithmAddThroughput6j:
-	.fnstart
-.LFB15:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput6m
+	.type	_Z23IntArithmAddThroughput6m, %function
+_Z23IntArithmAddThroughput6m:
+.LFB3:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L15:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L14		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-12]	@ tmp130, var2
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-16]	@ tmp133, var3
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-20]	@ tmp136, var4
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-24]	@ tmp139, var5
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-28]	@ tmp142, var6
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L15		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L14	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 44]	// tmp95, var5
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 40]	// tmp98, var6
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L15	//
 .L14:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput6j, .-_Z23IntArithmAddThroughput6j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3663, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3663, D.3663, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3663, D.3663, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3663, D.3663, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3663, D.3663, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE3:
+	.size	_Z23IntArithmAddThroughput6m, .-_Z23IntArithmAddThroughput6m
 	.align	2
-	.global	_Z23IntArithmAddThroughput5j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput5j, %function
-_Z23IntArithmAddThroughput5j:
-	.fnstart
-.LFB16:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput5m
+	.type	_Z23IntArithmAddThroughput5m, %function
+_Z23IntArithmAddThroughput5m:
+.LFB4:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L19:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L18		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-12]	@ tmp130, var2
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-16]	@ tmp133, var3
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-20]	@ tmp136, var4
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-24]	@ tmp139, var5
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-24]	@ tmp142, var5
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L19		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L18	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 44]	// tmp95, var5
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 44]	// tmp98, var5
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L19	//
 .L18:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput5j, .-_Z23IntArithmAddThroughput5j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3664, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3664, D.3664, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3664, D.3664, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3664, D.3664, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3664, D.3664, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE4:
+	.size	_Z23IntArithmAddThroughput5m, .-_Z23IntArithmAddThroughput5m
 	.align	2
-	.global	_Z23IntArithmAddThroughput4j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput4j, %function
-_Z23IntArithmAddThroughput4j:
-	.fnstart
-.LFB17:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput4m
+	.type	_Z23IntArithmAddThroughput4m, %function
+_Z23IntArithmAddThroughput4m:
+.LFB5:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L23:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L22		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-12]	@ tmp130, var2
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-16]	@ tmp133, var3
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-20]	@ tmp136, var4
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-20]	@ tmp139, var4
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-20]	@ tmp142, var4
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L23		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L22	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 48]	// tmp95, var4
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 48]	// tmp98, var4
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L23	//
 .L22:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput4j, .-_Z23IntArithmAddThroughput4j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3665, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3665, D.3665, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3665, D.3665, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3665, D.3665, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3665, D.3665, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE5:
+	.size	_Z23IntArithmAddThroughput4m, .-_Z23IntArithmAddThroughput4m
 	.align	2
-	.global	_Z23IntArithmAddThroughput3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput3j, %function
-_Z23IntArithmAddThroughput3j:
-	.fnstart
-.LFB18:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput3m
+	.type	_Z23IntArithmAddThroughput3m, %function
+_Z23IntArithmAddThroughput3m:
+.LFB6:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L27:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L26		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-12]	@ tmp130, var2
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-16]	@ tmp133, var3
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-16]	@ tmp136, var3
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-16]	@ tmp139, var3
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-16]	@ tmp142, var3
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L27		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L26	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 52]	// tmp95, var3
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 52]	// tmp98, var3
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L27	//
 .L26:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput3j, .-_Z23IntArithmAddThroughput3j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3666, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3666, D.3666, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3666, D.3666, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3666, D.3666, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3666, D.3666, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE6:
+	.size	_Z23IntArithmAddThroughput3m, .-_Z23IntArithmAddThroughput3m
 	.align	2
-	.global	_Z23IntArithmAddThroughput2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput2j, %function
-_Z23IntArithmAddThroughput2j:
-	.fnstart
-.LFB19:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput2m
+	.type	_Z23IntArithmAddThroughput2m, %function
+_Z23IntArithmAddThroughput2m:
+.LFB7:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L31:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L30		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-12]	@ tmp130, var2
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-12]	@ tmp133, var2
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-12]	@ tmp136, var2
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-12]	@ tmp139, var2
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-12]	@ tmp142, var2
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L31		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L30	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 56]	// tmp89, var2
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 56]	// tmp92, var2
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 56]	// tmp95, var2
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 56]	// tmp98, var2
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L31	//
 .L30:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput2j, .-_Z23IntArithmAddThroughput2j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3667, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3667, D.3667, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3667, D.3667, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3667, D.3667, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3667, D.3667, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE7:
+	.size	_Z23IntArithmAddThroughput2m, .-_Z23IntArithmAddThroughput2m
 	.align	2
-	.global	_Z23IntArithmAddThroughput1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmAddThroughput1j, %function
-_Z23IntArithmAddThroughput1j:
-	.fnstart
-.LFB20:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	mov	r3, #1	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmAddThroughput1m
+	.type	_Z23IntArithmAddThroughput1m, %function
+_Z23IntArithmAddThroughput1m:
+.LFB8:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 1	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L35:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L34		@,
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp127, var1
-	ldr	r3, [fp, #-36]	@ tmp128, val
-	add	r3, r2, r3	@ tmp126, tmp127, tmp128
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r2, [fp, #-8]	@ tmp130, var1
-	ldr	r3, [fp, #-36]	@ tmp131, val
-	add	r3, r2, r3	@ tmp129, tmp130, tmp131
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r2, [fp, #-8]	@ tmp133, var1
-	ldr	r3, [fp, #-36]	@ tmp134, val
-	add	r3, r2, r3	@ tmp132, tmp133, tmp134
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r2, [fp, #-8]	@ tmp136, var1
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	add	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r2, [fp, #-8]	@ tmp139, var1
-	ldr	r3, [fp, #-36]	@ tmp140, val
-	add	r3, r2, r3	@ tmp138, tmp139, tmp140
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r2, [fp, #-8]	@ tmp142, var1
-	ldr	r3, [fp, #-36]	@ tmp143, val
-	add	r3, r2, r3	@ tmp141, tmp142, tmp143
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L35		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L34	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	add	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 60]	// tmp86, var1
+	ldr	w0, [sp, 28]	// tmp87, val
+	add	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 60]	// tmp89, var1
+	ldr	w0, [sp, 28]	// tmp90, val
+	add	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 60]	// tmp92, var1
+	ldr	w0, [sp, 28]	// tmp93, val
+	add	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 60]	// tmp95, var1
+	ldr	w0, [sp, 28]	// tmp96, val
+	add	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 60]	// tmp98, var1
+	ldr	w0, [sp, 28]	// tmp99, val
+	add	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L35	//
 .L34:
-@ src/atomic/workloads/IntArithm.cpp:63: ANALYSE_OPERATION(IntArithmAdd, +, 1)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmAddThroughput1j, .-_Z23IntArithmAddThroughput1j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3668, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3668, D.3668, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3668, D.3668, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3668, D.3668, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3668, D.3668, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE8:
+	.size	_Z23IntArithmAddThroughput1m, .-_Z23IntArithmAddThroughput1m
 	.align	2
-	.global	_Z20IntArithmMulLatency1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmMulLatency1j, %function
-_Z20IntArithmMulLatency1j:
-	.fnstart
-.LFB21:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #0	@ tmp112,
-	str	r3, [fp, #-8]	@ tmp112, var
-	mov	r3, #1	@ tmp113,
-	str	r3, [fp, #-16]	@ tmp113, var1
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-12]	@ tmp114, i
+	.global	_Z20IntArithmMulLatency1m
+	.type	_Z20IntArithmMulLatency1m, %function
+_Z20IntArithmMulLatency1m:
+.LFB9:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp75,
+	str	w0, [sp, 28]	// tmp75, var1
+	str	xzr, [sp, 32]	//, i
 .L39:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-12]	@ tmp115, i
-	ldr	r3, [fp, #-24]	@ tmp116, iterCount
-	cmp	r2, r3	@ tmp115, tmp116
-	bcs	.L38		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp118, var
-	ldr	r2, [fp, #-16]	@ tmp119, var1
-	mul	r3, r2, r3	@ tmp117, tmp119, tmp118
-	str	r3, [fp, #-8]	@ tmp117, var
-	ldr	r3, [fp, #-12]	@ tmp121, i
-	add	r3, r3, #1	@ tmp120, tmp121,
-	str	r3, [fp, #-12]	@ tmp120, i
-	b	.L39		@
+	ldr	x1, [sp, 32]	// tmp76, i
+	ldr	x0, [sp, 8]	// tmp77, iterCount
+	cmp	x1, x0	// tmp76, tmp77
+	bcs	.L38	//,
+	ldr	w1, [sp, 44]	// tmp79, var
+	ldr	w0, [sp, 28]	// tmp80, var1
+	mul	w0, w1, w0	// tmp78, tmp79, tmp80
+	str	w0, [sp, 44]	// tmp78, var
+	ldr	x0, [sp, 32]	// tmp82, i
+	add	x0, x0, 1	// tmp81, tmp82,
+	str	x0, [sp, 32]	// tmp81, i
+	b	.L39	//
 .L38:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ _9, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmMulLatency1j, .-_Z20IntArithmMulLatency1j
+	ldr	w0, [sp, 44]	// D.3669, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE9:
+	.size	_Z20IntArithmMulLatency1m, .-_Z20IntArithmMulLatency1m
 	.align	2
-	.global	_Z20IntArithmMulLatency2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmMulLatency2j, %function
-_Z20IntArithmMulLatency2j:
-	.fnstart
-.LFB22:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #0	@ tmp113,
-	str	r3, [fp, #-8]	@ tmp113, var
-	mov	r3, #1	@ tmp114,
-	str	r3, [fp, #-16]	@ tmp114, var1
-	mov	r3, #0	@ tmp115,
-	str	r3, [fp, #-12]	@ tmp115, i
+	.global	_Z20IntArithmMulLatency2m
+	.type	_Z20IntArithmMulLatency2m, %function
+_Z20IntArithmMulLatency2m:
+.LFB10:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp76,
+	str	w0, [sp, 28]	// tmp76, var1
+	str	xzr, [sp, 32]	//, i
 .L43:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-12]	@ tmp116, i
-	ldr	r3, [fp, #-24]	@ tmp117, iterCount
-	cmp	r2, r3	@ tmp116, tmp117
-	bcs	.L42		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp118, var
-	ldr	r2, [fp, #-16]	@ tmp119, var1
-	mul	r2, r2, r3	@ _1, tmp119, tmp118
-	ldr	r3, [fp, #-16]	@ tmp121, var1
-	mul	r3, r2, r3	@ tmp120, _1, tmp121
-	str	r3, [fp, #-8]	@ tmp120, var
-	ldr	r3, [fp, #-12]	@ tmp123, i
-	add	r3, r3, #1	@ tmp122, tmp123,
-	str	r3, [fp, #-12]	@ tmp122, i
-	b	.L43		@
+	ldr	x1, [sp, 32]	// tmp77, i
+	ldr	x0, [sp, 8]	// tmp78, iterCount
+	cmp	x1, x0	// tmp77, tmp78
+	bcs	.L42	//,
+	ldr	w1, [sp, 44]	// tmp79, var
+	ldr	w0, [sp, 28]	// tmp80, var1
+	mul	w1, w1, w0	// D.3670, tmp79, tmp80
+	ldr	w0, [sp, 28]	// tmp82, var1
+	mul	w0, w1, w0	// tmp81, D.3670, tmp82
+	str	w0, [sp, 44]	// tmp81, var
+	ldr	x0, [sp, 32]	// tmp84, i
+	add	x0, x0, 1	// tmp83, tmp84,
+	str	x0, [sp, 32]	// tmp83, i
+	b	.L43	//
 .L42:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ _10, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmMulLatency2j, .-_Z20IntArithmMulLatency2j
+	ldr	w0, [sp, 44]	// D.3670, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE10:
+	.size	_Z20IntArithmMulLatency2m, .-_Z20IntArithmMulLatency2m
 	.align	2
-	.global	_Z20IntArithmMulLatency3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmMulLatency3j, %function
-_Z20IntArithmMulLatency3j:
-	.fnstart
-.LFB23:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-8]	@ tmp114, var
-	mov	r3, #1	@ tmp115,
-	str	r3, [fp, #-16]	@ tmp115, var1
-	mov	r3, #0	@ tmp116,
-	str	r3, [fp, #-12]	@ tmp116, i
+	.global	_Z20IntArithmMulLatency3m
+	.type	_Z20IntArithmMulLatency3m, %function
+_Z20IntArithmMulLatency3m:
+.LFB11:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp77,
+	str	w0, [sp, 28]	// tmp77, var1
+	str	xzr, [sp, 32]	//, i
 .L47:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-12]	@ tmp117, i
-	ldr	r3, [fp, #-24]	@ tmp118, iterCount
-	cmp	r2, r3	@ tmp117, tmp118
-	bcs	.L46		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp119, var
-	ldr	r2, [fp, #-16]	@ tmp120, var1
-	mul	r3, r2, r3	@ _1, tmp120, tmp119
-	ldr	r2, [fp, #-16]	@ tmp121, var1
-	mul	r2, r2, r3	@ _2, tmp121, _1
-	ldr	r3, [fp, #-16]	@ tmp123, var1
-	mul	r3, r2, r3	@ tmp122, _2, tmp123
-	str	r3, [fp, #-8]	@ tmp122, var
-	ldr	r3, [fp, #-12]	@ tmp125, i
-	add	r3, r3, #1	@ tmp124, tmp125,
-	str	r3, [fp, #-12]	@ tmp124, i
-	b	.L47		@
+	ldr	x1, [sp, 32]	// tmp78, i
+	ldr	x0, [sp, 8]	// tmp79, iterCount
+	cmp	x1, x0	// tmp78, tmp79
+	bcs	.L46	//,
+	ldr	w1, [sp, 44]	// tmp80, var
+	ldr	w0, [sp, 28]	// tmp81, var1
+	mul	w1, w1, w0	// D.3671, tmp80, tmp81
+	ldr	w0, [sp, 28]	// tmp82, var1
+	mul	w1, w1, w0	// D.3671, D.3671, tmp82
+	ldr	w0, [sp, 28]	// tmp84, var1
+	mul	w0, w1, w0	// tmp83, D.3671, tmp84
+	str	w0, [sp, 44]	// tmp83, var
+	ldr	x0, [sp, 32]	// tmp86, i
+	add	x0, x0, 1	// tmp85, tmp86,
+	str	x0, [sp, 32]	// tmp85, i
+	b	.L47	//
 .L46:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ _11, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmMulLatency3j, .-_Z20IntArithmMulLatency3j
+	ldr	w0, [sp, 44]	// D.3671, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE11:
+	.size	_Z20IntArithmMulLatency3m, .-_Z20IntArithmMulLatency3m
 	.align	2
-	.global	_Z23IntArithmMulThroughput6j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput6j, %function
-_Z23IntArithmMulThroughput6j:
-	.fnstart
-.LFB24:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput6m
+	.type	_Z23IntArithmMulThroughput6m, %function
+_Z23IntArithmMulThroughput6m:
+.LFB12:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L51:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L50		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-12]	@ tmp130, var2
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-16]	@ tmp133, var3
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-20]	@ tmp136, var4
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-24]	@ tmp139, var5
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-28]	@ tmp142, var6
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L51		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L50	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 44]	// tmp95, var5
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 40]	// tmp98, var6
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L51	//
 .L50:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput6j, .-_Z23IntArithmMulThroughput6j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3672, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3672, D.3672, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3672, D.3672, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3672, D.3672, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3672, D.3672, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE12:
+	.size	_Z23IntArithmMulThroughput6m, .-_Z23IntArithmMulThroughput6m
 	.align	2
-	.global	_Z23IntArithmMulThroughput5j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput5j, %function
-_Z23IntArithmMulThroughput5j:
-	.fnstart
-.LFB25:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput5m
+	.type	_Z23IntArithmMulThroughput5m, %function
+_Z23IntArithmMulThroughput5m:
+.LFB13:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L55:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L54		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-12]	@ tmp130, var2
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-16]	@ tmp133, var3
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-20]	@ tmp136, var4
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-24]	@ tmp139, var5
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-24]	@ tmp142, var5
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L55		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L54	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 44]	// tmp95, var5
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 44]	// tmp98, var5
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L55	//
 .L54:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput5j, .-_Z23IntArithmMulThroughput5j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3673, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3673, D.3673, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3673, D.3673, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3673, D.3673, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3673, D.3673, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE13:
+	.size	_Z23IntArithmMulThroughput5m, .-_Z23IntArithmMulThroughput5m
 	.align	2
-	.global	_Z23IntArithmMulThroughput4j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput4j, %function
-_Z23IntArithmMulThroughput4j:
-	.fnstart
-.LFB26:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput4m
+	.type	_Z23IntArithmMulThroughput4m, %function
+_Z23IntArithmMulThroughput4m:
+.LFB14:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L59:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L58		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-12]	@ tmp130, var2
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-16]	@ tmp133, var3
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-20]	@ tmp136, var4
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-20]	@ tmp142, var4
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L59		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L58	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 48]	// tmp92, var4
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 48]	// tmp95, var4
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 48]	// tmp98, var4
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L59	//
 .L58:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput4j, .-_Z23IntArithmMulThroughput4j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3674, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3674, D.3674, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3674, D.3674, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3674, D.3674, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3674, D.3674, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE14:
+	.size	_Z23IntArithmMulThroughput4m, .-_Z23IntArithmMulThroughput4m
 	.align	2
-	.global	_Z23IntArithmMulThroughput3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput3j, %function
-_Z23IntArithmMulThroughput3j:
-	.fnstart
-.LFB27:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput3m
+	.type	_Z23IntArithmMulThroughput3m, %function
+_Z23IntArithmMulThroughput3m:
+.LFB15:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L63:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L62		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-12]	@ tmp130, var2
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-16]	@ tmp133, var3
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-16]	@ tmp136, var3
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-16]	@ tmp139, var3
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-16]	@ tmp142, var3
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L63		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L62	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 52]	// tmp89, var3
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 52]	// tmp95, var3
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 52]	// tmp98, var3
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L63	//
 .L62:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput3j, .-_Z23IntArithmMulThroughput3j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3675, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3675, D.3675, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3675, D.3675, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3675, D.3675, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3675, D.3675, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE15:
+	.size	_Z23IntArithmMulThroughput3m, .-_Z23IntArithmMulThroughput3m
 	.align	2
-	.global	_Z23IntArithmMulThroughput2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput2j, %function
-_Z23IntArithmMulThroughput2j:
-	.fnstart
-.LFB28:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput2m
+	.type	_Z23IntArithmMulThroughput2m, %function
+_Z23IntArithmMulThroughput2m:
+.LFB16:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L67:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L66		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-12]	@ tmp130, var2
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-12]	@ tmp133, var2
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-12]	@ tmp136, var2
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-12]	@ tmp139, var2
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-12]	@ tmp142, var2
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L67		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L66	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 56]	// tmp86, var2
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 56]	// tmp89, var2
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 56]	// tmp92, var2
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 56]	// tmp95, var2
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 56]	// tmp98, var2
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L67	//
 .L66:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput2j, .-_Z23IntArithmMulThroughput2j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3676, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3676, D.3676, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3676, D.3676, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3676, D.3676, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3676, D.3676, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE16:
+	.size	_Z23IntArithmMulThroughput2m, .-_Z23IntArithmMulThroughput2m
 	.align	2
-	.global	_Z23IntArithmMulThroughput1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmMulThroughput1j, %function
-_Z23IntArithmMulThroughput1j:
-	.fnstart
-.LFB29:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmMulThroughput1m
+	.type	_Z23IntArithmMulThroughput1m, %function
+_Z23IntArithmMulThroughput1m:
+.LFB17:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L71:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L70		@,
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-36]	@ tmp128, val
-	mul	r3, r2, r3	@ tmp126, tmp128, tmp127
-	str	r3, [fp, #-8]	@ tmp126, var1
-	ldr	r3, [fp, #-8]	@ tmp130, var1
-	ldr	r2, [fp, #-36]	@ tmp131, val
-	mul	r3, r2, r3	@ tmp129, tmp131, tmp130
-	str	r3, [fp, #-12]	@ tmp129, var2
-	ldr	r3, [fp, #-8]	@ tmp133, var1
-	ldr	r2, [fp, #-36]	@ tmp134, val
-	mul	r3, r2, r3	@ tmp132, tmp134, tmp133
-	str	r3, [fp, #-16]	@ tmp132, var3
-	ldr	r3, [fp, #-8]	@ tmp136, var1
-	ldr	r2, [fp, #-36]	@ tmp137, val
-	mul	r3, r2, r3	@ tmp135, tmp137, tmp136
-	str	r3, [fp, #-20]	@ tmp135, var4
-	ldr	r3, [fp, #-8]	@ tmp139, var1
-	ldr	r2, [fp, #-36]	@ tmp140, val
-	mul	r3, r2, r3	@ tmp138, tmp140, tmp139
-	str	r3, [fp, #-24]	@ tmp138, var5
-	ldr	r3, [fp, #-8]	@ tmp142, var1
-	ldr	r2, [fp, #-36]	@ tmp143, val
-	mul	r3, r2, r3	@ tmp141, tmp143, tmp142
-	str	r3, [fp, #-28]	@ tmp141, var6
-	ldr	r3, [fp, #-32]	@ tmp145, i
-	add	r3, r3, #1	@ tmp144, tmp145,
-	str	r3, [fp, #-32]	@ tmp144, i
-	b	.L71		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L70	//,
+	ldr	w1, [sp, 60]	// tmp83, var1
+	ldr	w0, [sp, 28]	// tmp84, val
+	mul	w0, w1, w0	// tmp82, tmp83, tmp84
+	str	w0, [sp, 60]	// tmp82, var1
+	ldr	w1, [sp, 60]	// tmp86, var1
+	ldr	w0, [sp, 28]	// tmp87, val
+	mul	w0, w1, w0	// tmp85, tmp86, tmp87
+	str	w0, [sp, 56]	// tmp85, var2
+	ldr	w1, [sp, 60]	// tmp89, var1
+	ldr	w0, [sp, 28]	// tmp90, val
+	mul	w0, w1, w0	// tmp88, tmp89, tmp90
+	str	w0, [sp, 52]	// tmp88, var3
+	ldr	w1, [sp, 60]	// tmp92, var1
+	ldr	w0, [sp, 28]	// tmp93, val
+	mul	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 48]	// tmp91, var4
+	ldr	w1, [sp, 60]	// tmp95, var1
+	ldr	w0, [sp, 28]	// tmp96, val
+	mul	w0, w1, w0	// tmp94, tmp95, tmp96
+	str	w0, [sp, 44]	// tmp94, var5
+	ldr	w1, [sp, 60]	// tmp98, var1
+	ldr	w0, [sp, 28]	// tmp99, val
+	mul	w0, w1, w0	// tmp97, tmp98, tmp99
+	str	w0, [sp, 40]	// tmp97, var6
+	ldr	x0, [sp, 32]	// tmp101, i
+	add	x0, x0, 1	// tmp100, tmp101,
+	str	x0, [sp, 32]	// tmp100, i
+	b	.L71	//
 .L70:
-@ src/atomic/workloads/IntArithm.cpp:64: ANALYSE_OPERATION(IntArithmMul, *, 3)
-	ldr	r2, [fp, #-8]	@ tmp146, var1
-	ldr	r3, [fp, #-12]	@ tmp147, var2
-	add	r2, r2, r3	@ _1, tmp146, tmp147
-	ldr	r3, [fp, #-16]	@ tmp148, var3
-	add	r2, r2, r3	@ _2, _1, tmp148
-	ldr	r3, [fp, #-20]	@ tmp149, var4
-	add	r2, r2, r3	@ _3, _2, tmp149
-	ldr	r3, [fp, #-24]	@ tmp150, var5
-	add	r2, r2, r3	@ _4, _3, tmp150
-	ldr	r3, [fp, #-28]	@ tmp151, var6
-	add	r3, r2, r3	@ _28, _4, tmp151
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmMulThroughput1j, .-_Z23IntArithmMulThroughput1j
+	ldr	w1, [sp, 60]	// tmp102, var1
+	ldr	w0, [sp, 56]	// tmp103, var2
+	add	w1, w1, w0	// D.3677, tmp102, tmp103
+	ldr	w0, [sp, 52]	// tmp104, var3
+	add	w1, w1, w0	// D.3677, D.3677, tmp104
+	ldr	w0, [sp, 48]	// tmp105, var4
+	add	w1, w1, w0	// D.3677, D.3677, tmp105
+	ldr	w0, [sp, 44]	// tmp106, var5
+	add	w1, w1, w0	// D.3677, D.3677, tmp106
+	ldr	w0, [sp, 40]	// tmp107, var6
+	add	w0, w1, w0	// D.3677, D.3677, tmp107
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE17:
+	.size	_Z23IntArithmMulThroughput1m, .-_Z23IntArithmMulThroughput1m
 	.align	2
-	.global	_Z20IntArithmDivLatency1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmDivLatency1j, %function
-_Z20IntArithmDivLatency1j:
-	.fnstart
-.LFB30:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #0	@ tmp112,
-	str	r3, [fp, #-8]	@ tmp112, var
-	mov	r3, #1	@ tmp113,
-	str	r3, [fp, #-16]	@ tmp113, var1
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-12]	@ tmp114, i
+	.global	_Z20IntArithmDivLatency1m
+	.type	_Z20IntArithmDivLatency1m, %function
+_Z20IntArithmDivLatency1m:
+.LFB18:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp75,
+	str	w0, [sp, 28]	// tmp75, var1
+	str	xzr, [sp, 32]	//, i
 .L75:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-12]	@ tmp115, i
-	ldr	r3, [fp, #-24]	@ tmp116, iterCount
-	cmp	r2, r3	@ tmp115, tmp116
-	bcs	.L74		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp119, var
-	ldr	r3, [fp, #-16]	@ tmp120, var1
-	sdiv	r3, r2, r3	@ tmp118, tmp119, tmp120
-	str	r3, [fp, #-8]	@ tmp118, var
-	ldr	r3, [fp, #-12]	@ tmp122, i
-	add	r3, r3, #1	@ tmp121, tmp122,
-	str	r3, [fp, #-12]	@ tmp121, i
-	b	.L75		@
+	ldr	x1, [sp, 32]	// tmp76, i
+	ldr	x0, [sp, 8]	// tmp77, iterCount
+	cmp	x1, x0	// tmp76, tmp77
+	bcs	.L74	//,
+	ldr	w1, [sp, 44]	// tmp80, var
+	ldr	w0, [sp, 28]	// tmp81, var1
+	sdiv	w0, w1, w0	// tmp79, tmp80, tmp81
+	str	w0, [sp, 44]	// tmp79, var
+	ldr	x0, [sp, 32]	// tmp83, i
+	add	x0, x0, 1	// tmp82, tmp83,
+	str	x0, [sp, 32]	// tmp82, i
+	b	.L75	//
 .L74:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r3, [fp, #-8]	@ _9, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmDivLatency1j, .-_Z20IntArithmDivLatency1j
+	ldr	w0, [sp, 44]	// D.3678, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE18:
+	.size	_Z20IntArithmDivLatency1m, .-_Z20IntArithmDivLatency1m
 	.align	2
-	.global	_Z20IntArithmDivLatency2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmDivLatency2j, %function
-_Z20IntArithmDivLatency2j:
-	.fnstart
-.LFB31:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #0	@ tmp113,
-	str	r3, [fp, #-8]	@ tmp113, var
-	mov	r3, #1	@ tmp114,
-	str	r3, [fp, #-16]	@ tmp114, var1
-	mov	r3, #0	@ tmp115,
-	str	r3, [fp, #-12]	@ tmp115, i
+	.global	_Z20IntArithmDivLatency2m
+	.type	_Z20IntArithmDivLatency2m, %function
+_Z20IntArithmDivLatency2m:
+.LFB19:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp76,
+	str	w0, [sp, 28]	// tmp76, var1
+	str	xzr, [sp, 32]	//, i
 .L79:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-12]	@ tmp116, i
-	ldr	r3, [fp, #-24]	@ tmp117, iterCount
-	cmp	r2, r3	@ tmp116, tmp117
-	bcs	.L78		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp118, var
-	ldr	r3, [fp, #-16]	@ tmp119, var1
-	sdiv	r2, r2, r3	@ _1, tmp118, tmp119
-	ldr	r3, [fp, #-16]	@ tmp122, var1
-	sdiv	r3, r2, r3	@ tmp121, _1, tmp122
-	str	r3, [fp, #-8]	@ tmp121, var
-	ldr	r3, [fp, #-12]	@ tmp124, i
-	add	r3, r3, #1	@ tmp123, tmp124,
-	str	r3, [fp, #-12]	@ tmp123, i
-	b	.L79		@
+	ldr	x1, [sp, 32]	// tmp77, i
+	ldr	x0, [sp, 8]	// tmp78, iterCount
+	cmp	x1, x0	// tmp77, tmp78
+	bcs	.L78	//,
+	ldr	w1, [sp, 44]	// tmp79, var
+	ldr	w0, [sp, 28]	// tmp80, var1
+	sdiv	w1, w1, w0	// D.3679, tmp79, tmp80
+	ldr	w0, [sp, 28]	// tmp83, var1
+	sdiv	w0, w1, w0	// tmp82, D.3679, tmp83
+	str	w0, [sp, 44]	// tmp82, var
+	ldr	x0, [sp, 32]	// tmp85, i
+	add	x0, x0, 1	// tmp84, tmp85,
+	str	x0, [sp, 32]	// tmp84, i
+	b	.L79	//
 .L78:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r3, [fp, #-8]	@ _10, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmDivLatency2j, .-_Z20IntArithmDivLatency2j
+	ldr	w0, [sp, 44]	// D.3679, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE19:
+	.size	_Z20IntArithmDivLatency2m, .-_Z20IntArithmDivLatency2m
 	.align	2
-	.global	_Z20IntArithmDivLatency3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z20IntArithmDivLatency3j, %function
-_Z20IntArithmDivLatency3j:
-	.fnstart
-.LFB32:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #28	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-8]	@ tmp114, var
-	mov	r3, #1	@ tmp115,
-	str	r3, [fp, #-16]	@ tmp115, var1
-	mov	r3, #0	@ tmp116,
-	str	r3, [fp, #-12]	@ tmp116, i
+	.global	_Z20IntArithmDivLatency3m
+	.type	_Z20IntArithmDivLatency3m, %function
+_Z20IntArithmDivLatency3m:
+.LFB20:
+	.cfi_startproc
+	sub	sp, sp, #48	//,,
+	.cfi_def_cfa_offset 48
+	str	x0, [sp, 8]	// iterCount, iterCount
+	str	wzr, [sp, 44]	//, var
+	mov	w0, 1	// tmp77,
+	str	w0, [sp, 28]	// tmp77, var1
+	str	xzr, [sp, 32]	//, i
 .L83:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-12]	@ tmp117, i
-	ldr	r3, [fp, #-24]	@ tmp118, iterCount
-	cmp	r2, r3	@ tmp117, tmp118
-	bcs	.L82		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp119, var
-	ldr	r3, [fp, #-16]	@ tmp120, var1
-	sdiv	r2, r2, r3	@ _1, tmp119, tmp120
-	ldr	r3, [fp, #-16]	@ tmp121, var1
-	sdiv	r2, r2, r3	@ _2, _1, tmp121
-	ldr	r3, [fp, #-16]	@ tmp124, var1
-	sdiv	r3, r2, r3	@ tmp123, _2, tmp124
-	str	r3, [fp, #-8]	@ tmp123, var
-	ldr	r3, [fp, #-12]	@ tmp126, i
-	add	r3, r3, #1	@ tmp125, tmp126,
-	str	r3, [fp, #-12]	@ tmp125, i
-	b	.L83		@
+	ldr	x1, [sp, 32]	// tmp78, i
+	ldr	x0, [sp, 8]	// tmp79, iterCount
+	cmp	x1, x0	// tmp78, tmp79
+	bcs	.L82	//,
+	ldr	w1, [sp, 44]	// tmp80, var
+	ldr	w0, [sp, 28]	// tmp81, var1
+	sdiv	w1, w1, w0	// D.3680, tmp80, tmp81
+	ldr	w0, [sp, 28]	// tmp82, var1
+	sdiv	w1, w1, w0	// D.3680, D.3680, tmp82
+	ldr	w0, [sp, 28]	// tmp85, var1
+	sdiv	w0, w1, w0	// tmp84, D.3680, tmp85
+	str	w0, [sp, 44]	// tmp84, var
+	ldr	x0, [sp, 32]	// tmp87, i
+	add	x0, x0, 1	// tmp86, tmp87,
+	str	x0, [sp, 32]	// tmp86, i
+	b	.L83	//
 .L82:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r3, [fp, #-8]	@ _11, var
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z20IntArithmDivLatency3j, .-_Z20IntArithmDivLatency3j
+	ldr	w0, [sp, 44]	// D.3680, var
+	add	sp, sp, 48	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE20:
+	.size	_Z20IntArithmDivLatency3m, .-_Z20IntArithmDivLatency3m
 	.align	2
-	.global	_Z23IntArithmDivThroughput6j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput6j, %function
-_Z23IntArithmDivThroughput6j:
-	.fnstart
-.LFB33:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput6m
+	.type	_Z23IntArithmDivThroughput6m, %function
+_Z23IntArithmDivThroughput6m:
+.LFB21:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L87:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L86		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-12]	@ tmp132, var2
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-16]	@ tmp136, var3
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-20]	@ tmp140, var4
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-24]	@ tmp144, var5
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-28]	@ tmp148, var6
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L87		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L86	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 56]	// tmp88, var2
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 48]	// tmp96, var4
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 44]	// tmp100, var5
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 40]	// tmp104, var6
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L87	//
 .L86:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput6j, .-_Z23IntArithmDivThroughput6j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3681, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3681, D.3681, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3681, D.3681, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3681, D.3681, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3681, D.3681, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE21:
+	.size	_Z23IntArithmDivThroughput6m, .-_Z23IntArithmDivThroughput6m
 	.align	2
-	.global	_Z23IntArithmDivThroughput5j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput5j, %function
-_Z23IntArithmDivThroughput5j:
-	.fnstart
-.LFB34:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput5m
+	.type	_Z23IntArithmDivThroughput5m, %function
+_Z23IntArithmDivThroughput5m:
+.LFB22:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L91:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L90		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-12]	@ tmp132, var2
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-16]	@ tmp136, var3
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-20]	@ tmp140, var4
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-24]	@ tmp144, var5
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-24]	@ tmp148, var5
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L91		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L90	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 56]	// tmp88, var2
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 48]	// tmp96, var4
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 44]	// tmp100, var5
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 44]	// tmp104, var5
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L91	//
 .L90:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput5j, .-_Z23IntArithmDivThroughput5j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3682, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3682, D.3682, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3682, D.3682, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3682, D.3682, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3682, D.3682, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE22:
+	.size	_Z23IntArithmDivThroughput5m, .-_Z23IntArithmDivThroughput5m
 	.align	2
-	.global	_Z23IntArithmDivThroughput4j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput4j, %function
-_Z23IntArithmDivThroughput4j:
-	.fnstart
-.LFB35:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput4m
+	.type	_Z23IntArithmDivThroughput4m, %function
+_Z23IntArithmDivThroughput4m:
+.LFB23:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L95:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L94		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-12]	@ tmp132, var2
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-16]	@ tmp136, var3
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-20]	@ tmp140, var4
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-20]	@ tmp144, var4
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-20]	@ tmp148, var4
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L95		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L94	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 56]	// tmp88, var2
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 48]	// tmp96, var4
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 48]	// tmp100, var4
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 48]	// tmp104, var4
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L95	//
 .L94:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput4j, .-_Z23IntArithmDivThroughput4j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3683, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3683, D.3683, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3683, D.3683, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3683, D.3683, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3683, D.3683, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE23:
+	.size	_Z23IntArithmDivThroughput4m, .-_Z23IntArithmDivThroughput4m
 	.align	2
-	.global	_Z23IntArithmDivThroughput3j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput3j, %function
-_Z23IntArithmDivThroughput3j:
-	.fnstart
-.LFB36:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput3m
+	.type	_Z23IntArithmDivThroughput3m, %function
+_Z23IntArithmDivThroughput3m:
+.LFB24:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L99:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L98		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-12]	@ tmp132, var2
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-16]	@ tmp136, var3
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-16]	@ tmp140, var3
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-16]	@ tmp144, var3
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-16]	@ tmp148, var3
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L99		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L98	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 56]	// tmp88, var2
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 52]	// tmp92, var3
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 52]	// tmp96, var3
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 52]	// tmp100, var3
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 52]	// tmp104, var3
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L99	//
 .L98:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput3j, .-_Z23IntArithmDivThroughput3j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3684, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3684, D.3684, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3684, D.3684, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3684, D.3684, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3684, D.3684, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE24:
+	.size	_Z23IntArithmDivThroughput3m, .-_Z23IntArithmDivThroughput3m
 	.align	2
-	.global	_Z23IntArithmDivThroughput2j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput2j, %function
-_Z23IntArithmDivThroughput2j:
-	.fnstart
-.LFB37:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput2m
+	.type	_Z23IntArithmDivThroughput2m, %function
+_Z23IntArithmDivThroughput2m:
+.LFB25:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L103:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L102		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-12]	@ tmp132, var2
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-12]	@ tmp136, var2
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-12]	@ tmp140, var2
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-12]	@ tmp144, var2
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-12]	@ tmp148, var2
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L103		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L102	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 56]	// tmp88, var2
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 56]	// tmp92, var2
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 56]	// tmp96, var2
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 56]	// tmp100, var2
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 56]	// tmp104, var2
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L103	//
 .L102:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput2j, .-_Z23IntArithmDivThroughput2j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3685, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3685, D.3685, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3685, D.3685, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3685, D.3685, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3685, D.3685, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE25:
+	.size	_Z23IntArithmDivThroughput2m, .-_Z23IntArithmDivThroughput2m
 	.align	2
-	.global	_Z23IntArithmDivThroughput1j
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z23IntArithmDivThroughput1j, %function
-_Z23IntArithmDivThroughput1j:
-	.fnstart
-.LFB38:
-	@ args = 0, pretend = 0, frame = 40
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #44	@,,
-	str	r0, [fp, #-40]	@ iterCount, iterCount
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	mov	r3, #3	@ tmp116,
-	str	r3, [fp, #-36]	@ tmp116, val
-	mov	r3, #0	@ tmp117,
-	str	r3, [fp, #-8]	@ tmp117, var1
-	mov	r3, #0	@ tmp118,
-	str	r3, [fp, #-12]	@ tmp118, var2
-	mov	r3, #0	@ tmp119,
-	str	r3, [fp, #-16]	@ tmp119, var3
-	mov	r3, #0	@ tmp120,
-	str	r3, [fp, #-20]	@ tmp120, var4
-	mov	r3, #0	@ tmp121,
-	str	r3, [fp, #-24]	@ tmp121, var5
-	mov	r3, #0	@ tmp122,
-	str	r3, [fp, #-28]	@ tmp122, var6
-	mov	r3, #0	@ tmp123,
-	str	r3, [fp, #-32]	@ tmp123, i
+	.global	_Z23IntArithmDivThroughput1m
+	.type	_Z23IntArithmDivThroughput1m, %function
+_Z23IntArithmDivThroughput1m:
+.LFB26:
+	.cfi_startproc
+	sub	sp, sp, #64	//,,
+	.cfi_def_cfa_offset 64
+	str	x0, [sp, 8]	// iterCount, iterCount
+	mov	w0, 3	// tmp79,
+	str	w0, [sp, 28]	// tmp79, val
+	str	wzr, [sp, 60]	//, var1
+	str	wzr, [sp, 56]	//, var2
+	str	wzr, [sp, 52]	//, var3
+	str	wzr, [sp, 48]	//, var4
+	str	wzr, [sp, 44]	//, var5
+	str	wzr, [sp, 40]	//, var6
+	str	xzr, [sp, 32]	//, i
 .L107:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-32]	@ tmp124, i
-	ldr	r3, [fp, #-40]	@ tmp125, iterCount
-	cmp	r2, r3	@ tmp124, tmp125
-	bcs	.L106		@,
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp128, var1
-	ldr	r3, [fp, #-36]	@ tmp129, val
-	sdiv	r3, r2, r3	@ tmp127, tmp128, tmp129
-	str	r3, [fp, #-8]	@ tmp127, var1
-	ldr	r2, [fp, #-8]	@ tmp132, var1
-	ldr	r3, [fp, #-36]	@ tmp133, val
-	sdiv	r3, r2, r3	@ tmp131, tmp132, tmp133
-	str	r3, [fp, #-12]	@ tmp131, var2
-	ldr	r2, [fp, #-8]	@ tmp136, var1
-	ldr	r3, [fp, #-36]	@ tmp137, val
-	sdiv	r3, r2, r3	@ tmp135, tmp136, tmp137
-	str	r3, [fp, #-16]	@ tmp135, var3
-	ldr	r2, [fp, #-8]	@ tmp140, var1
-	ldr	r3, [fp, #-36]	@ tmp141, val
-	sdiv	r3, r2, r3	@ tmp139, tmp140, tmp141
-	str	r3, [fp, #-20]	@ tmp139, var4
-	ldr	r2, [fp, #-8]	@ tmp144, var1
-	ldr	r3, [fp, #-36]	@ tmp145, val
-	sdiv	r3, r2, r3	@ tmp143, tmp144, tmp145
-	str	r3, [fp, #-24]	@ tmp143, var5
-	ldr	r2, [fp, #-8]	@ tmp148, var1
-	ldr	r3, [fp, #-36]	@ tmp149, val
-	sdiv	r3, r2, r3	@ tmp147, tmp148, tmp149
-	str	r3, [fp, #-28]	@ tmp147, var6
-	ldr	r3, [fp, #-32]	@ tmp151, i
-	add	r3, r3, #1	@ tmp150, tmp151,
-	str	r3, [fp, #-32]	@ tmp150, i
-	b	.L107		@
+	ldr	x1, [sp, 32]	// tmp80, i
+	ldr	x0, [sp, 8]	// tmp81, iterCount
+	cmp	x1, x0	// tmp80, tmp81
+	bcs	.L106	//,
+	ldr	w1, [sp, 60]	// tmp84, var1
+	ldr	w0, [sp, 28]	// tmp85, val
+	sdiv	w0, w1, w0	// tmp83, tmp84, tmp85
+	str	w0, [sp, 60]	// tmp83, var1
+	ldr	w1, [sp, 60]	// tmp88, var1
+	ldr	w0, [sp, 28]	// tmp89, val
+	sdiv	w0, w1, w0	// tmp87, tmp88, tmp89
+	str	w0, [sp, 56]	// tmp87, var2
+	ldr	w1, [sp, 60]	// tmp92, var1
+	ldr	w0, [sp, 28]	// tmp93, val
+	sdiv	w0, w1, w0	// tmp91, tmp92, tmp93
+	str	w0, [sp, 52]	// tmp91, var3
+	ldr	w1, [sp, 60]	// tmp96, var1
+	ldr	w0, [sp, 28]	// tmp97, val
+	sdiv	w0, w1, w0	// tmp95, tmp96, tmp97
+	str	w0, [sp, 48]	// tmp95, var4
+	ldr	w1, [sp, 60]	// tmp100, var1
+	ldr	w0, [sp, 28]	// tmp101, val
+	sdiv	w0, w1, w0	// tmp99, tmp100, tmp101
+	str	w0, [sp, 44]	// tmp99, var5
+	ldr	w1, [sp, 60]	// tmp104, var1
+	ldr	w0, [sp, 28]	// tmp105, val
+	sdiv	w0, w1, w0	// tmp103, tmp104, tmp105
+	str	w0, [sp, 40]	// tmp103, var6
+	ldr	x0, [sp, 32]	// tmp107, i
+	add	x0, x0, 1	// tmp106, tmp107,
+	str	x0, [sp, 32]	// tmp106, i
+	b	.L107	//
 .L106:
-@ src/atomic/workloads/IntArithm.cpp:65: ANALYSE_OPERATION(IntArithmDiv, /, 3)
-	ldr	r2, [fp, #-8]	@ tmp152, var1
-	ldr	r3, [fp, #-12]	@ tmp153, var2
-	add	r2, r2, r3	@ _1, tmp152, tmp153
-	ldr	r3, [fp, #-16]	@ tmp154, var3
-	add	r2, r2, r3	@ _2, _1, tmp154
-	ldr	r3, [fp, #-20]	@ tmp155, var4
-	add	r2, r2, r3	@ _3, _2, tmp155
-	ldr	r3, [fp, #-24]	@ tmp156, var5
-	add	r2, r2, r3	@ _4, _3, tmp156
-	ldr	r3, [fp, #-28]	@ tmp157, var6
-	add	r3, r2, r3	@ _28, _4, tmp157
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
-	.size	_Z23IntArithmDivThroughput1j, .-_Z23IntArithmDivThroughput1j
+	ldr	w1, [sp, 60]	// tmp108, var1
+	ldr	w0, [sp, 56]	// tmp109, var2
+	add	w1, w1, w0	// D.3686, tmp108, tmp109
+	ldr	w0, [sp, 52]	// tmp110, var3
+	add	w1, w1, w0	// D.3686, D.3686, tmp110
+	ldr	w0, [sp, 48]	// tmp111, var4
+	add	w1, w1, w0	// D.3686, D.3686, tmp111
+	ldr	w0, [sp, 44]	// tmp112, var5
+	add	w1, w1, w0	// D.3686, D.3686, tmp112
+	ldr	w0, [sp, 40]	// tmp113, var6
+	add	w0, w1, w0	// D.3686, D.3686, tmp113
+	add	sp, sp, 64	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE26:
+	.size	_Z23IntArithmDivThroughput1m, .-_Z23IntArithmDivThroughput1m
 	.align	2
-	.syntax unified
-	.arm
-	.fpu softvfp
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
-	.fnstart
-.LFB39:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	add	fp, sp, #4	@,,
-@ src/atomic/workloads/IntArithm.cpp:70: 	IntArithmAddLatency1(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmAddLatency1j		@
-@ src/atomic/workloads/IntArithm.cpp:71: 	IntArithmAddLatency2(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmAddLatency2j		@
-@ src/atomic/workloads/IntArithm.cpp:72: 	IntArithmAddLatency3(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmAddLatency3j		@
-@ src/atomic/workloads/IntArithm.cpp:74: 	IntArithmAddThroughput1(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput1j		@
-@ src/atomic/workloads/IntArithm.cpp:75: 	IntArithmAddThroughput2(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput2j		@
-@ src/atomic/workloads/IntArithm.cpp:76: 	IntArithmAddThroughput3(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput3j		@
-@ src/atomic/workloads/IntArithm.cpp:77: 	IntArithmAddThroughput4(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput4j		@
-@ src/atomic/workloads/IntArithm.cpp:78: 	IntArithmAddThroughput5(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput5j		@
-@ src/atomic/workloads/IntArithm.cpp:79: 	IntArithmAddThroughput6(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmAddThroughput6j		@
-@ src/atomic/workloads/IntArithm.cpp:81: 	IntArithmMulLatency1(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmMulLatency1j		@
-@ src/atomic/workloads/IntArithm.cpp:82: 	IntArithmMulLatency2(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmMulLatency2j		@
-@ src/atomic/workloads/IntArithm.cpp:83: 	IntArithmMulLatency3(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmMulLatency3j		@
-@ src/atomic/workloads/IntArithm.cpp:85: 	IntArithmMulThroughput1(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput1j		@
-@ src/atomic/workloads/IntArithm.cpp:86: 	IntArithmMulThroughput2(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput2j		@
-@ src/atomic/workloads/IntArithm.cpp:87: 	IntArithmMulThroughput3(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput3j		@
-@ src/atomic/workloads/IntArithm.cpp:88: 	IntArithmMulThroughput4(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput4j		@
-@ src/atomic/workloads/IntArithm.cpp:89: 	IntArithmMulThroughput5(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput5j		@
-@ src/atomic/workloads/IntArithm.cpp:90: 	IntArithmMulThroughput6(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmMulThroughput6j		@
-@ src/atomic/workloads/IntArithm.cpp:92: 	IntArithmDivLatency1(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmDivLatency1j		@
-@ src/atomic/workloads/IntArithm.cpp:93: 	IntArithmDivLatency2(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmDivLatency2j		@
-@ src/atomic/workloads/IntArithm.cpp:94: 	IntArithmDivLatency3(0);
-	mov	r0, #0	@,
-	bl	_Z20IntArithmDivLatency3j		@
-@ src/atomic/workloads/IntArithm.cpp:96: 	IntArithmDivThroughput1(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput1j		@
-@ src/atomic/workloads/IntArithm.cpp:97: 	IntArithmDivThroughput2(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput2j		@
-@ src/atomic/workloads/IntArithm.cpp:98: 	IntArithmDivThroughput3(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput3j		@
-@ src/atomic/workloads/IntArithm.cpp:99: 	IntArithmDivThroughput4(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput4j		@
-@ src/atomic/workloads/IntArithm.cpp:100: 	IntArithmDivThroughput5(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput5j		@
-@ src/atomic/workloads/IntArithm.cpp:101: 	IntArithmDivThroughput6(0);
-	mov	r0, #0	@,
-	bl	_Z23IntArithmDivThroughput6j		@
-@ src/atomic/workloads/IntArithm.cpp:102: }
-	nop	
-	pop	{fp, pc}	@
-	.cantunwind
-	.fnend
+.LFB27:
+	.cfi_startproc
+	stp	x29, x30, [sp, -16]!	//,,,
+	.cfi_def_cfa_offset 16
+	.cfi_offset 29, -16
+	.cfi_offset 30, -8
+	add	x29, sp, 0	//,,
+	.cfi_def_cfa_register 29
+	mov	x0, 0	//,
+	bl	_Z20IntArithmAddLatency1m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmAddLatency2m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmAddLatency3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput1m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput2m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput4m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput5m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmAddThroughput6m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmMulLatency1m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmMulLatency2m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmMulLatency3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput1m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput2m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput4m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput5m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmMulThroughput6m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmDivLatency1m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmDivLatency2m	//
+	mov	x0, 0	//,
+	bl	_Z20IntArithmDivLatency3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput1m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput2m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput3m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput4m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput5m	//
+	mov	x0, 0	//,
+	bl	_Z23IntArithmDivThroughput6m	//
+	nop
+	ldp	x29, x30, [sp], 16	//,,,
+	.cfi_restore 30
+	.cfi_restore 29
+	.cfi_def_cfa 31, 0
+	ret
+	.cfi_endproc
+.LFE27:
 	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
-	.ident	"GCC: (GNU Tools for Arm Embedded Processors 8-2018-q4-major) 8.2.1 20181213 (release) [gcc-8-branch revision 267074]"
+	.ident	"GCC: (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits

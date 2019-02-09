@@ -1583,88 +1583,88 @@ _ZL17GENERATE_LISTINGSv:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp	#,
 	.cfi_def_cfa_register 6
-# src/atomic/workloads/IntArithm.cpp:70: 	IntArithmAddLatency1(0);
+# src/atomic/workloads/IntArithm.cpp:74: 	IntArithmAddLatency1(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmAddLatency1m	#
-# src/atomic/workloads/IntArithm.cpp:71: 	IntArithmAddLatency2(0);
+# src/atomic/workloads/IntArithm.cpp:75: 	IntArithmAddLatency2(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmAddLatency2m	#
-# src/atomic/workloads/IntArithm.cpp:72: 	IntArithmAddLatency3(0);
+# src/atomic/workloads/IntArithm.cpp:76: 	IntArithmAddLatency3(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmAddLatency3m	#
-# src/atomic/workloads/IntArithm.cpp:74: 	IntArithmAddThroughput1(0);
+# src/atomic/workloads/IntArithm.cpp:78: 	IntArithmAddThroughput1(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput1m	#
-# src/atomic/workloads/IntArithm.cpp:75: 	IntArithmAddThroughput2(0);
+# src/atomic/workloads/IntArithm.cpp:79: 	IntArithmAddThroughput2(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput2m	#
-# src/atomic/workloads/IntArithm.cpp:76: 	IntArithmAddThroughput3(0);
+# src/atomic/workloads/IntArithm.cpp:80: 	IntArithmAddThroughput3(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput3m	#
-# src/atomic/workloads/IntArithm.cpp:77: 	IntArithmAddThroughput4(0);
+# src/atomic/workloads/IntArithm.cpp:81: 	IntArithmAddThroughput4(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput4m	#
-# src/atomic/workloads/IntArithm.cpp:78: 	IntArithmAddThroughput5(0);
+# src/atomic/workloads/IntArithm.cpp:82: 	IntArithmAddThroughput5(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput5m	#
-# src/atomic/workloads/IntArithm.cpp:79: 	IntArithmAddThroughput6(0);
+# src/atomic/workloads/IntArithm.cpp:83: 	IntArithmAddThroughput6(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmAddThroughput6m	#
-# src/atomic/workloads/IntArithm.cpp:81: 	IntArithmMulLatency1(0);
+# src/atomic/workloads/IntArithm.cpp:85: 	IntArithmMulLatency1(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmMulLatency1m	#
-# src/atomic/workloads/IntArithm.cpp:82: 	IntArithmMulLatency2(0);
+# src/atomic/workloads/IntArithm.cpp:86: 	IntArithmMulLatency2(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmMulLatency2m	#
-# src/atomic/workloads/IntArithm.cpp:83: 	IntArithmMulLatency3(0);
+# src/atomic/workloads/IntArithm.cpp:87: 	IntArithmMulLatency3(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmMulLatency3m	#
-# src/atomic/workloads/IntArithm.cpp:85: 	IntArithmMulThroughput1(0);
+# src/atomic/workloads/IntArithm.cpp:89: 	IntArithmMulThroughput1(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput1m	#
-# src/atomic/workloads/IntArithm.cpp:86: 	IntArithmMulThroughput2(0);
+# src/atomic/workloads/IntArithm.cpp:90: 	IntArithmMulThroughput2(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput2m	#
-# src/atomic/workloads/IntArithm.cpp:87: 	IntArithmMulThroughput3(0);
+# src/atomic/workloads/IntArithm.cpp:91: 	IntArithmMulThroughput3(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput3m	#
-# src/atomic/workloads/IntArithm.cpp:88: 	IntArithmMulThroughput4(0);
+# src/atomic/workloads/IntArithm.cpp:92: 	IntArithmMulThroughput4(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput4m	#
-# src/atomic/workloads/IntArithm.cpp:89: 	IntArithmMulThroughput5(0);
+# src/atomic/workloads/IntArithm.cpp:93: 	IntArithmMulThroughput5(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput5m	#
-# src/atomic/workloads/IntArithm.cpp:90: 	IntArithmMulThroughput6(0);
+# src/atomic/workloads/IntArithm.cpp:94: 	IntArithmMulThroughput6(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmMulThroughput6m	#
-# src/atomic/workloads/IntArithm.cpp:92: 	IntArithmDivLatency1(0);
+# src/atomic/workloads/IntArithm.cpp:96: 	IntArithmDivLatency1(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmDivLatency1m	#
-# src/atomic/workloads/IntArithm.cpp:93: 	IntArithmDivLatency2(0);
+# src/atomic/workloads/IntArithm.cpp:97: 	IntArithmDivLatency2(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmDivLatency2m	#
-# src/atomic/workloads/IntArithm.cpp:94: 	IntArithmDivLatency3(0);
+# src/atomic/workloads/IntArithm.cpp:98: 	IntArithmDivLatency3(0);
 	movl	$0, %edi	#,
 	call	_Z20IntArithmDivLatency3m	#
-# src/atomic/workloads/IntArithm.cpp:96: 	IntArithmDivThroughput1(0);
+# src/atomic/workloads/IntArithm.cpp:100: 	IntArithmDivThroughput1(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput1m	#
-# src/atomic/workloads/IntArithm.cpp:97: 	IntArithmDivThroughput2(0);
+# src/atomic/workloads/IntArithm.cpp:101: 	IntArithmDivThroughput2(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput2m	#
-# src/atomic/workloads/IntArithm.cpp:98: 	IntArithmDivThroughput3(0);
+# src/atomic/workloads/IntArithm.cpp:102: 	IntArithmDivThroughput3(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput3m	#
-# src/atomic/workloads/IntArithm.cpp:99: 	IntArithmDivThroughput4(0);
+# src/atomic/workloads/IntArithm.cpp:103: 	IntArithmDivThroughput4(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput4m	#
-# src/atomic/workloads/IntArithm.cpp:100: 	IntArithmDivThroughput5(0);
+# src/atomic/workloads/IntArithm.cpp:104: 	IntArithmDivThroughput5(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput5m	#
-# src/atomic/workloads/IntArithm.cpp:101: 	IntArithmDivThroughput6(0);
+# src/atomic/workloads/IntArithm.cpp:105: 	IntArithmDivThroughput6(0);
 	movl	$0, %edi	#,
 	call	_Z23IntArithmDivThroughput6m	#
-# src/atomic/workloads/IntArithm.cpp:102: }
+# src/atomic/workloads/IntArithm.cpp:106: }
 	nop
 	popq	%rbp	#
 	.cfi_def_cfa 7, 8

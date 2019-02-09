@@ -1,124 +1,99 @@
 	.arch armv8-a
-	.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
-	.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
-	.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
-	.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
-	.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
-	.eabi_attribute 26, 1	@ Tag_ABI_enum_size
-	.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
-	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
-	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
 	.file	"SystemCall.cpp"
-@ GNU C++14 (GNU Tools for Arm Embedded Processors 7-2018-q2-update) version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (arm-none-eabi)
-@	compiled by GNU C version 7.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.15-GMP
-
-@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-@ options passed:  -imultilib thumb/v7-ar
-@ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
-@ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ src/atomic/workloads/SystemCall.cpp -march=armv8-a
-@ -auxbase-strip asm-listings/arm8_SystemCall.asm -Werror -Wall -std=c++1z
-@ -fno-stack-protector -fverbose-asm
-@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
-@ -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
-@ -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
-@ -fchkp-store-bounds -fchkp-use-static-bounds
-@ -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
-@ -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
-@ -feliminate-unused-debug-types -fexceptions -ffp-int-builtin-inexact
-@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
-@ -finline-atomics -fira-hoist-pressure -fira-share-save-slots
-@ -fira-share-spill-slots -fivopts -fkeep-static-consts
-@ -fleading-underscore -flifetime-dse -flto-odr-type-merging -fmath-errno
-@ -fmerge-debug-strings -fpeephole -fplt -fprefetch-loop-arrays
-@ -freg-struct-return -fsched-critical-path-heuristic
-@ -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
-@ -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
-@ -fsched-spec-insn-heuristic -fsched-stalled-insns-dep
-@ -fsemantic-interposition -fshow-column -fshrink-wrap-separate
-@ -fsigned-zeros -fsplit-ivs-in-unroller -fssa-backprop -fstdarg-opt
-@ -fstrict-volatile-bitfields -fsync-libcalls -ftrapping-math -ftree-cselim
-@ -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
-@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop
-@ -ftree-reassoc -ftree-scev-cprop -funit-at-a-time -fverbose-asm
-@ -fzero-initialized-in-bss -marm -mlittle-endian
-@ -mpic-data-is-text-relative -msched-prolog -munaligned-access
-@ -mvectorize-with-neon-quad
+// GNU C++14 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) version 5.4.0 20160609 (aarch64-linux-gnu)
+//	compiled by GNU C version 5.4.0 20160609, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3
+// GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+// options passed:  -imultiarch aarch64-linux-gnu -D_GNU_SOURCE
+// -D CPU_FREQUENCY=1536 -D TARGET_ARM src/atomic/workloads/SystemCall.cpp
+// -march=armv8-a -mlittle-endian -mabi=lp64
+// -auxbase-strip asm-listings/arm8_SystemCall.asm -Werror -Wall -std=c++1z
+// -fno-stack-protector -fverbose-asm -Wformat-security
+// options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+// -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
+// -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
+// -fchkp-store-bounds -fchkp-use-static-bounds
+// -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
+// -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
+// -feliminate-unused-debug-types -fexceptions -ffunction-cse -fgcse-lm
+// -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+// -fira-share-save-slots -fira-share-spill-slots -fivopts
+// -fkeep-static-consts -fleading-underscore -flifetime-dse
+// -flto-odr-type-merging -fmath-errno -fmerge-debug-strings
+// -fomit-frame-pointer -fpeephole -fplt -fprefetch-loop-arrays
+// -freg-struct-return -fsched-critical-path-heuristic
+// -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
+// -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
+// -fsched-spec-insn-heuristic -fsched-stalled-insns-dep -fschedule-fusion
+// -fsemantic-interposition -fshow-column -fsigned-zeros
+// -fsplit-ivs-in-unroller -fstdarg-opt -fstrict-volatile-bitfields
+// -fsync-libcalls -ftrapping-math -ftree-coalesce-vars -ftree-cselim
+// -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im
+// -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+// -ftree-phiprop -ftree-reassoc -ftree-scev-cprop -funit-at-a-time
+// -fverbose-asm -fzero-initialized-in-bss -mfix-cortex-a53-835769
+// -mfix-cortex-a53-843419 -mglibc -mlittle-endian
+// -momit-leaf-frame-pointer -mpc-relative-literal-loads
 
 	.text
 	.align	2
-	.global	_Z22SystemCallGetSetUserIdj
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z22SystemCallGetSetUserIdj, %function
-_Z22SystemCallGetSetUserIdj:
-	.fnstart
-.LFB12:
-	@ args = 0, pretend = 0, frame = 16
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-	.pad #16
-	sub	sp, sp, #16	@,,
-	str	r0, [fp, #-16]	@ iterCount, iterCount
-@ src/atomic/workloads/SystemCall.cpp:11: 	uid_t toReturn = 0;
-	mov	r3, #0	@ tmp114,
-	strh	r3, [fp, #-6]	@ movhi	@ tmp113, toReturn
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp115,
-	str	r3, [fp, #-12]	@ tmp115, i
+	.global	_Z22SystemCallGetSetUserIdm
+	.type	_Z22SystemCallGetSetUserIdm, %function
+_Z22SystemCallGetSetUserIdm:
+.LFB2:
+	.cfi_startproc
+	stp	x29, x30, [sp, -48]!	//,,,
+	.cfi_def_cfa_offset 48
+	.cfi_offset 29, -48
+	.cfi_offset 30, -40
+	add	x29, sp, 0	//,,
+	.cfi_def_cfa_register 29
+	str	x0, [x29, 24]	// iterCount, iterCount
+	str	wzr, [x29, 44]	//, toReturn
+	str	xzr, [x29, 32]	//, i
 .L3:
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-12]	@ tmp116, i
-	ldr	r3, [fp, #-16]	@ tmp117, iterCount
-	cmp	r2, r3	@ tmp116, tmp117
-	bcs	.L2	@,
-@ src/atomic/workloads/SystemCall.cpp:15: 		toReturn = getuid();
-	bl	getuid	@
-	mov	r3, r0	@ tmp118,
-	strh	r3, [fp, #-6]	@ movhi	@ _9, toReturn
-@ src/atomic/workloads/SystemCall.cpp:16: 		setuid(toReturn);
-	ldrh	r3, [fp, #-6]	@ tmp119, toReturn
-	mov	r0, r3	@, tmp119
-	bl	setuid	@
-@ src/atomic/workloads/SystemCall.cpp:13: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-12]	@ tmp121, i
-	add	r3, r3, #1	@ tmp120, tmp121,
-	str	r3, [fp, #-12]	@ tmp120, i
-	b	.L3	@
+	ldr	x1, [x29, 32]	// tmp75, i
+	ldr	x0, [x29, 24]	// tmp76, iterCount
+	cmp	x1, x0	// tmp75, tmp76
+	bcs	.L2	//,
+	bl	getuid	//
+	str	w0, [x29, 44]	//, toReturn
+	ldr	w0, [x29, 44]	//, toReturn
+	bl	setuid	//
+	ldr	x0, [x29, 32]	// tmp78, i
+	add	x0, x0, 1	// tmp77, tmp78,
+	str	x0, [x29, 32]	// tmp77, i
+	b	.L3	//
 .L2:
-@ src/atomic/workloads/SystemCall.cpp:19: 	return toReturn;
-	ldrh	r3, [fp, #-6]	@ _13, toReturn
-@ src/atomic/workloads/SystemCall.cpp:20: }
-	mov	r0, r3	@, <retval>
-	sub	sp, fp, #4	@,,
-	@ sp needed	@
-	pop	{fp, pc}	@
-	.fnend
-	.size	_Z22SystemCallGetSetUserIdj, .-_Z22SystemCallGetSetUserIdj
+	ldr	w0, [x29, 44]	// D.3986, toReturn
+	ldp	x29, x30, [sp], 48	//,,,
+	.cfi_restore 30
+	.cfi_restore 29
+	.cfi_def_cfa 31, 0
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	_Z22SystemCallGetSetUserIdm, .-_Z22SystemCallGetSetUserIdm
 	.align	2
-	.syntax unified
-	.arm
-	.fpu softvfp
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
-	.fnstart
-.LFB13:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-@ src/atomic/workloads/SystemCall.cpp:25: 	SystemCallGetSetUserId(0);
-	mov	r0, #0	@,
-	bl	_Z22SystemCallGetSetUserIdj	@
-@ src/atomic/workloads/SystemCall.cpp:26: }
+.LFB3:
+	.cfi_startproc
+	stp	x29, x30, [sp, -16]!	//,,,
+	.cfi_def_cfa_offset 16
+	.cfi_offset 29, -16
+	.cfi_offset 30, -8
+	add	x29, sp, 0	//,,
+	.cfi_def_cfa_register 29
+	mov	x0, 0	//,
+	bl	_Z22SystemCallGetSetUserIdm	//
 	nop
-	pop	{fp, pc}	@
-	.fnend
+	ldp	x29, x30, [sp], 16	//,,,
+	.cfi_restore 30
+	.cfi_restore 29
+	.cfi_def_cfa 31, 0
+	ret
+	.cfi_endproc
+.LFE3:
 	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
-	.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"
+	.ident	"GCC: (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits

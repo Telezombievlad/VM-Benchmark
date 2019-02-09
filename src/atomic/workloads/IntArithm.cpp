@@ -64,6 +64,10 @@ ANALYSE_OPERATION(IntArithmAdd, +, 1)
 ANALYSE_OPERATION(IntArithmMul, *, 3)
 ANALYSE_OPERATION(IntArithmDiv, /, 3)
 
+#undef GEN_LATENCY_LOADS
+#undef GEN_THROUGHPUT_LOAD
+#undef ANALYSE_OPERATION
+
 //! This function enforces the compiler to generate assembler listings
 __attribute__ ((used)) static void GENERATE_LISTINGS()
 {

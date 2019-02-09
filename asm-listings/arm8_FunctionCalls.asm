@@ -1,167 +1,128 @@
 	.arch armv8-a
-	.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
-	.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
-	.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
-	.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
-	.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
-	.eabi_attribute 26, 1	@ Tag_ABI_enum_size
-	.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
-	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
-	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
 	.file	"FunctionCalls.cpp"
-@ GNU C++14 (GNU Tools for Arm Embedded Processors 7-2018-q2-update) version 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] (arm-none-eabi)
-@	compiled by GNU C version 7.2.0, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.15-GMP
-
-@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-@ options passed:  -imultilib thumb/v7-ar
-@ -iprefix /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/7.3.1/
-@ -isysroot /Users/vladislav_aleinik/opt/gcc-arm-none-eabi/bin/../arm-none-eabi
-@ -D__USES_INITFINI__ -D VENDOR_OSX -D HOST_IA32 -D CPU_FREQUENCY=2.20
-@ -D TARGET_ARM src/atomic/workloads/FunctionCalls.cpp -march=armv8-a
-@ -auxbase-strip asm-listings/arm8_FunctionCalls.asm -Werror -Wall
-@ -std=c++1z -fno-stack-protector -fverbose-asm
-@ options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
-@ -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
-@ -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
-@ -fchkp-store-bounds -fchkp-use-static-bounds
-@ -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
-@ -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
-@ -feliminate-unused-debug-types -fexceptions -ffp-int-builtin-inexact
-@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
-@ -finline-atomics -fira-hoist-pressure -fira-share-save-slots
-@ -fira-share-spill-slots -fivopts -fkeep-static-consts
-@ -fleading-underscore -flifetime-dse -flto-odr-type-merging -fmath-errno
-@ -fmerge-debug-strings -fpeephole -fplt -fprefetch-loop-arrays
-@ -freg-struct-return -fsched-critical-path-heuristic
-@ -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
-@ -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
-@ -fsched-spec-insn-heuristic -fsched-stalled-insns-dep
-@ -fsemantic-interposition -fshow-column -fshrink-wrap-separate
-@ -fsigned-zeros -fsplit-ivs-in-unroller -fssa-backprop -fstdarg-opt
-@ -fstrict-volatile-bitfields -fsync-libcalls -ftrapping-math -ftree-cselim
-@ -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
-@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop
-@ -ftree-reassoc -ftree-scev-cprop -funit-at-a-time -fverbose-asm
-@ -fzero-initialized-in-bss -marm -mlittle-endian
-@ -mpic-data-is-text-relative -msched-prolog -munaligned-access
-@ -mvectorize-with-neon-quad
+// GNU C++14 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) version 5.4.0 20160609 (aarch64-linux-gnu)
+//	compiled by GNU C version 5.4.0 20160609, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3
+// GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+// options passed:  -imultiarch aarch64-linux-gnu -D_GNU_SOURCE
+// -D CPU_FREQUENCY=1536 -D TARGET_ARM
+// src/atomic/workloads/FunctionCalls.cpp -march=armv8-a -mlittle-endian
+// -mabi=lp64 -auxbase-strip asm-listings/arm8_FunctionCalls.asm -Werror
+// -Wall -std=c++1z -fno-stack-protector -fverbose-asm -Wformat-security
+// options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+// -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
+// -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
+// -fchkp-store-bounds -fchkp-use-static-bounds
+// -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
+// -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
+// -feliminate-unused-debug-types -fexceptions -ffunction-cse -fgcse-lm
+// -fgnu-runtime -fgnu-unique -fident -finline-atomics -fira-hoist-pressure
+// -fira-share-save-slots -fira-share-spill-slots -fivopts
+// -fkeep-static-consts -fleading-underscore -flifetime-dse
+// -flto-odr-type-merging -fmath-errno -fmerge-debug-strings
+// -fomit-frame-pointer -fpeephole -fplt -fprefetch-loop-arrays
+// -freg-struct-return -fsched-critical-path-heuristic
+// -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
+// -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
+// -fsched-spec-insn-heuristic -fsched-stalled-insns-dep -fschedule-fusion
+// -fsemantic-interposition -fshow-column -fsigned-zeros
+// -fsplit-ivs-in-unroller -fstdarg-opt -fstrict-volatile-bitfields
+// -fsync-libcalls -ftrapping-math -ftree-coalesce-vars -ftree-cselim
+// -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im
+// -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+// -ftree-phiprop -ftree-reassoc -ftree-scev-cprop -funit-at-a-time
+// -fverbose-asm -fzero-initialized-in-bss -mfix-cortex-a53-835769
+// -mfix-cortex-a53-843419 -mglibc -mlittle-endian
+// -momit-leaf-frame-pointer -mpc-relative-literal-loads
 
 	.text
 	.align	2
-	.syntax unified
-	.arm
-	.fpu softvfp
 	.type	_ZL9DummyFunci, %function
 _ZL9DummyFunci:
-	.fnstart
-.LFB12:
-	@ args = 0, pretend = 0, frame = 8
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	str	fp, [sp, #-4]!	@,
-	add	fp, sp, #0	@,,
-	sub	sp, sp, #12	@,,
-	str	r0, [fp, #-8]	@ arg, arg
-@ src/atomic/workloads/FunctionCalls.cpp:11: 	return arg;
-	ldr	r3, [fp, #-8]	@ _2, arg
-@ src/atomic/workloads/FunctionCalls.cpp:12: }
-	mov	r0, r3	@, <retval>
-	add	sp, fp, #0	@,,
-	@ sp needed	@
-	ldr	fp, [sp], #4	@,
-	bx	lr	@
-	.cantunwind
-	.fnend
+.LFB0:
+	.cfi_startproc
+	sub	sp, sp, #16	//,,
+	.cfi_def_cfa_offset 16
+	str	w0, [sp, 12]	// arg, arg
+	ldr	w0, [sp, 12]	// D.3106, arg
+	add	sp, sp, 16	//,,
+	.cfi_def_cfa_offset 0
+	ret
+	.cfi_endproc
+.LFE0:
 	.size	_ZL9DummyFunci, .-_ZL9DummyFunci
 	.align	2
-	.global	_Z12FunctionCallj
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	_Z12FunctionCallj, %function
-_Z12FunctionCallj:
-	.fnstart
-.LFB13:
-	@ args = 0, pretend = 0, frame = 24
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-	.pad #24
-	sub	sp, sp, #24	@,,
-	str	r0, [fp, #-24]	@ iterCount, iterCount
-@ src/atomic/workloads/FunctionCalls.cpp:17: 	int toReturn = 0;
-	mov	r3, #0	@ tmp112,
-	str	r3, [fp, #-12]	@ tmp112, toReturn
-@ src/atomic/workloads/FunctionCalls.cpp:18: 	int (*dummy)(int) = DummyFunc;
-	movw	r3, #:lower16:_ZL9DummyFunci	@ tmp113,
-	movt	r3, #:upper16:_ZL9DummyFunci	@ tmp113,
-	str	r3, [fp, #-16]	@ tmp113, dummy
-@ src/atomic/workloads/FunctionCalls.cpp:20: 	for (size_t i = 0; i < iterCount; ++i)
-	mov	r3, #0	@ tmp114,
-	str	r3, [fp, #-8]	@ tmp114, i
+	.global	_Z12FunctionCallm
+	.type	_Z12FunctionCallm, %function
+_Z12FunctionCallm:
+.LFB1:
+	.cfi_startproc
+	stp	x29, x30, [sp, -64]!	//,,,
+	.cfi_def_cfa_offset 64
+	.cfi_offset 29, -64
+	.cfi_offset 30, -56
+	add	x29, sp, 0	//,,
+	.cfi_def_cfa_register 29
+	str	x0, [x29, 24]	// iterCount, iterCount
+	str	wzr, [x29, 52]	//, toReturn
+	adrp	x0, _ZL9DummyFunci	// tmp76,
+	add	x0, x0, :lo12:_ZL9DummyFunci	// tmp75, tmp76,
+	str	x0, [x29, 40]	// tmp75, dummy
+	str	xzr, [x29, 56]	//, i
 .L5:
-@ src/atomic/workloads/FunctionCalls.cpp:20: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r2, [fp, #-8]	@ tmp115, i
-	ldr	r3, [fp, #-24]	@ tmp116, iterCount
-	cmp	r2, r3	@ tmp115, tmp116
-	bcs	.L4	@,
-@ src/atomic/workloads/FunctionCalls.cpp:22: 		(*dummy)(toReturn);
-	ldr	r3, [fp, #-16]	@ tmp117, dummy
-	ldr	r0, [fp, #-12]	@, toReturn
-	blx	r3	@ tmp117
-@ src/atomic/workloads/FunctionCalls.cpp:23: 		(*dummy)(toReturn);
-	ldr	r3, [fp, #-16]	@ tmp118, dummy
-	ldr	r0, [fp, #-12]	@, toReturn
-	blx	r3	@ tmp118
-@ src/atomic/workloads/FunctionCalls.cpp:24: 		(*dummy)(toReturn);
-	ldr	r3, [fp, #-16]	@ tmp119, dummy
-	ldr	r0, [fp, #-12]	@, toReturn
-	blx	r3	@ tmp119
-@ src/atomic/workloads/FunctionCalls.cpp:25: 		(*dummy)(toReturn);
-	ldr	r3, [fp, #-16]	@ tmp120, dummy
-	ldr	r0, [fp, #-12]	@, toReturn
-	blx	r3	@ tmp120
-@ src/atomic/workloads/FunctionCalls.cpp:26: 		(*dummy)(toReturn);
-	ldr	r3, [fp, #-16]	@ tmp121, dummy
-	ldr	r0, [fp, #-12]	@, toReturn
-	blx	r3	@ tmp121
-@ src/atomic/workloads/FunctionCalls.cpp:20: 	for (size_t i = 0; i < iterCount; ++i)
-	ldr	r3, [fp, #-8]	@ tmp123, i
-	add	r3, r3, #1	@ tmp122, tmp123,
-	str	r3, [fp, #-8]	@ tmp122, i
-	b	.L5	@
+	ldr	x1, [x29, 56]	// tmp77, i
+	ldr	x0, [x29, 24]	// tmp78, iterCount
+	cmp	x1, x0	// tmp77, tmp78
+	bcs	.L4	//,
+	ldr	x1, [x29, 40]	// tmp79, dummy
+	ldr	w0, [x29, 52]	//, toReturn
+	blr	x1	// tmp79
+	ldr	x1, [x29, 40]	// tmp80, dummy
+	ldr	w0, [x29, 52]	//, toReturn
+	blr	x1	// tmp80
+	ldr	x1, [x29, 40]	// tmp81, dummy
+	ldr	w0, [x29, 52]	//, toReturn
+	blr	x1	// tmp81
+	ldr	x1, [x29, 40]	// tmp82, dummy
+	ldr	w0, [x29, 52]	//, toReturn
+	blr	x1	// tmp82
+	ldr	x1, [x29, 40]	// tmp83, dummy
+	ldr	w0, [x29, 52]	//, toReturn
+	blr	x1	// tmp83
+	ldr	x0, [x29, 56]	// tmp85, i
+	add	x0, x0, 1	// tmp84, tmp85,
+	str	x0, [x29, 56]	// tmp84, i
+	b	.L5	//
 .L4:
-@ src/atomic/workloads/FunctionCalls.cpp:29: 	return 0;
-	mov	r3, #0	@ _14,
-@ src/atomic/workloads/FunctionCalls.cpp:30: }
-	mov	r0, r3	@, <retval>
-	sub	sp, fp, #4	@,,
-	@ sp needed	@
-	pop	{fp, pc}	@
-	.fnend
-	.size	_Z12FunctionCallj, .-_Z12FunctionCallj
+	mov	w0, 0	// D.3107,
+	ldp	x29, x30, [sp], 64	//,,,
+	.cfi_restore 30
+	.cfi_restore 29
+	.cfi_def_cfa 31, 0
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	_Z12FunctionCallm, .-_Z12FunctionCallm
 	.align	2
-	.syntax unified
-	.arm
-	.fpu softvfp
 	.type	_ZL17GENERATE_LISTINGSv, %function
 _ZL17GENERATE_LISTINGSv:
-	.fnstart
-.LFB14:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}	@
-	.save {fp, lr}
-	.setfp fp, sp, #4
-	add	fp, sp, #4	@,,
-@ src/atomic/workloads/FunctionCalls.cpp:35: 	FunctionCall(0);
-	mov	r0, #0	@,
-	bl	_Z12FunctionCallj	@
-@ src/atomic/workloads/FunctionCalls.cpp:36: }
+.LFB2:
+	.cfi_startproc
+	stp	x29, x30, [sp, -16]!	//,,,
+	.cfi_def_cfa_offset 16
+	.cfi_offset 29, -16
+	.cfi_offset 30, -8
+	add	x29, sp, 0	//,,
+	.cfi_def_cfa_register 29
+	mov	x0, 0	//,
+	bl	_Z12FunctionCallm	//
 	nop
-	pop	{fp, pc}	@
-	.fnend
+	ldp	x29, x30, [sp], 16	//,,,
+	.cfi_restore 30
+	.cfi_restore 29
+	.cfi_def_cfa 31, 0
+	ret
+	.cfi_endproc
+.LFE2:
 	.size	_ZL17GENERATE_LISTINGSv, .-_ZL17GENERATE_LISTINGSv
-	.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]"
+	.ident	"GCC: (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits
